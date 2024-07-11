@@ -7,54 +7,58 @@ from src.environment import Environment
 from src.events import LaunchEvent
 from src.config import Config
 
-# Set up argument parsing
-parser = argparse.ArgumentParser(description='Run the simulation with the specified configuration file.')
-parser.add_argument('config_file', type=str, help='Path to the configuration file')
+def run_simulation(config_file):
+    # Load configuration
+    config = Config(config_file)
 
-args = parser.parse_args()
+    # Initialize environment
+    env = Environment()
 
-# Load configuration
-config = Config(args.config_file)
+    # Add entities
+    missile = Missile(position=config.get('entities.missile.position'), velocity=config.get('entities.missile.velocity'))
+    ship = Ship(position=config.get('entities.ship.position'), velocity=config.get('entities.ship.velocity'))
+    aircraft = Aircraft(position=config.get('entities.aircraft.position'), velocity=config.get('entities.aircraft.velocity'))
 
-# Initialize environment
-env = Environment()
+    env.add_entity(missile)
+    env.add_entity(ship)
+    env.add_entity(aircraft)
 
-# Add entities
-missile = Missile(position=config.get('entities.missile.position'), velocity=config.get('entities.missile.velocity'))
-ship = Ship(position=config.get('entities.ship.position'), velocity=config.get('entities.ship.velocity'))
-aircraft = Aircraft(position=config.get('entities.aircraft.position'), velocity=config.get('entities.aircraft.velocity'))
+    # Add sensors
+    for sensor_config in config.get('sensors'):
+        sensor = Sensor(location=sensor_config['location'], range=sensor_config['range'])
+        env.add_sensor(sensor)
 
-env.add_entity(missile)
-env.add_entity(ship)
-env.add_entity(aircraft)
+    # Schedule initial events
+    env.schedule_event(LaunchEvent(0, missile, None))
 
-# Add sensors
-for sensor_config in config.get('sensors'):
-    sensor = Sensor(location=sensor_config['location'], range=sensor_config['range'])
-    env.add_sensor(sensor)
+    # Run simulation
+    env.process_events(max_time=config.get('environment.max_time'))
 
-# Schedule initial events
-env.schedule_event(LaunchEvent(0, missile, None))
+    # Visualization
+    if config.get_bool('environment.display_plot', False):
+        positions = {entity: [] for entity in env.entities}
 
-# Run simulation
-env.process_events(max_time=config.get('environment.max_time'))
+        for entity in env.entities:
+            positions[entity].append(entity.position.copy())
 
-# Visualization
-if config.get_bool('environment.display_plot', False):
-    positions = {entity: [] for entity in env.entities}
+        for entity, pos_list in positions.items():
+            pos_array = np.array(pos_list)
+            plt.plot(pos_array[:, 0], pos_array[:, 1], label=f'{type(entity).__name__} Trajectory')
 
-    for entity in env.entities:
-        positions[entity].append(entity.position.copy())
+        for sensor in env.sensors:
+            circle = plt.Circle(sensor.location.coords[0], sensor.range, color='r', fill=False, label='Sensor Range')
+            plt.gca().add_patch(circle)
 
-    for entity, pos_list in positions.items():
-        pos_array = np.array(pos_list)
-        plt.plot(pos_array[:, 0], pos_array[:, 1], label=f'{type(entity).__name__} Trajectory')
+        plt.xlabel('X Position (m)')
+        plt.ylabel('Y Position (m)')
+        plt.legend()
+        plt.show()
 
-    for sensor in env.sensors:
-        circle = plt.Circle(sensor.location.coords[0], sensor.range, color='r', fill=False, label='Sensor Range')
-        plt.gca().add_patch(circle)
+if __name__ == "__main__":
+    # Set up argument parsing
+    parser = argparse.ArgumentParser(description='Run the simulation with the specified configuration file.')
+    parser.add_argument('config_file', type=str, help='Path to the configuration file')
+    args = parser.parse_args()
 
-    plt.xlabel('X Position (m)')
-    plt.ylabel('Y Position (m)')
-    plt.legend()
-    plt.show()
+    # Run the simulation
+    run_simulation(args.config_file)
