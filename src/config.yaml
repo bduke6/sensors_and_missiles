@@ -1,0 +1,21 @@
+environment:
+  max_time: 50
+  log_directory: "./logs"
+  display_plot: false # Add this setting
+
+entities:
+  missile:
+    position: [0, 0, 0]
+    velocity: [100, 0, 100]
+  ship:
+    position: [-500, 0, 0]
+    velocity: [10, 0, 0]
+  aircraft:
+    position: [0, 1000, 0]
+    velocity: [200, 0, 0]
+
+sensors:
+  - location: [0, 0]
+    range: 1000
+  - location: [-500, 0]
+    range: 1500
