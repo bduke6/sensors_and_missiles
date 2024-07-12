@@ -1,0 +1,8 @@
+events:
+  - type: TimingEvent
+    time: 10
+    action:
+      type: launch_missile
+      params:
+        missile_id: missile_1
+        target_id: ship_1

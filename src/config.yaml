@@ -19,3 +19,21 @@ sensors:
     range: 1000
   - location: [-500, 0]
     range: 1500
+
+logging_config_path: logging.yaml
+
+environment:
+  max_time: 50
+  display_plot: False
+  entities_file: src/entity_config.json
+  logging_config: src/logging.yaml
+  log_directory: ./logs
+  scenario_file: "src/scenario_ship_1.yaml"
+
+
+
+
+
+
+
+

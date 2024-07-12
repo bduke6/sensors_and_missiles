@@ -1,64 +1,87 @@
-import argparse
-import numpy as np
-import matplotlib.pyplot as plt
-from src.entities import Missile, Ship, Aircraft
-from src.sensors import Sensor
-from src.environment import Environment
-from src.events import LaunchEvent
-from src.config import Config
+import json
+import yaml
+import logging
+import logging.config
+from environment import Environment
+from entities import Ship, Missile, Aircraft
+from events import LaunchEvent
 
-def run_simulation(config_file):
-    # Load configuration
-    config = Config(config_file)
+def setup_logging(config):
+    logging_config = config['environment']['logging_config']
+    with open(logging_config, 'r') as f:
+        logging.config.dictConfig(yaml.safe_load(f))
 
-    # Initialize environment
+def run_simulation(config_path):
+    with open(config_path, 'r') as f:
+        config = yaml.safe_load(f)
+
+    setup_logging(config)
+
+    entities_file = config['environment']['entities_file']
+    scenario_file = config['environment']['scenario_file']
+    
+    logging.info(f"Starting simulation with config: {config_path}")
+    logging.info(f"Entities file: {entities_file}")
+    logging.info(f"Scenario file: {scenario_file}")
+
+    with open(entities_file, 'r') as f:
+        entities_config = json.load(f)
+
+    with open(scenario_file, 'r') as f:
+        scenario_config = yaml.safe_load(f)
+
     env = Environment()
+    entities = {}
 
-    # Add entities
-    missile = Missile(position=config.get('entities.missile.position'), velocity=config.get('entities.missile.velocity'))
-    ship = Ship(position=config.get('entities.ship.position'), velocity=config.get('entities.ship.velocity'))
-    aircraft = Aircraft(position=config.get('entities.aircraft.position'), velocity=config.get('entities.aircraft.velocity'))
+    # Add ships and extract missiles
+    for ship_config in entities_config['entities'].get('ships', []):
+        ship = Ship(lat=ship_config['lat'], lon=ship_config['lon'], alt=ship_config['alt'], velocity=ship_config['velocity'], orientation=ship_config['orientation'], entity_id=ship_config['entity_id'])
+        env.add_entity(ship)
+        entities[ship.entity_id] = ship
+        logging.info(f"Added ship: {ship.entity_id}")
 
-    env.add_entity(missile)
-    env.add_entity(ship)
-    env.add_entity(aircraft)
+        # Extract missiles from armaments
+        for armament in ship_config.get('armaments', []):
+            for missile_config in armament.get('missiles', []):
+                missile = Missile(lat=missile_config['lat'], lon=missile_config['lon'], alt=missile_config['alt'], velocity=missile_config['velocity'], orientation=missile_config['orientation'], entity_id=missile_config['entity_id'])
+                env.add_entity(missile)
+                entities[missile.entity_id] = missile
+                logging.info(f"Added missile: {missile.entity_id}")
 
-    # Add sensors
-    for sensor_config in config.get('sensors'):
-        sensor = Sensor(location=sensor_config['location'], range=sensor_config['range'])
-        env.add_sensor(sensor)
+    # Add missiles directly if they are listed separately
+    for missile_config in entities_config['entities'].get('missiles', []):
+        missile = Missile(lat=missile_config['lat'], lon=missile_config['lon'], alt=missile_config['alt'], velocity=missile_config['velocity'], orientation=missile_config['orientation'], entity_id=missile_config['entity_id'])
+        env.add_entity(missile)
+        entities[missile.entity_id] = missile
+        logging.info(f"Added missile: {missile.entity_id}")
 
-    # Schedule initial events
-    env.schedule_event(LaunchEvent(0, missile, None))
+    # Add aircrafts
+    for aircraft_config in entities_config['entities'].get('aircrafts', []):
+        aircraft = Aircraft(lat=aircraft_config['lat'], lon=aircraft_config['lon'], alt=aircraft_config['alt'], velocity=aircraft_config['velocity'], orientation=aircraft_config['orientation'], entity_id=aircraft_config['entity_id'])
+        env.add_entity(aircraft)
+        entities[aircraft.entity_id] = aircraft
+        logging.info(f"Added aircraft: {aircraft.entity_id}")
 
-    # Run simulation
-    env.process_events(max_time=config.get('environment.max_time'))
+    # Schedule events
+    for event_config in scenario_config['events']:
+        event_type = event_config['type']
+        event_time = event_config['time']
+        action = event_config['action']
+        if event_type == "TimingEvent" and action['type'] == "launch_missile":
+            missile_id = action['params']['missile_id']
+            target_id = action['params']['target_id']
+            missile = entities[missile_id]
+            target = entities[target_id]
+            event = LaunchEvent(time=event_time, entity=missile, target=target)
+            env.schedule_event(event)
+            logging.info(f"Scheduled event: Launch missile {missile_id} at time {event_time} targeting {target_id}")
 
-    # Visualization
-    if config.get_bool('environment.display_plot', False):
-        positions = {entity: [] for entity in env.entities}
-
-        for entity in env.entities:
-            positions[entity].append(entity.position.copy())
-
-        for entity, pos_list in positions.items():
-            pos_array = np.array(pos_list)
-            plt.plot(pos_array[:, 0], pos_array[:, 1], label=f'{type(entity).__name__} Trajectory')
-
-        for sensor in env.sensors:
-            circle = plt.Circle(sensor.location.coords[0], sensor.range, color='r', fill=False, label='Sensor Range')
-            plt.gca().add_patch(circle)
-
-        plt.xlabel('X Position (m)')
-        plt.ylabel('Y Position (m)')
-        plt.legend()
-        plt.show()
+    # Process events
+    logging.info("Starting event processing")
+    env.process_events(max_time=config['environment']['max_time'])
+    logging.info("Simulation completed successfully.")
 
 if __name__ == "__main__":
-    # Set up argument parsing
-    parser = argparse.ArgumentParser(description='Run the simulation with the specified configuration file.')
-    parser.add_argument('config_file', type=str, help='Path to the configuration file')
-    args = parser.parse_args()
-
-    # Run the simulation
-    run_simulation(args.config_file)
+    import sys
+    config_path = sys.argv[1]
+    run_simulation(config_path)

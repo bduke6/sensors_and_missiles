@@ -1,0 +1,86 @@
+{
+    "entities": {
+      "missiles": [
+        {
+          "id": "missile_1",
+          "type": "Patriot",
+          "lat": 0,
+          "lon": 0,
+          "alt": 0,
+          "velocity": [100, 0, 100],
+          "orientation": [1, 0, 0]
+        }
+      ],
+      "ships": [
+        {
+          "id": "ship_1",
+          "type": "Destroyer",
+          "lat": -500,
+          "lon": 0,
+          "alt": 0,
+          "velocity": [10, 0, 0],
+          "orientation": [1, 0, 0],
+          "sensors": [
+            {
+              "type": "Radar",
+              "location": [-500, 0],
+              "alt": 0,
+              "range": 1500
+            }
+          ],
+          "armaments": [
+            {
+              "type": "Patriot",
+              "quantity": 5,
+              "missiles": [
+                {
+                  "id": "patriot_1",
+                  "lat": -500,
+                  "lon": 0,
+                  "alt": 0,
+                  "velocity": [100, 0, 100],
+                  "orientation": [1, 0, 0]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "aircrafts": [
+        {
+          "id": "aircraft_1",
+          "type": "Fighter",
+          "lat": 0,
+          "lon": 1000,
+          "alt": 0,
+          "velocity": [200, 0, 0],
+          "orientation": [1, 0, 0],
+          "sensors": [
+            {
+              "type": "Radar",
+              "location": [0, 1000],
+              "alt": 0,
+              "range": 1000
+            }
+          ],
+          "armaments": [
+            {
+              "type": "AIM-120",
+              "quantity": 6,
+              "missiles": [
+                {
+                  "id": "aim120_1",
+                  "lat": 0,
+                  "lon": 1000,
+                  "alt": 0,
+                  "velocity": [200, 0, 0],
+                  "orientation": [1, 0, 0]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+  

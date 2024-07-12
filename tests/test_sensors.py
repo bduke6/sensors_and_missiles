@@ -1,5 +1,8 @@
+import sys
+sys.path.append('src')
+
 import pytest
-from src.sensors import Sensor
+from sensors import Sensor
 
 def test_sensor_detection():
     sensor = Sensor(location=[0, 0], range=1000)

@@ -1,18 +1,24 @@
+import sys
+sys.path.append('src')
+
+
+# tests/test_environment.py
+
 import pytest
-from src.environment import Environment
-from src.entities import Missile, Ship, Aircraft
-from src.sensors import Sensor
-from src.events import LaunchEvent, DetectEvent, InterceptEvent
+from environment import Environment
+from entities import Missile, Ship, Aircraft
+from sensors import Sensor
+from events import LaunchEvent
 
 def test_environment_add_entity():
     env = Environment()
-    missile = Missile(position=[0, 0, 0], velocity=[1, 1, 1])
+    missile = Missile(lat=0, lon=0, alt=0, velocity=[1, 1, 1], orientation=[1, 0, 0], entity_id="missile_1")
     env.add_entity(missile)
     assert missile in env.entities
 
 def test_environment_add_sensor():
     env = Environment()
-    sensor = Sensor(location=[0, 0], range=1000)
+    sensor = Sensor(location=[0, 0], alt=0, range=1000)
     env.add_sensor(sensor)
     assert sensor in env.sensors
 
@@ -24,9 +30,11 @@ def test_environment_schedule_event():
 
 def test_environment_process_events():
     env = Environment()
-    missile = Missile(position=[0, 0, 0], velocity=[1, 1, 1])
+    missile = Missile(lat=0, lon=0, alt=0, velocity=[1, 1, 1], orientation=[1, 0, 0], entity_id="missile_1")
+    ship = Ship(lat=0, lon=0, alt=0, velocity=[0, 0, 0], orientation=[1, 0, 0], entity_id="ship_1")
     env.add_entity(missile)
-    event = LaunchEvent(time=1, entity=missile, target=None)
+    env.add_entity(ship)
+    event = LaunchEvent(time=0, entity=missile, target=ship)
     env.schedule_event(event)
-    env.process_events(max_time=2)
-    assert missile in env.entities  # Ensure missile is still in entities after processing
+    env.process_events(max_time=10)
+    assert missile.lat != 0  # Ensure the missile has moved

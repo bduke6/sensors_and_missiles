@@ -1,0 +1,22 @@
+Metadata-Version: 2.1
+Name: pyargparse
+Version: 0.1.8
+Summary: Awesome configuration parser for Python programs which can parse from command line, environment variables and .yml files with a single class definition providing type hints for the parsed arguments
+Home-page: https://github.com/GabrielMusat/pyargparse
+Author: Gabriel Musat
+Author-email: gabimtme@gmail.com
+License: MIT
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Unix
+Classifier: Programming Language :: Python :: 3
+Classifier: Typing :: Typed
+Requires-Python: >=3.5.*
+License-File: LICENSE.md
+Requires-Dist: pyyaml
+
+UNKNOWN
+

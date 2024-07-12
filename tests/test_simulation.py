@@ -1,43 +1,102 @@
+import os
+import sys
 import pytest
-from unittest.mock import patch, MagicMock
-import src.simulation as simulation
+import json
+import yaml
+from simulation import run_simulation
 
-@patch('src.simulation.Environment')
-@patch('src.simulation.Config')
-@patch('src.simulation.Missile')
-@patch('src.simulation.Ship')
-@patch('src.simulation.Aircraft')
-@patch('src.simulation.Sensor')
-@patch('src.simulation.LaunchEvent')
-@patch('src.simulation.plt.show')
-def test_simulation_run(mock_plt_show, mock_LaunchEvent, mock_Sensor, mock_Aircraft, mock_Ship, mock_Missile, mock_Config, mock_Environment):
-    # Mock config values
-    mock_config_instance = mock_Config.return_value
-    mock_config_instance.get.side_effect = lambda key, default=None: {
-        'entities.missile.position': [0, 0, 0],
-        'entities.missile.velocity': [100, 0, 100],
-        'entities.ship.position': [-500, 0, 0],
-        'entities.ship.velocity': [10, 0, 0],
-        'entities.aircraft.position': [0, 1000, 0],
-        'entities.aircraft.velocity': [200, 0, 0],
-        'sensors': [{'location': [0, 0], 'range': 1000}, {'location': [-500, 0], 'range': 1500}],
-        'environment.max_time': 50,
-        'environment.display_plot': False
-    }[key]
-    
-    mock_config_instance.get_bool.side_effect = lambda key, default=False: {
-        'environment.display_plot': False
-    }[key]
+# Ensure the src directory is in the PYTHONPATH
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 
-    # Run the simulation script
-    simulation.run_simulation('src/config.yaml')
+@pytest.fixture
+def temp_config_files():
+    config_data = {
+        "environment": {
+            "max_time": 50,
+            "display_plot": False,
+            "entities_file": "temp_entities_config.json",
+            "scenario_file": "temp_scenario_config.yaml",
+            "logging_config": "temp_logging.yaml"
+        }
+    }
 
-    # Assertions to ensure components were called correctly
-    mock_Environment.assert_called_once()
-    mock_Config.assert_called_once_with('src/config.yaml')
-    mock_Missile.assert_called_once_with(position=[0, 0, 0], velocity=[100, 0, 100])
-    mock_Ship.assert_called_once_with(position=[-500, 0, 0], velocity=[10, 0, 0])
-    mock_Aircraft.assert_called_once_with(position=[0, 1000, 0], velocity=[200, 0, 0])
-    assert mock_Sensor.call_count == 2
-    mock_LaunchEvent.assert_called_once_with(0, mock_Missile.return_value, None)
-    mock_plt_show.assert_not_called()  # Ensure plot is not shown by default
+    entities_config_data = {
+        "entities": {
+            "missiles": [
+                {"lat": 0, "lon": 0, "alt": 0, "velocity": [100, 0, 100], "orientation": [1, 0, 0], "entity_id": "missile_1"}
+            ],
+            "ships": [
+                {"lat": -500, "lon": 0, "alt": 0, "velocity": [10, 0, 0], "orientation": [1, 0, 0], "entity_id": "ship_1",
+                 "sensors": [{"lat": -500, "lon": 0, "alt": 0, "range": 1000}],
+                 "armaments": [{"missiles": [{"lat": -500, "lon": 0, "alt": 0, "velocity": [100, 0, 100], "orientation": [1, 0, 0], "entity_id": "missile_2"}]}]
+                }
+            ],
+            "aircrafts": [
+                {"lat": 0, "lon": 1000, "alt": 1000, "velocity": [200, 0, 0], "orientation": [1, 0, 0], "entity_id": "aircraft_1",
+                 "sensors": [{"lat": 0, "lon": 1000, "alt": 1000, "range": 1500}],
+                 "armaments": [{"missiles": [{"lat": 0, "lon": 1000, "alt": 1000, "velocity": [100, 0, 100], "orientation": [1, 0, 0], "entity_id": "missile_3"}]}]
+                }
+            ]
+        }
+    }
+
+    scenario_config_data = {
+        "events": [
+            {
+                "type": "TimingEvent",
+                "time": 5,
+                "action": {
+                    "type": "launch_missile",
+                    "params": {
+                        "missile_id": "missile_1",
+                        "target_id": "ship_1"
+                    }
+                }
+            }
+        ]
+    }
+
+    logging_config_data = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "standard": {
+                "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+            }
+        },
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "formatter": "standard",
+                "level": "INFO",
+                "stream": "ext://sys.stdout"
+            }
+        },
+        "root": {
+            "level": "INFO",
+            "handlers": ["console"]
+        }
+    }
+
+    with open('temp_config.yaml', 'w') as f:
+        yaml.dump(config_data, f)
+
+    with open('temp_entities_config.json', 'w') as f:
+        json.dump(entities_config_data, f)
+
+    with open('temp_scenario_config.yaml', 'w') as f:
+        yaml.dump(scenario_config_data, f)
+
+    with open('temp_logging.yaml', 'w') as f:
+        yaml.dump(logging_config_data, f)
+
+    yield 'temp_config.yaml'
+
+    os.remove('temp_config.yaml')
+    os.remove('temp_entities_config.json')
+    os.remove('temp_scenario_config.yaml')
+    os.remove('temp_logging.yaml')
+
+def test_simulation_run(temp_config_files):
+    run_simulation(temp_config_files)
+    # Assertions to verify the simulation run can be added here

@@ -1,0 +1,63 @@
+{
+    "entities": {
+      "ships": [
+        {
+          "entity_id": "ship_1",
+          "lat": 15.0,
+          "lon": 120.0,
+          "alt": 0,
+          "velocity": [0, 0, 0],
+          "orientation": [1, 0, 0],
+          "sensors": [
+            {
+              "id": "sensor_1",
+              "lat": 15.0,
+              "lon": 120.0,
+              "alt": 0,
+              "range": 300,
+              "type": "targeting"
+            },
+            {
+              "id": "sensor_2",
+              "lat": 15.0,
+              "lon": 120.0,
+              "alt": 0,
+              "range": 100,
+              "type": "defense"
+            }
+          ],
+          "armaments": [
+            {
+              "type": "offensive",
+              "missiles": [
+                {
+                  "entity_id": "missile_1",
+                  "lat": 15.0,
+                  "lon": 120.0,
+                  "alt": 0,
+                  "velocity": [1000, 0, 0],
+                  "orientation": [1, 0, 0]
+                }
+              ]
+            },
+            {
+              "type": "defensive",
+              "missiles": [
+                {
+                  "entity_id": "missile_2",
+                  "lat": 15.0,
+                  "lon": 120.0,
+                  "alt": 0,
+                  "velocity": [500, 0, 0],
+                  "orientation": [1, 0, 0]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "missiles": [],
+      "aircrafts": []
+    }
+  }
+  
