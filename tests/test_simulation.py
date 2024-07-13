@@ -10,13 +10,14 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../s
 
 @pytest.fixture
 def temp_config_files():
+    config_dir = 'tests/assets'
     config_data = {
         "environment": {
             "max_time": 50,
             "display_plot": False,
-            "entities_file": "temp_entities_config.json",
-            "scenario_file": "temp_scenario_config.yaml",
-            "logging_config": "temp_logging.yaml"
+            "entities_file": os.path.join(config_dir, "temp_entities_config.json"),
+            "scenario_file": os.path.join(config_dir, "temp_scenario_config.yaml"),
+            "logging_config": os.path.join(config_dir, "temp_logging.yaml")
         }
     }
 
@@ -78,24 +79,26 @@ def temp_config_files():
         }
     }
 
-    with open('temp_config.yaml', 'w') as f:
+    os.makedirs(config_dir, exist_ok=True)
+
+    with open(os.path.join(config_dir, 'temp_config.yaml'), 'w') as f:
         yaml.dump(config_data, f)
 
-    with open('temp_entities_config.json', 'w') as f:
+    with open(os.path.join(config_dir, 'temp_entities_config.json'), 'w') as f:
         json.dump(entities_config_data, f)
 
-    with open('temp_scenario_config.yaml', 'w') as f:
+    with open(os.path.join(config_dir, 'temp_scenario_config.yaml'), 'w') as f:
         yaml.dump(scenario_config_data, f)
 
-    with open('temp_logging.yaml', 'w') as f:
+    with open(os.path.join(config_dir, 'temp_logging.yaml'), 'w') as f:
         yaml.dump(logging_config_data, f)
 
-    yield 'temp_config.yaml'
+    yield os.path.join(config_dir, 'temp_config.yaml')
 
-    os.remove('temp_config.yaml')
-    os.remove('temp_entities_config.json')
-    os.remove('temp_scenario_config.yaml')
-    os.remove('temp_logging.yaml')
+    os.remove(os.path.join(config_dir, 'temp_config.yaml'))
+    os.remove(os.path.join(config_dir, 'temp_entities_config.json'))
+    os.remove(os.path.join(config_dir, 'temp_scenario_config.yaml'))
+    os.remove(os.path.join(config_dir, 'temp_logging.yaml'))
 
 def test_simulation_run(temp_config_files):
     run_simulation(temp_config_files)

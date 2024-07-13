@@ -25,10 +25,12 @@ logging_config_path: logging.yaml
 environment:
   max_time: 50
   display_plot: False
-  entities_file: src/entity_config.json
-  logging_config: src/logging.yaml
+  entities_file: config/entity_config.json
+  logging_config: config/logging.yaml
   log_directory: ./logs
-  scenario_file: "src/scenario_ship_1.yaml"
+  scenario_file: "config/scenarios/scenario_ship_1.yaml"
+
+
 
 
 

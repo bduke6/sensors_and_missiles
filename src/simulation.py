@@ -19,7 +19,8 @@ def run_simulation(config_path):
 
     entities_file = config['environment']['entities_file']
     scenario_file = config['environment']['scenario_file']
-    
+    max_time = config['environment']['max_time']
+
     logging.info(f"Starting simulation with config: {config_path}")
     logging.info(f"Entities file: {entities_file}")
     logging.info(f"Scenario file: {scenario_file}")
@@ -48,19 +49,19 @@ def run_simulation(config_path):
                 entities[missile.entity_id] = missile
                 logging.info(f"Added missile: {missile.entity_id}")
 
-    # Add missiles directly if they are listed separately
-    for missile_config in entities_config['entities'].get('missiles', []):
-        missile = Missile(lat=missile_config['lat'], lon=missile_config['lon'], alt=missile_config['alt'], velocity=missile_config['velocity'], orientation=missile_config['orientation'], entity_id=missile_config['entity_id'])
-        env.add_entity(missile)
-        entities[missile.entity_id] = missile
-        logging.info(f"Added missile: {missile.entity_id}")
-
     # Add aircrafts
     for aircraft_config in entities_config['entities'].get('aircrafts', []):
         aircraft = Aircraft(lat=aircraft_config['lat'], lon=aircraft_config['lon'], alt=aircraft_config['alt'], velocity=aircraft_config['velocity'], orientation=aircraft_config['orientation'], entity_id=aircraft_config['entity_id'])
         env.add_entity(aircraft)
         entities[aircraft.entity_id] = aircraft
         logging.info(f"Added aircraft: {aircraft.entity_id}")
+
+    # Add missiles not embedded in other entities
+    for missile_config in entities_config['entities'].get('missiles', []):
+        missile = Missile(lat=missile_config['lat'], lon=missile_config['lon'], alt=missile_config['alt'], velocity=missile_config['velocity'], orientation=missile_config['orientation'], entity_id=missile_config['entity_id'])
+        env.add_entity(missile)
+        entities[missile.entity_id] = missile
+        logging.info(f"Added missile: {missile.entity_id}")
 
     # Schedule events
     for event_config in scenario_config['events']:
@@ -72,14 +73,14 @@ def run_simulation(config_path):
             target_id = action['params']['target_id']
             missile = entities[missile_id]
             target = entities[target_id]
-            event = LaunchEvent(time=event_time, entity=missile, target=target)
+            event = LaunchEvent(event_time, missile, target)
             env.schedule_event(event)
-            logging.info(f"Scheduled event: Launch missile {missile_id} at time {event_time} targeting {target_id}")
+            logging.info(f"Scheduled event: {event}")
 
-    # Process events
     logging.info("Starting event processing")
-    env.process_events(max_time=config['environment']['max_time'])
+    env.process_events(max_time)
     logging.info("Simulation completed successfully.")
+
 
 if __name__ == "__main__":
     import sys

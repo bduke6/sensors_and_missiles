@@ -3267,3 +3267,43 @@ Simulation completed successfully.
 2024-07-12 17:30:41,256 - root - INFO - Starting event processing
 2024-07-12 17:30:41,256 - environment - INFO - Handling event: <events.LaunchEvent object at 0x104df0050> at time 10
 2024-07-12 17:30:41,256 - root - INFO - Simulation completed successfully.
+2024-07-12 17:44:28,304 - root - INFO - Starting simulation with config: config/config.yaml
+2024-07-12 17:44:28,304 - root - INFO - Entities file: config/entity_config.json
+2024-07-12 17:44:28,304 - root - INFO - Scenario file: config/scenarios/scenario_ship_1.yaml
+2024-07-12 17:44:34,734 - root - INFO - Starting simulation with config: config/config.yaml
+2024-07-12 17:44:34,734 - root - INFO - Entities file: config/entity_config.json
+2024-07-12 17:44:34,734 - root - INFO - Scenario file: config/scenarios/scenario_ship_1.yaml
+2024-07-12 17:45:18,773 - root - INFO - Starting simulation with config: config/config.yaml
+2024-07-12 17:45:18,774 - root - INFO - Entities file: config/entity_config.json
+2024-07-12 17:45:18,774 - root - INFO - Scenario file: config/scenarios/scenario_ship_1.yaml
+2024-07-12 17:45:24,256 - root - INFO - Starting simulation with config: config/config.yaml
+2024-07-12 17:45:24,256 - root - INFO - Entities file: config/entity_config.json
+2024-07-12 17:45:24,256 - root - INFO - Scenario file: config/scenarios/scenario_ship_1.yaml
+2024-07-12 17:45:59,487 - root - INFO - Starting simulation with config: config/config.yaml
+2024-07-12 17:45:59,488 - root - INFO - Entities file: config/entity_config.json
+2024-07-12 17:45:59,488 - root - INFO - Scenario file: config/scenarios/scenario_ship_1.yaml
+2024-07-12 17:45:59,488 - environment - INFO - Added entity: <entities.Ship object at 0x100f0f3b0>
+2024-07-12 17:45:59,488 - root - INFO - Added ship: ship_1
+2024-07-12 17:45:59,488 - environment - INFO - Added entity: <entities.Missile object at 0x10170adb0>
+2024-07-12 17:45:59,488 - root - INFO - Added missile: missile_1
+2024-07-12 17:45:59,488 - environment - INFO - Added entity: <entities.Missile object at 0x10170aba0>
+2024-07-12 17:45:59,488 - root - INFO - Added missile: missile_2
+2024-07-12 17:45:59,488 - environment - INFO - Scheduled event: <events.LaunchEvent object at 0x10170ac90>
+2024-07-12 17:45:59,488 - root - INFO - Scheduled event: Launch missile missile_1 at time 10 targeting ship_1
+2024-07-12 17:45:59,488 - root - INFO - Starting event processing
+2024-07-12 17:45:59,488 - environment - INFO - Handling event: <events.LaunchEvent object at 0x10170ac90> at time 10
+2024-07-12 17:45:59,488 - root - INFO - Simulation completed successfully.
+2024-07-12 17:48:37,842 - root - INFO - Starting simulation with config: config/config.yaml
+2024-07-12 17:48:37,842 - root - INFO - Entities file: config/entity_config.json
+2024-07-12 17:48:37,842 - root - INFO - Scenario file: config/scenarios/scenario_ship_1.yaml
+2024-07-12 17:48:37,843 - environment - INFO - Added entity: <entities.Ship object at 0x104d67ec0>
+2024-07-12 17:48:37,843 - root - INFO - Added ship: ship_1
+2024-07-12 17:48:37,843 - environment - INFO - Added entity: <entities.Missile object at 0x1053101d0>
+2024-07-12 17:48:37,843 - root - INFO - Added missile: missile_1
+2024-07-12 17:48:37,843 - environment - INFO - Added entity: <entities.Missile object at 0x105313320>
+2024-07-12 17:48:37,843 - root - INFO - Added missile: missile_2
+2024-07-12 17:48:37,843 - environment - INFO - Scheduled event: <events.LaunchEvent object at 0x105312e40>
+2024-07-12 17:48:37,843 - root - INFO - Scheduled event: Launch missile missile_1 at time 10 targeting ship_1
+2024-07-12 17:48:37,843 - root - INFO - Starting event processing
+2024-07-12 17:48:37,843 - environment - INFO - Handling event: <events.LaunchEvent object at 0x105312e40> at time 10
+2024-07-12 17:48:37,843 - root - INFO - Simulation completed successfully.
