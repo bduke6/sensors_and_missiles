@@ -23,13 +23,15 @@ class Environment:
         self.logger.info(f"Scheduled event: {event}")
 
     def process_events(self, max_time):
+        self.max_time = max_time
+        self.time_step = 1  # default time_step
         while self.current_time < max_time:
             if not self.event_queue:
                 break
             event = heapq.heappop(self.event_queue)
             self.current_time = event.time
             self.logger.info(f"Handling event: {event} at time {self.current_time}")
-            event.handle()
+            event.process(self)
 
     def update_environment(self, time):
         self.logger.debug(f"Updating environment at time {time}")

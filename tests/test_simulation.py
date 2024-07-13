@@ -1,105 +1,57 @@
-import os
-import sys
 import pytest
-import json
-import yaml
-from simulation import run_simulation
+import numpy as np
+from calculations import geodetic_to_ecef, ecef_to_geodetic
+from environment import Environment  # Add this line
+from entities import Entity, Missile, Ship, Aircraft
+from events import Event  # Add this line
 
-# Ensure the src directory is in the PYTHONPATH
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
+def test_geodetic_to_ecef():
+    lat, lon, alt = 40.748817, -73.985428, 0
+    X, Y, Z = geodetic_to_ecef(lat, lon, alt)
+    assert np.isclose(X, 1334949.407, atol=1e-2)
+    assert np.isclose(Y, -4651057.064, atol=1e-2)
+    assert np.isclose(Z, 4141331.101, atol=1e-2)
 
-@pytest.fixture
-def temp_config_files():
-    config_dir = 'tests/assets'
-    config_data = {
-        "environment": {
-            "max_time": 50,
-            "display_plot": False,
-            "entities_file": os.path.join(config_dir, "temp_entities_config.json"),
-            "scenario_file": os.path.join(config_dir, "temp_scenario_config.yaml"),
-            "logging_config": os.path.join(config_dir, "temp_logging.yaml")
-        }
-    }
+def test_ecef_to_geodetic():
+    X, Y, Z = 1334949.407, -4651057.064, 4141331.101
+    lat, lon, alt = ecef_to_geodetic(X, Y, Z)
+    assert np.isclose(lat, 40.748817, atol=1e-5)
+    assert np.isclose(lon, -73.985428, atol=1e-5)
+    assert np.isclose(alt, 0.0, atol=1e-4)
 
-    entities_config_data = {
-        "entities": {
-            "missiles": [
-                {"lat": 0, "lon": 0, "alt": 0, "velocity": [100, 0, 100], "orientation": [1, 0, 0], "entity_id": "missile_1"}
-            ],
-            "ships": [
-                {"lat": -500, "lon": 0, "alt": 0, "velocity": [10, 0, 0], "orientation": [1, 0, 0], "entity_id": "ship_1",
-                 "sensors": [{"lat": -500, "lon": 0, "alt": 0, "range": 1000}],
-                 "armaments": [{"missiles": [{"lat": -500, "lon": 0, "alt": 0, "velocity": [100, 0, 100], "orientation": [1, 0, 0], "entity_id": "missile_2"}]}]
-                }
-            ],
-            "aircrafts": [
-                {"lat": 0, "lon": 1000, "alt": 1000, "velocity": [200, 0, 0], "orientation": [1, 0, 0], "entity_id": "aircraft_1",
-                 "sensors": [{"lat": 0, "lon": 1000, "alt": 1000, "range": 1500}],
-                 "armaments": [{"missiles": [{"lat": 0, "lon": 1000, "alt": 1000, "velocity": [100, 0, 100], "orientation": [1, 0, 0], "entity_id": "missile_3"}]}]
-                }
-            ]
-        }
-    }
+def test_entity_update_position():
+    entity = Entity(lat=0, lon=0, alt=0, velocity=[1, 1, 1], orientation=[0, 0, 0], entity_id='test_entity')
+    entity.update_position(1)
+    assert entity.lat == 1
+    assert entity.lon == 1
+    assert entity.alt == 1
 
-    scenario_config_data = {
-        "events": [
-            {
-                "type": "TimingEvent",
-                "time": 5,
-                "action": {
-                    "type": "launch_missile",
-                    "params": {
-                        "missile_id": "missile_1",
-                        "target_id": "ship_1"
-                    }
-                }
-            }
-        ]
-    }
+def test_missile_launch():
+    missile = Missile(lat=0, lon=0, alt=0, velocity=[0, 0, 0], orientation=[0, 0, 0], entity_id='test_missile')
+    target = Entity(lat=1, lon=1, alt=1, velocity=[0, 0, 0], orientation=[0, 0, 0], entity_id='target')
+    missile.launch(target)
+    assert missile.lat == 0
+    assert missile.lon == 0
+    assert missile.alt == 0
 
-    logging_config_data = {
-        "version": 1,
-        "disable_existing_loggers": False,
-        "formatters": {
-            "standard": {
-                "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-            }
-        },
-        "handlers": {
-            "console": {
-                "class": "logging.StreamHandler",
-                "formatter": "standard",
-                "level": "INFO",
-                "stream": "ext://sys.stdout"
-            }
-        },
-        "root": {
-            "level": "INFO",
-            "handlers": ["console"]
-        }
-    }
+def test_ship_creation():
+    ship = Ship(lat=0, lon=0, alt=0, velocity=[0, 0, 0], orientation=[0, 0, 0], entity_id='test_ship')
+    assert ship.lat == 0
+    assert ship.lon == 0
+    assert ship.alt == 0
 
-    os.makedirs(config_dir, exist_ok=True)
+def test_aircraft_update():
+    aircraft = Aircraft(lat=0, lon=0, alt=0, velocity=[1, 1, 1], orientation=[0, 0, 0], entity_id='test_aircraft')
+    aircraft.update_position(1)
+    assert aircraft.lat == 1
+    assert aircraft.lon == 1
+    assert aircraft.alt == 1
 
-    with open(os.path.join(config_dir, 'temp_config.yaml'), 'w') as f:
-        yaml.dump(config_data, f)
-
-    with open(os.path.join(config_dir, 'temp_entities_config.json'), 'w') as f:
-        json.dump(entities_config_data, f)
-
-    with open(os.path.join(config_dir, 'temp_scenario_config.yaml'), 'w') as f:
-        yaml.dump(scenario_config_data, f)
-
-    with open(os.path.join(config_dir, 'temp_logging.yaml'), 'w') as f:
-        yaml.dump(logging_config_data, f)
-
-    yield os.path.join(config_dir, 'temp_config.yaml')
-
-    os.remove(os.path.join(config_dir, 'temp_config.yaml'))
-    os.remove(os.path.join(config_dir, 'temp_entities_config.json'))
-    os.remove(os.path.join(config_dir, 'temp_scenario_config.yaml'))
-    os.remove(os.path.join(config_dir, 'temp_logging.yaml'))
-
-def test_simulation_run(temp_config_files):
-    run_simulation(temp_config_files)
-    # Assertions to verify the simulation run can be added here
+def test_environment_process_events():
+    env = Environment()
+    entity = Entity(lat=0, lon=0, alt=0, velocity=[1, 1, 1], orientation=[0, 0, 0], entity_id='test_entity')
+    env.add_entity(entity)
+    event = Event(time=1)
+    env.schedule_event(event)
+    env.process_events(10)
+    assert env.current_time == 1
