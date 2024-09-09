@@ -129,7 +129,7 @@ def run_simulation(config_path):
 
         for armament in ship_config['armaments']:
             for missile_config in armament['missiles']:
-                missile = Missile(lat=missile_config['lat'], lon=missile_config['lon'], alt=missile_config['alt'], velocity=missile_config['velocity'], orientation=missile_config['orientation'], entity_id=missile_config['id'])
+                missile = Missile(lat=missile_config['lat'], lon=missile_config['lon'], alt=missile_config['alt'], velocity=missile_config['velocity'], orientation=missile_config['orientation'], entity_id=missile_config['id'], fuel=100)
                 env.add_entity(missile)
                 entities[missile.entity_id] = missile
 

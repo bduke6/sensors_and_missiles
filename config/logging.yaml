@@ -1,33 +1,23 @@
 version: 1
+disable_existing_loggers: False
 formatters:
-    simple:
-        format: '%(message)s'
-    detailed:
-        format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  simple:
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 handlers:
-    console:
-        class: logging.StreamHandler
-        formatter: simple
-        level: INFO
-        stream: ext://sys.stdout
-    file:
-        class: logging.FileHandler
-        formatter: detailed
-        level: DEBUG
-        filename: logs/simulation.log
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: simple
+    stream: ext://sys.stdout
+  file:
+    class: logging.FileHandler
+    level: DEBUG
+    formatter: simple
+    filename: logs/simulation.log
 loggers:
-    environment:
-        level: DEBUG
-        handlers: [console, file]
-        propagate: no
-    entities:
-        level: DEBUG
-        handlers: [console, file]
-        propagate: no
-    sensors:
-        level: DEBUG
-        handlers: [console, file]
-        propagate: no
-root:
+  environment:
+    level: DEBUG
+    handlers: [console, file]
+  root:
     level: DEBUG
     handlers: [console, file]

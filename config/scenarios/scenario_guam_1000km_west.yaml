@@ -4,5 +4,5 @@ events:
     action:
       type: launch_missile
       params:
-        missile_id: "missile_1"
-        target_id: "ship_1"
+        missile_id: missile_1
+        target_id: ship_1

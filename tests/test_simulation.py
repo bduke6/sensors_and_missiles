@@ -27,7 +27,7 @@ def test_entity_update_position():
     assert entity.alt == 1
 
 def test_missile_launch():
-    missile = Missile(lat=0, lon=0, alt=0, velocity=[0, 0, 0], orientation=[0, 0, 0], entity_id='test_missile')
+    missile = Missile(lat=0, lon=0, alt=0, velocity=[0, 0, 0], orientation=[0, 0, 0], entity_id='test_missile', fuel=100)
     target = Entity(lat=1, lon=1, alt=1, velocity=[0, 0, 0], orientation=[0, 0, 0], entity_id='target')
     missile.launch(target)
     assert missile.lat == 0

@@ -12,7 +12,7 @@ from events import LaunchEvent
 
 def test_environment_add_entity():
     env = Environment()
-    missile = Missile(lat=0, lon=0, alt=0, velocity=[1, 1, 1], orientation=[1, 0, 0], entity_id="missile_1")
+    missile = Missile(lat=0, lon=0, alt=0, velocity=[1, 1, 1], orientation=[1, 0, 0], entity_id="missile_1", fuel=100)
     env.add_entity(missile)
     assert missile in env.entities
 
@@ -30,7 +30,7 @@ def test_environment_schedule_event():
 
 def test_environment_process_events():
     env = Environment()
-    missile = Missile(lat=0, lon=0, alt=0, velocity=[1, 1, 1], orientation=[1, 0, 0], entity_id="missile_1")
+    missile = Missile(lat=0, lon=0, alt=0, velocity=[1, 1, 1], orientation=[1, 0, 0], entity_id="missile_1", fuel = 100)
     ship = Ship(lat=0, lon=0, alt=0, velocity=[0, 0, 0], orientation=[1, 0, 0], entity_id="ship_1")
     env.add_entity(missile)
     env.add_entity(ship)

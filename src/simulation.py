@@ -34,36 +34,44 @@ def run_simulation(config_path):
     env = Environment()
     entities = {}
 
-    # Add ships and extract missiles
+    # Add ships and missiles, ensuring each has a unique UID
     for ship_config in entities_config['entities'].get('ships', []):
-        ship = Ship(lat=ship_config['lat'], lon=ship_config['lon'], alt=ship_config['alt'], velocity=ship_config['velocity'], orientation=ship_config['orientation'], entity_id=ship_config['entity_id'])
+        ship = Ship(lat=ship_config['lat'], lon=ship_config['lon'], alt=ship_config['alt'],
+                    velocity=ship_config['velocity'], orientation=ship_config['orientation'], 
+                    entity_id=ship_config['entity_id'])
         env.add_entity(ship)
         entities[ship.entity_id] = ship
         logging.info(f"Added ship: {ship.entity_id}")
 
-        # Extract missiles from armaments
+        # Add missiles from armaments
         for armament in ship_config.get('armaments', []):
             for missile_config in armament.get('missiles', []):
-                missile = Missile(lat=missile_config['lat'], lon=missile_config['lon'], alt=missile_config['alt'], velocity=missile_config['velocity'], orientation=missile_config['orientation'], entity_id=missile_config['entity_id'])
+                missile = Missile(lat=missile_config['lat'], lon=missile_config['lon'], alt=missile_config['alt'],
+                                  velocity=missile_config['velocity'], orientation=missile_config['orientation'], 
+                                  fuel=missile_config['fuel'], entity_id=missile_config['entity_id'])
                 env.add_entity(missile)
                 entities[missile.entity_id] = missile
                 logging.info(f"Added missile: {missile.entity_id}")
 
-    # Add aircrafts
+    # Add aircrafts if needed
     for aircraft_config in entities_config['entities'].get('aircrafts', []):
-        aircraft = Aircraft(lat=aircraft_config['lat'], lon=aircraft_config['lon'], alt=aircraft_config['alt'], velocity=aircraft_config['velocity'], orientation=aircraft_config['orientation'], entity_id=aircraft_config['entity_id'])
+        aircraft = Aircraft(lat=aircraft_config['lat'], lon=aircraft_config['lon'], alt=aircraft_config['alt'],
+                            velocity=aircraft_config['velocity'], orientation=aircraft_config['orientation'],
+                            entity_id=aircraft_config['entity_id'])
         env.add_entity(aircraft)
         entities[aircraft.entity_id] = aircraft
         logging.info(f"Added aircraft: {aircraft.entity_id}")
 
-    # Add missiles not embedded in other entities
+    # Add missiles not embedded in ships
     for missile_config in entities_config['entities'].get('missiles', []):
-        missile = Missile(lat=missile_config['lat'], lon=missile_config['lon'], alt=missile_config['alt'], velocity=missile_config['velocity'], orientation=missile_config['orientation'], entity_id=missile_config['entity_id'])
+        missile = Missile(lat=missile_config['lat'], lon=missile_config['lon'], alt=missile_config['alt'],
+                          velocity=missile_config['velocity'], orientation=missile_config['orientation'],
+                          fuel=missile_config['fuel'], entity_id=missile_config['entity_id'])
         env.add_entity(missile)
         entities[missile.entity_id] = missile
         logging.info(f"Added missile: {missile.entity_id}")
 
-    # Schedule events
+    # Schedule events like missile launches
     for event_config in scenario_config['events']:
         event_type = event_config['type']
         event_time = event_config['time']
