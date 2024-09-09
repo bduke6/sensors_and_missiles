@@ -3,6 +3,7 @@ from calculations import geodetic_to_ecef, ecef_to_geodetic
 import logging
 
 
+
 class Entity:
     def __init__(self, lat, lon, alt, velocity, orientation, entity_id):
         self.lat = lat
@@ -48,48 +49,54 @@ class Missile(Entity):
     def __init__(self, lat, lon, alt, velocity, orientation, entity_id, fuel):
         super().__init__(lat, lon, alt, velocity, orientation, entity_id)
         self.fuel = fuel
-        self.acceleration = [0, 0, 0]  # Acceleration vector to be updated during launch
+        self.acceleration = [0, 0, 0]
+        self.has_hit_ground = False
 
     def launch(self, target, environment):
-        # Logic for launching a missile
         logging.info(f"Missile {self.entity_id} launched at target {target.entity_id}")
         
-        # Set an initial acceleration for the missile during launch
-        self.acceleration = [0, 0, 9.81]  # Example, can be adjusted based on missile type
+        # Set initial acceleration
+        self.acceleration = [0, 0, 9.81]
 
-        # Schedule a movement event after launch
-        from events import MovementEvent
-        movement_event = MovementEvent(time=10, entity=self)
-        logging.info(f"Movement event scheduled for Missile {self.entity_id}")
+        # Schedule the first move event
+        self.schedule_movement_event(environment, time_step=0.1)
 
-        # Use the environment passed to schedule the movement event
-        environment.schedule_event(movement_event)
-
-    def move(self, time_step):
-        # Before moving, update velocity and reduce fuel if there is any
+    def move(self, time_step, environment):
         if self.fuel > 0:
-            # Update velocity based on acceleration
+            # Update velocity based on acceleration while fuel remains
             for i in range(3):
                 self.velocity[i] += self.acceleration[i] * time_step
-            
-            # Log missile state before moving
             logging.info(f"Missile {self.entity_id} velocity: {self.velocity}")
             logging.info(f"Missile {self.entity_id} acceleration: {self.acceleration}")
             
-            # Reduce fuel consumption based on time step and current velocity
-            self.fuel -= time_step * 10  # Adjust multiplier based on fuel consumption rate
+            # Reduce fuel consumption based on time step
+            self.fuel -= time_step * 10
             logging.info(f"Missile {self.entity_id} fuel remaining: {self.fuel}")
 
-            # Stop acceleration if fuel is depleted
             if self.fuel <= 0:
-                self.acceleration = [0, 0, 0]
+                # When fuel runs out, switch to downward acceleration due to gravity
+                self.acceleration = [0, 0, -9.81]
                 logging.info(f"Missile {self.entity_id} ran out of fuel.")
-
-        # Call the parent class to update position based on updated velocity
+        else:
+            # Apply gravity after fuel is depleted
+            self.velocity[2] += self.acceleration[2] * time_step  # Apply gravity to the vertical velocity
+        
         super().move(time_step)
 
-        # Update orientation during the missile's movement (for example, yaw might change)
-        self.update_orientation(yaw_change=5 * time_step)  # Example of yaw change per time step
+        # Check if the missile has hit the ground
+        if self.alt <= 0:
+            self.alt = 0
+            self.has_hit_ground = True
+            logging.info(f"Missile {self.entity_id} hit the ground.")
+        else:
+            self.schedule_movement_event(environment, time_step)
+
+    def schedule_movement_event(self, environment, time_step):
+        if not self.has_hit_ground:
+            from events import MovementEvent
+            next_event_time = environment.current_time + time_step
+            environment.schedule_event(MovementEvent(next_event_time, self))
+
 
 
 class Aircraft(Entity):

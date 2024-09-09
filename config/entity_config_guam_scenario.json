@@ -16,7 +16,7 @@
         "lon": 144.8,
         "alt": 0,
         "velocity": [0, 0, 0],
-        "orientation": [1, 0, 0],
+        "orientation": [90, 0, 0],
         "entity_id": "missile_1",
         "fuel": 100
       }

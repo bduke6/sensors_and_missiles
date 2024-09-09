@@ -29,17 +29,9 @@ class MovementEvent(Event):
         self.logger = logging.getLogger("root")
 
     def process(self, environment):
-        time_step = 0.1  # You can adjust the time step if necessary
-        self.entity.move(time_step)
-        self.logger.info(f"Entity {self.entity.entity_id} moved to lat: {self.entity.lat}, lon: {self.entity.lon}, alt: {self.entity.alt}")
+        # Move the entity and let the entity decide whether to schedule more events
+        time_step = 0.1  # You can adjust the time step
+        self.entity.move(time_step, environment)
 
-        # If the entity is a missile, check if it still has fuel or is above a certain altitude
-        if isinstance(self.entity, Missile) and self.entity.fuel > 0:
-            next_event_time = self.time + time_step
-            next_event = MovementEvent(next_event_time, self.entity)
-            environment.schedule_event(next_event)
-        elif isinstance(self.entity, Ship):
-            # Ships continue moving without fuel limitations, for example
-            next_event_time = self.time + time_step
-            next_event = MovementEvent(next_event_time, self.entity)
-            environment.schedule_event(next_event)
+
+
