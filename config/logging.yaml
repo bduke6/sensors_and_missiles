@@ -34,6 +34,13 @@ handlers:
     filename: logs/event.log  # Separate log file for events
     mode: a  # Append mode
     header: "=== Log Start ===\nTimestamp - Logger Name - Log Level - Message\n"
+  entity_file:
+    class: logging_config.FileHandlerWithHeader
+    level: INFO
+    formatter: entity_formatter
+    filename: logs/entity.log  # Separate log file for events
+    mode: a  # Append mode
+    header: "=== Log Start ===\nTimestamp - Logger Name - Log Level - Message\n"
 loggers:
   environment:
     level: INFO
@@ -41,7 +48,7 @@ loggers:
     propagate: False  # Do not propagate events to root logger
   entity:
     level: INFO
-    handlers: [console, file]
+    handlers: [console, entity_file]
     propagate: False  # Do not propagate entity logs to root logger
   event:
     level: INFO
