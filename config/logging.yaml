@@ -2,22 +2,51 @@ version: 1
 disable_existing_loggers: False
 formatters:
   simple:
-    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    format: "%(simulation_time)s - %(name)s - %(levelname)s - %(message)s"
+    defaults:
+      simulation_time: "Unknown"
+  entity_formatter:
+    format: "%(simulation_time)s - %(message)s"
+    defaults:
+      simulation_time: "Unknown"
+  event_formatter:
+    format: "%(simulation_time)s - %(message)s"  # Custom format for events
+    defaults:
+      simulation_time: "Unknown"
+
 handlers:
   console:
     class: logging.StreamHandler
-    level: DEBUG
+    level: INFO
     formatter: simple
     stream: ext://sys.stdout
   file:
-    class: logging.FileHandler
-    level: DEBUG
+    class: logging_config.FileHandlerWithHeader
+    level: INFO
     formatter: simple
     filename: logs/simulation.log
+    mode: a  # Append mode
+    header: "=== Log Start ===\nTimestamp - Logger Name - Log Level - Message\n"
+  event_file:
+    class: logging_config.FileHandlerWithHeader
+    level: INFO
+    formatter: event_formatter
+    filename: logs/event.log  # Separate log file for events
+    mode: a  # Append mode
+    header: "=== Log Start ===\nTimestamp - Logger Name - Log Level - Message\n"
 loggers:
   environment:
-    level: DEBUG
+    level: INFO
+    handlers: [file]
+    propagate: False  # Do not propagate events to root logger
+  entity:
+    level: INFO
     handlers: [console, file]
+    propagate: False  # Do not propagate entity logs to root logger
+  event:
+    level: INFO
+    handlers: [event_file]  # Use separate file handler for events
+    propagate: False  # Do not propagate entity logs to root logger
   root:
-    level: DEBUG
+    level: INFO
     handlers: [console, file]

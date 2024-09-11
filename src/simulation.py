@@ -5,17 +5,38 @@ import logging.config
 from environment import Environment
 from entities import Ship, Missile, Aircraft
 from events import LaunchEvent
+from logging_config import SimulationTimeFilter, FileHandlerWithHeader
 
-def setup_logging(config):
-    logging_config = config['environment']['logging_config']
-    with open(logging_config, 'r') as f:
+
+
+def setup_logging(config, env):
+    logging_config_path = config['environment']['logging_config']
+    with open(logging_config_path, 'r') as f:
         logging.config.dictConfig(yaml.safe_load(f))
 
+    # Apply the simulation time filter to all loggers' handlers
+    simulation_time_filter = SimulationTimeFilter(env)
+    for handler in logging.getLogger().handlers:
+        handler.addFilter(simulation_time_filter)
+
+    # Add the filter to all named loggers as well
+    for logger_name in logging.root.manager.loggerDict:
+        logger = logging.getLogger(logger_name)
+        for handler in logger.handlers:
+            handler.addFilter(simulation_time_filter)
+
+
+
 def run_simulation(config_path):
+    # Load the simulation configuration
     with open(config_path, 'r') as f:
         config = yaml.safe_load(f)
 
-    setup_logging(config)
+    # Initialize the environment instance before logging setup
+    env = Environment()
+
+    # Set up logging with environment passed for SimulationTimeFilter
+    setup_logging(config, env)
 
     entities_file = config['environment']['entities_file']
     scenario_file = config['environment']['scenario_file']
@@ -25,13 +46,14 @@ def run_simulation(config_path):
     logging.info(f"Entities file: {entities_file}")
     logging.info(f"Scenario file: {scenario_file}")
 
+    # Load entities from JSON file
     with open(entities_file, 'r') as f:
         entities_config = json.load(f)
 
+    # Load scenario from YAML file
     with open(scenario_file, 'r') as f:
         scenario_config = yaml.safe_load(f)
 
-    env = Environment()
     entities = {}
 
     # Add ships and missiles, ensuring each has a unique UID
