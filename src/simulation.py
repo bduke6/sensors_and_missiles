@@ -2,17 +2,55 @@ import json
 import yaml
 import logging
 import logging.config
+import os  # Import os to handle file deletion
 from environment import Environment
 from entities import Ship, Missile, Aircraft
 from events import LaunchEvent
 from logging_config import SimulationTimeFilter, FileHandlerWithHeader
 
 
+import os
+import logging
+
+import os
+import logging
+
+def remove_old_logs(log_files):
+    """Remove old log files if they exist."""
+    if isinstance(log_files, str):  # If a single string is passed, convert it to a list
+        log_files = [log_files]
+        
+    for log_file in log_files:
+        try:
+            log_file = log_file.strip()  # Strip any unnecessary whitespace
+            if os.path.isfile(log_file):  # Ensure we are dealing with files, not directories
+                os.remove(log_file)
+                print(f"Removed old log file: {log_file}")
+            else:
+                print(f"Log file {log_file} does not exist or is not a file.")
+        except OSError as e:
+            print(f"Error removing {log_file}: {e}")
+
+# Continue with your simulation setup and logging configuration
+logging.basicConfig(level=logging.INFO)
+logging.info("Starting simulation...")
 
 def setup_logging(config, env):
     logging_config_path = config['environment']['logging_config']
     with open(logging_config_path, 'r') as f:
-        logging.config.dictConfig(yaml.safe_load(f))
+        logging_config = yaml.safe_load(f)
+
+    # Collect all log file paths into a list
+    log_files = []
+    for handler in logging_config.get('handlers', {}).values():
+        if 'filename' in handler:
+            log_file_path = handler['filename']
+            log_files.append(log_file_path)
+
+    # Remove old logs by passing the correct list of log files
+    remove_old_logs(log_files)
+
+    logging.config.dictConfig(logging_config)
 
     # Apply the simulation time filter to all loggers' handlers
     simulation_time_filter = SimulationTimeFilter(env)
@@ -24,8 +62,6 @@ def setup_logging(config, env):
         logger = logging.getLogger(logger_name)
         for handler in logger.handlers:
             handler.addFilter(simulation_time_filter)
-
-
 
 def run_simulation(config_path):
     # Load the simulation configuration
@@ -69,7 +105,7 @@ def run_simulation(config_path):
         for armament in ship_config.get('armaments', []):
             for missile_config in armament.get('missiles', []):
                 missile = Missile(lat=missile_config['lat'], lon=missile_config['lon'], alt=missile_config['alt'],
-                                  velocity=missile_config['velocity'], orientation=missile_config['orientation'], 
+                                  velocity=missile_config['velocity'], orientation=[75, 0, 0],  # Change to 75 degrees
                                   fuel=missile_config['fuel'], entity_id=missile_config['entity_id'])
                 env.add_entity(missile)
                 entities[missile.entity_id] = missile
@@ -84,11 +120,20 @@ def run_simulation(config_path):
         entities[aircraft.entity_id] = aircraft
         logging.info(f"Added aircraft: {aircraft.entity_id}")
 
-    # Add missiles not embedded in ships
+        # Add missiles not embedded in ships
+    # Modify missile initialization to use config values
     for missile_config in entities_config['entities'].get('missiles', []):
-        missile = Missile(lat=missile_config['lat'], lon=missile_config['lon'], alt=missile_config['alt'],
-                          velocity=missile_config['velocity'], orientation=missile_config['orientation'],
-                          fuel=missile_config['fuel'], entity_id=missile_config['entity_id'])
+        print(f"Missile fuel in config: {missile_config.get('fuel', 100)}")
+        
+        missile = Missile(
+            lat=missile_config['lat'],
+            lon=missile_config['lon'],
+            alt=missile_config['alt'],
+            velocity=missile_config.get('velocity', [0, 0, 0]),  # Default velocity if not specified
+            orientation=missile_config.get('orientation', [90, 0, 0]),  # Default orientation if not specified
+            fuel=missile_config.get('fuel', 100),  # Default fuel if not specified
+            entity_id=missile_config['entity_id']
+        )
         env.add_entity(missile)
         entities[missile.entity_id] = missile
         logging.info(f"Added missile: {missile.entity_id}")

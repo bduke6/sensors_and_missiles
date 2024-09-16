@@ -14,11 +14,11 @@
       {
         "lat": 13.5,
         "lon": 144.8,
-        "alt": 0,
+        "alt": 50,
         "velocity": [0, 0, 0],
-        "orientation": [45, 0, 0],
+        "orientation": [90, 0, 0],
         "entity_id": "missile_1",
-        "fuel": 100
+        "fuel": 20
       }
     ]
   }
