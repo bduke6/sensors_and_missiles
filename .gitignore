@@ -1,0 +1,12 @@
+# Ignore __pycache__ directories
+__pycache__/
+
+# Ignore log files
+*.log
+logs/
+
+# Ignore virtual environment folder if it's part of your project
+mas/
+
+*.pyc
+.DS_Store
