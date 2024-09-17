@@ -1,0 +1,4 @@
+{
+  "tests/test_entities_config.py::test_environment_process_events": true,
+  "tests/test_basic_func.py::test_missile_movement": true
+}

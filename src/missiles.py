@@ -7,8 +7,10 @@ from events import MovementEvent  # Import needed event classes
 missile_logger = logging.getLogger('missile')
 
 # Constants
-APOGEE_ALTITUDE = 80000  # Example apogee altitude for DF-21D in meters
-GROUND_TOLERANCE = 1.0  # Increased tolerance for ground impact detection to 1 meter
+APOGEE_ALTITUDE = 800000  # Apogee for DF-21D in meters (~800 km)
+BOOST_PHASE_DURATION = 120  # Boost phase lasts for 2 minutes (120 seconds)
+GROUND_TOLERANCE = 1.0  # Tolerance for ground impact detection
+TERMINAL_PHASE_PITCH = -45  # Steep descent in terminal phase
 
 class Missile:
     def __init__(self, lat, lon, alt, velocity, orientation, entity_id=None, fuel=100, max_velocity=300):
@@ -24,7 +26,9 @@ class Missile:
         self.deceleration_rate = 5   # Deceleration rate in no-power flight
         self.gravity = 9.81  # Gravity value for downward acceleration
         self.apogee_reached = False
+        self.boost_phase = True
         self.target = None  # To store the target's coordinates
+        self.elapsed_time = 0  # Track time since launch
 
         # Initialize ECEF coordinates using geodetic to ECEF conversion
         self.X, self.Y, self.Z = geodetic_to_ecef(self.lat, self.lon, self.alt)
@@ -49,10 +53,14 @@ class Missile:
         self.schedule_event(MovementEvent, env, time_step=1)
 
     def move(self, time_step, env):
-        """Handle missile movement, accounting for fuel, thrust, and gravity."""
-        if self.fuel > 0:
+        """Handle missile movement, accounting for fuel, thrust, gravity, and flight phases."""
+        self.elapsed_time += time_step
+
+        # Boost phase (climb to apogee)
+        if self.boost_phase and self.elapsed_time <= BOOST_PHASE_DURATION:
             self._apply_thrust(time_step)
-        elif self.alt >= APOGEE_ALTITUDE and not self.apogee_reached:
+            self._adjust_pitch_for_boost_phase()
+        elif not self.apogee_reached and self.alt >= APOGEE_ALTITUDE:
             self._switch_to_glide()
         elif self.apogee_reached:
             self._glide_with_gravity(time_step)
@@ -63,24 +71,25 @@ class Missile:
             self.schedule_event(MovementEvent, env, time_step=1)
 
     def _apply_thrust(self, time_step):
-        """Apply thrust while fuel is available."""
-        missile_logger.info(f"Missile {self.entity_id} is in powered flight.")
-        if self.alt >= APOGEE_ALTITUDE:
-            missile_logger.info(f"Missile {self.entity_id} reached apogee at {self.alt} meters.")
-            self.apogee_reached = True
-            self._switch_to_glide()
-
+        """Apply thrust during the powered boost phase."""
+        missile_logger.info(f"Missile {self.entity_id} is in powered boost flight.")
         self.velocity[2] += (self.acceleration_rate - self.gravity) * time_step
         self.fuel -= time_step * 10  # Decrease fuel
 
         if self.fuel <= 0:
             self._switch_to_glide()
 
+    def _adjust_pitch_for_boost_phase(self):
+        """Adjust the pitch of the missile during the boost phase to gradually increase altitude."""
+        # The pitch will gradually lower during the boost phase to transition toward horizontal flight
+        self.orientation[0] = max(45, self.orientation[0] - 0.3)  # Gradually decrease pitch
+        missile_logger.info(f"Missile {self.entity_id} adjusted pitch during boost phase: {self.orientation[0]} degrees")
+
     def _switch_to_glide(self):
         """Switch to glide mode when apogee is reached or fuel runs out."""
-        missile_logger.info(f"Missile {self.entity_id} switching to glide mode.")
-        self.acceleration_rate = 0  # No more thrust
-        self.deceleration_rate = 5   # Apply deceleration
+        missile_logger.info(f"Missile {self.entity_id} switching to glide mode at altitude {self.alt}.")
+        self.boost_phase = False
+        self.apogee_reached = True
         self._set_glide_orientation()
 
     def _glide_with_gravity(self, time_step):
@@ -95,15 +104,23 @@ class Missile:
         self.velocity[1] *= scale_factor
         self.velocity[2] -= self.gravity * time_step
 
+        # If near terminal phase, adjust pitch for steep descent
+        if self.alt <= 50000:  # Example threshold for terminal phase (~50 km altitude)
+            self._adjust_for_terminal_phase()
+
         missile_logger.info(f"Missile {self.entity_id} velocity during glide: {self.velocity}")
         self._log_position()
 
     def _set_glide_orientation(self):
         """Adjust missile orientation to glide towards the target."""
         distance, bearing = calculate_distance_and_bearing(self.lat, self.lon, self.target.lat, self.target.lon)
-        self.orientation[1] = bearing
-        self.orientation[0] = -45  # Set descent pitch
+        self.orientation[1] = bearing  # Set yaw towards target
         missile_logger.info(f"Missile {self.entity_id} adjusted orientation for glide: pitch {self.orientation[0]}, yaw {self.orientation[1]}")
+
+    def _adjust_for_terminal_phase(self):
+        """Adjust the missile for the steep descent in the terminal phase."""
+        missile_logger.info(f"Missile {self.entity_id} entering terminal phase, adjusting pitch to {TERMINAL_PHASE_PITCH}.")
+        self.orientation[0] = TERMINAL_PHASE_PITCH  # Steep descent pitch
 
     def _update_position(self, time_step, env):
         """Update the missile position based on its velocity."""

@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 def geodetic_to_ecef(lat, lon, alt):
     # WGS84 ellipsoid constants
@@ -62,3 +63,28 @@ def calculate_distance_and_bearing(lat1, lon1, lat2, lon2):
     bearing = (bearing + 360) % 360
 
     return distance, bearing
+
+def calculate_target_position(lat, lon, distance_km, bearing_degrees):
+    """Calculate the target's latitude and longitude based on distance and bearing."""
+    R = 6371  # Earth's radius in kilometers
+    bearing = math.radians(bearing_degrees)
+
+    lat = math.radians(lat)
+    lon = math.radians(lon)
+
+    target_lat = math.asin(math.sin(lat) * math.cos(distance_km / R) +
+                           math.cos(lat) * math.sin(distance_km / R) * math.cos(bearing))
+
+    target_lon = lon + math.atan2(math.sin(bearing) * math.sin(distance_km / R) * math.cos(lat),
+                                  math.cos(distance_km / R) - math.sin(lat) * math.sin(target_lat))
+
+    return math.degrees(target_lat), math.degrees(target_lon)
+
+# Example usage:
+launch_lat = 14.0
+launch_lon = 145.0
+distance_to_target_km = 3000
+bearing_west = 270
+
+target_lat, target_lon = calculate_target_position(launch_lat, launch_lon, distance_to_target_km, bearing_west)
+print(f"Target is at lat: {target_lat}, lon: {target_lon}")
