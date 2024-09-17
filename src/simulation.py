@@ -4,7 +4,8 @@ import logging
 import logging.config
 import os  # Import os to handle file deletion
 from environment import Environment
-from entities import Ship, Missile, Aircraft
+from entities import Ship, Aircraft
+from missiles import Missile
 from events import LaunchEvent
 from logging_config import SimulationTimeFilter, FileHandlerWithHeader
 

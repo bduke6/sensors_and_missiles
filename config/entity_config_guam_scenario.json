@@ -18,7 +18,7 @@
         "velocity": [0, 0, 0],
         "orientation": [90, 0, 0],
         "entity_id": "missile_1",
-        "fuel": 20
+        "fuel": 2000
       }
     ]
   }

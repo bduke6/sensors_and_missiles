@@ -1,151 +1,1272 @@
 === Log Start ===
-Date and Time: 2024-09-13 16:41:08
+Date and Time: 2024-09-17 14:58:21
 === Log Start ===
 Timestamp - Logger Name - Log Level - Message
 
 0 - root - INFO - Starting simulation with config: config/config_guam.yaml
 0 - root - INFO - Entities file: config/entity_config_guam_scenario.json
 0 - root - INFO - Scenario file: config/scenarios/scenario_guam_1000km_west.yaml
-0 - environment - INFO - Added entity: <entities.Ship object at 0x10080ff50>
+0 - environment - INFO - Added entity: <entities.Ship object at 0x10480b620>
 0 - root - INFO - Added ship: ship_1
-0 - environment - INFO - Added entity: <entities.Missile object at 0x100daddc0>
+0 - environment - INFO - Added entity: <missiles.Missile object at 0x1058fdfa0>
 0 - root - INFO - Added missile: missile_1
-0 - environment - INFO - Scheduled event: <events.LaunchEvent object at 0x100f0e3c0>
-0 - root - INFO - Scheduled event: <events.LaunchEvent object at 0x100f0e3c0>
+0 - environment - INFO - Scheduled event: <events.LaunchEvent object at 0x104cbc8c0>
+0 - root - INFO - Scheduled event: <events.LaunchEvent object at 0x104cbc8c0>
 0 - root - INFO - Starting event processing
-10 - environment - INFO - Handling event: <events.LaunchEvent object at 0x100f0e3c0> at time 10
-10 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-11 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 11
-11 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-12 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 12
-12 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-13 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 13
-13 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-14 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 14
-14 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-15 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 15
-15 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-16 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 16
-16 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-17 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 17
-17 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-18 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 18
-18 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-19 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 19
-19 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-20 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 20
-20 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-21 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 21
-21 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-22 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 22
-22 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-23 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 23
-23 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-24 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 24
-24 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-25 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 25
-25 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-26 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 26
-26 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-27 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 27
-27 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-28 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 28
-28 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-29 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 29
-29 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-30 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 30
-30 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-31 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 31
-31 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-32 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 32
-32 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-33 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 33
-33 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-34 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 34
-34 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-35 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 35
-35 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-36 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 36
-36 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-37 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 37
-37 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-38 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 38
-38 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-39 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 39
-39 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-40 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 40
-40 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-41 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 41
-41 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-42 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 42
-42 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-43 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 43
-43 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-44 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 44
-44 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-45 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 45
-45 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-46 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 46
-46 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-47 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 47
-47 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-48 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 48
-48 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-49 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 49
-49 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-50 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 50
-50 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-51 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 51
-51 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-52 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 52
-52 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-53 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 53
-53 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-54 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 54
-54 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-55 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 55
-55 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-56 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 56
-56 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-57 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 57
-57 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-58 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 58
-58 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-59 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 59
-59 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-60 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 60
-60 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-61 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 61
-61 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-62 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 62
-62 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-63 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 63
-63 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-64 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 64
-64 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-65 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 65
-65 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-66 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 66
-66 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-67 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 67
-67 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-68 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 68
-68 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-69 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 69
-69 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-70 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 70
-70 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-71 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 71
-71 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-72 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 72
-72 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-73 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 73
-73 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-74 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 74
-74 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-75 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 75
-75 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x100df2d50>
-76 - environment - INFO - Handling event: <events.MovementEvent object at 0x100df2d50> at time 76
-76 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10103baa0>
-77 - environment - INFO - Handling event: <events.MovementEvent object at 0x10103baa0> at time 77
-77 - root - INFO - Simulation completed successfully.
+10 - environment - INFO - Handling event: <events.LaunchEvent object at 0x104cbc8c0> at time 10
+10 - missile - INFO - Missile missile_1 launched at target ship_1
+10 - missile - INFO - Missile missile_1 initial velocity: [1.8369701987210297e-14, 0.0, 300.0]
+10 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+11 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 11
+11 - missile - INFO - Missile missile_1 is in powered flight.
+11 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1479560.6569866922)
+11 - missile - INFO - Missile missile_1 moved to lat: 13.502639971393116, lon: 144.80000000000004, alt: 120.12852662894875
+11 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+11 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+12 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 12
+12 - missile - INFO - Missile missile_1 is in powered flight.
+12 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1479861.036986692)
+12 - missile - INFO - Missile missile_1 moved to lat: 13.505280867827363, lon: 144.80000000000004, alt: 190.29665865376592
+12 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+12 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+13 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 13
+13 - missile - INFO - Missile missile_1 is in powered flight.
+13 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1480161.6069866922)
+13 - missile - INFO - Missile missile_1 moved to lat: 13.507923376188304, lon: 144.80000000000004, alt: 260.5226689707488
+13 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+13 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+14 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 14
+14 - missile - INFO - Missile missile_1 is in powered flight.
+14 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1480462.3669866922)
+14 - missile - INFO - Missile missile_1 moved to lat: 13.510567496355609, lon: 144.80000000000004, alt: 330.80658273771405
+14 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+14 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+15 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 15
+15 - missile - INFO - Missile missile_1 is in powered flight.
+15 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1480763.3169866921)
+15 - missile - INFO - Missile missile_1 moved to lat: 13.513213228208846, lon: 144.80000000000004, alt: 401.14842513017356
+15 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+15 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+16 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 16
+16 - missile - INFO - Missile missile_1 is in powered flight.
+16 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1481064.456986692)
+16 - missile - INFO - Missile missile_1 moved to lat: 13.515860571627481, lon: 144.80000000000004, alt: 471.5482213338837
+16 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+16 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+17 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 17
+17 - missile - INFO - Missile missile_1 is in powered flight.
+17 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1481365.786986692)
+17 - missile - INFO - Missile missile_1 moved to lat: 13.51850952649088, lon: 144.80000000000004, alt: 542.005996549502
+17 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+17 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+18 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 18
+18 - missile - INFO - Missile missile_1 is in powered flight.
+18 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1481667.3069866921)
+18 - missile - INFO - Missile missile_1 moved to lat: 13.521160092678292, lon: 144.80000000000004, alt: 612.5217759953812
+18 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+18 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+19 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 19
+19 - missile - INFO - Missile missile_1 is in powered flight.
+19 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1481969.016986692)
+19 - missile - INFO - Missile missile_1 moved to lat: 13.523812270068873, lon: 144.80000000000004, alt: 683.0955849038437
+19 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+19 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+20 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 20
+20 - missile - INFO - Missile missile_1 is in powered flight.
+20 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1482270.916986692)
+20 - missile - INFO - Missile missile_1 moved to lat: 13.526466058541672, lon: 144.80000000000004, alt: 753.7274485174567
+20 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+20 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+21 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 21
+21 - missile - INFO - Missile missile_1 is in powered flight.
+21 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1482573.006986692)
+21 - missile - INFO - Missile missile_1 moved to lat: 13.529121457975634, lon: 144.80000000000004, alt: 824.4173920964822
+21 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+21 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+22 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 22
+22 - missile - INFO - Missile missile_1 is in powered flight.
+22 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1482875.286986692)
+22 - missile - INFO - Missile missile_1 moved to lat: 13.531778468249595, lon: 144.80000000000004, alt: 895.1654409160838
+22 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+22 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+23 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 23
+23 - missile - INFO - Missile missile_1 is in powered flight.
+23 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1483177.756986692)
+23 - missile - INFO - Missile missile_1 moved to lat: 13.53443708924229, lon: 144.80000000000004, alt: 965.9716202644631
+23 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+23 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+24 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 24
+24 - missile - INFO - Missile missile_1 is in powered flight.
+24 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1483480.416986692)
+24 - missile - INFO - Missile missile_1 moved to lat: 13.537097320832352, lon: 144.80000000000004, alt: 1036.835955443792
+24 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+24 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+25 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 25
+25 - missile - INFO - Missile missile_1 is in powered flight.
+25 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1483783.266986692)
+25 - missile - INFO - Missile missile_1 moved to lat: 13.539759162898308, lon: 144.80000000000004, alt: 1107.7584717720747
+25 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+25 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+26 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 26
+26 - missile - INFO - Missile missile_1 is in powered flight.
+26 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1484086.3069866921)
+26 - missile - INFO - Missile missile_1 moved to lat: 13.542422615318577, lon: 144.80000000000004, alt: 1178.7391945831478
+26 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+26 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+27 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 27
+27 - missile - INFO - Missile missile_1 is in powered flight.
+27 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1484389.536986692)
+27 - missile - INFO - Missile missile_1 moved to lat: 13.545087677971477, lon: 144.80000000000004, alt: 1249.7781492201611
+27 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+27 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+28 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 28
+28 - missile - INFO - Missile missile_1 is in powered flight.
+28 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1484692.956986692)
+28 - missile - INFO - Missile missile_1 moved to lat: 13.547754350735218, lon: 144.80000000000004, alt: 1320.8753610448912
+28 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+28 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+29 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 29
+29 - missile - INFO - Missile missile_1 is in powered flight.
+29 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1484996.5669866921)
+29 - missile - INFO - Missile missile_1 moved to lat: 13.550422633487912, lon: 144.80000000000004, alt: 1392.0308554321527
+29 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+29 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+30 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 30
+30 - missile - INFO - Missile missile_1 is in powered flight.
+30 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1485300.3669866922)
+30 - missile - INFO - Missile missile_1 moved to lat: 13.553092526107557, lon: 144.80000000000004, alt: 1463.2446577735245
+30 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+30 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+31 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 31
+31 - missile - INFO - Missile missile_1 is in powered flight.
+31 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1485604.3569866922)
+31 - missile - INFO - Missile missile_1 moved to lat: 13.555764028472055, lon: 144.80000000000004, alt: 1534.5167934680358
+31 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+31 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+32 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 32
+32 - missile - INFO - Missile missile_1 is in powered flight.
+32 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1485908.536986692)
+32 - missile - INFO - Missile missile_1 moved to lat: 13.558437140459194, lon: 144.80000000000004, alt: 1605.8472879398614
+32 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+32 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+33 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 33
+33 - missile - INFO - Missile missile_1 is in powered flight.
+33 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1486212.9069866922)
+33 - missile - INFO - Missile missile_1 moved to lat: 13.561111861946669, lon: 144.80000000000004, alt: 1677.2361666169018
+33 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+33 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+34 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 34
+34 - missile - INFO - Missile missile_1 is in powered flight.
+34 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1486517.4669866923)
+34 - missile - INFO - Missile missile_1 moved to lat: 13.563788192812057, lon: 144.80000000000004, alt: 1748.68345495034
+34 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+34 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+35 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 35
+35 - missile - INFO - Missile missile_1 is in powered flight.
+35 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1486822.2169866923)
+35 - missile - INFO - Missile missile_1 moved to lat: 13.566466132932836, lon: 144.80000000000004, alt: 1820.1891783960164
+35 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+35 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+36 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 36
+36 - missile - INFO - Missile missile_1 is in powered flight.
+36 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1487127.1569866922)
+36 - missile - INFO - Missile missile_1 moved to lat: 13.569145682186385, lon: 144.80000000000004, alt: 1891.7533624349162
+36 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+36 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+37 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 37
+37 - missile - INFO - Missile missile_1 is in powered flight.
+37 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1487432.286986692)
+37 - missile - INFO - Missile missile_1 moved to lat: 13.571826840449965, lon: 144.80000000000004, alt: 1963.3760325545445
+37 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+37 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+38 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 38
+38 - missile - INFO - Missile missile_1 is in powered flight.
+38 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1487737.6069866922)
+38 - missile - INFO - Missile missile_1 moved to lat: 13.574509607600747, lon: 144.80000000000004, alt: 2035.0572142601013
+38 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+38 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+39 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 39
+39 - missile - INFO - Missile missile_1 is in powered flight.
+39 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1488043.1169866922)
+39 - missile - INFO - Missile missile_1 moved to lat: 13.577193983515786, lon: 144.80000000000004, alt: 2106.7969330707565
+39 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+39 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+40 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 40
+40 - missile - INFO - Missile missile_1 is in powered flight.
+40 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1488348.8169866921)
+40 - missile - INFO - Missile missile_1 moved to lat: 13.579879968072028, lon: 144.80000000000004, alt: 2178.5952145196497
+40 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+40 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+41 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 41
+41 - missile - INFO - Missile missile_1 is in powered flight.
+41 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1488654.706986692)
+41 - missile - INFO - Missile missile_1 moved to lat: 13.582567561146327, lon: 144.80000000000004, alt: 2250.452084154822
+41 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+41 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+42 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 42
+42 - missile - INFO - Missile missile_1 is in powered flight.
+42 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1488960.786986692)
+42 - missile - INFO - Missile missile_1 moved to lat: 13.585256762615424, lon: 144.80000000000004, alt: 2322.3675675373524
+42 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+42 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+43 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 43
+43 - missile - INFO - Missile missile_1 is in powered flight.
+43 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1489267.0569866921)
+43 - missile - INFO - Missile missile_1 moved to lat: 13.587947572355956, lon: 144.80000000000004, alt: 2394.341690244153
+43 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+43 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+44 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 44
+44 - missile - INFO - Missile missile_1 is in powered flight.
+44 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1489573.516986692)
+44 - missile - INFO - Missile missile_1 moved to lat: 13.590639990244451, lon: 144.80000000000004, alt: 2466.3744778651744
+44 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+44 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+45 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 45
+45 - missile - INFO - Missile missile_1 is in powered flight.
+45 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1489880.166986692)
+45 - missile - INFO - Missile missile_1 moved to lat: 13.593334016157337, lon: 144.80000000000004, alt: 2538.465956006199
+45 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+45 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+46 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 46
+46 - missile - INFO - Missile missile_1 is in powered flight.
+46 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1490187.006986692)
+46 - missile - INFO - Missile missile_1 moved to lat: 13.596029649970934, lon: 144.80000000000004, alt: 2610.6161502860487
+46 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+46 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+47 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 47
+47 - missile - INFO - Missile missile_1 is in powered flight.
+47 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1490494.036986692)
+47 - missile - INFO - Missile missile_1 moved to lat: 13.598726891561459, lon: 144.80000000000004, alt: 2682.825086339377
+47 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+47 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+48 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 48
+48 - missile - INFO - Missile missile_1 is in powered flight.
+48 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1490801.256986692)
+48 - missile - INFO - Missile missile_1 moved to lat: 13.601425740805015, lon: 144.80000000000004, alt: 2755.0927898148075
+48 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+48 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+49 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 49
+49 - missile - INFO - Missile missile_1 is in powered flight.
+49 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1491108.666986692)
+49 - missile - INFO - Missile missile_1 moved to lat: 13.604126197577608, lon: 144.80000000000004, alt: 2827.4192863730714
+49 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+49 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+50 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 50
+50 - missile - INFO - Missile missile_1 is in powered flight.
+50 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1491416.266986692)
+50 - missile - INFO - Missile missile_1 moved to lat: 13.606828261755142, lon: 144.80000000000004, alt: 2899.804601690732
+50 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+50 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+51 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 51
+51 - missile - INFO - Missile missile_1 is in powered flight.
+51 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1491724.0569866921)
+51 - missile - INFO - Missile missile_1 moved to lat: 13.609531933213399, lon: 144.80000000000004, alt: 2972.248761460185
+51 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+51 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+52 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 52
+52 - missile - INFO - Missile missile_1 is in powered flight.
+52 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1492032.036986692)
+52 - missile - INFO - Missile missile_1 moved to lat: 13.612237211828072, lon: 144.80000000000004, alt: 3044.7517913877964
+52 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+52 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+53 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 53
+53 - missile - INFO - Missile missile_1 is in powered flight.
+53 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1492340.206986692)
+53 - missile - INFO - Missile missile_1 moved to lat: 13.614944097474737, lon: 144.80000000000004, alt: 3117.3137171911076
+53 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+53 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+54 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 54
+54 - missile - INFO - Missile missile_1 is in powered flight.
+54 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1492648.5669866921)
+54 - missile - INFO - Missile missile_1 moved to lat: 13.617652590028872, lon: 144.80000000000004, alt: 3189.9345646053553
+54 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+54 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+55 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 55
+55 - missile - INFO - Missile missile_1 is in powered flight.
+55 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1492957.1169866922)
+55 - missile - INFO - Missile missile_1 moved to lat: 13.620362689365844, lon: 144.80000000000004, alt: 3262.6143593788147
+55 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+55 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+56 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 56
+56 - missile - INFO - Missile missile_1 is in powered flight.
+56 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1493265.8569866922)
+56 - missile - INFO - Missile missile_1 moved to lat: 13.623074395360915, lon: 144.80000000000004, alt: 3335.353127273731
+56 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+56 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+57 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 57
+57 - missile - INFO - Missile missile_1 is in powered flight.
+57 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1493574.786986692)
+57 - missile - INFO - Missile missile_1 moved to lat: 13.625787707889241, lon: 144.80000000000004, alt: 3408.150894069113
+57 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+57 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+58 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 58
+58 - missile - INFO - Missile missile_1 is in powered flight.
+58 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1493883.9069866922)
+58 - missile - INFO - Missile missile_1 moved to lat: 13.628502626825874, lon: 144.80000000000004, alt: 3481.0076855532825
+58 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+58 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+59 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 59
+59 - missile - INFO - Missile missile_1 is in powered flight.
+59 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1494193.2169866923)
+59 - missile - INFO - Missile missile_1 moved to lat: 13.631219152045757, lon: 144.80000000000004, alt: 3553.923527535051
+59 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+59 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+60 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 60
+60 - missile - INFO - Missile missile_1 is in powered flight.
+60 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1494502.7169866923)
+60 - missile - INFO - Missile missile_1 moved to lat: 13.633937283423728, lon: 144.80000000000004, alt: 3626.8984458316118
+60 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+60 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+61 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 61
+61 - missile - INFO - Missile missile_1 is in powered flight.
+61 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1494812.4069866922)
+61 - missile - INFO - Missile missile_1 moved to lat: 13.63665702083452, lon: 144.80000000000004, alt: 3699.932466278784
+61 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+61 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+62 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 62
+62 - missile - INFO - Missile missile_1 is in powered flight.
+62 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1495122.286986692)
+62 - missile - INFO - Missile missile_1 moved to lat: 13.639378364152758, lon: 144.80000000000004, alt: 3773.0256147244945
+62 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+62 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+63 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 63
+63 - missile - INFO - Missile missile_1 is in powered flight.
+63 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1495432.3569866922)
+63 - missile - INFO - Missile missile_1 moved to lat: 13.642101313252962, lon: 144.80000000000004, alt: 3846.1779170325026
+63 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+63 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+64 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 64
+64 - missile - INFO - Missile missile_1 is in powered flight.
+64 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1495742.6169866922)
+64 - missile - INFO - Missile missile_1 moved to lat: 13.644825868009544, lon: 144.80000000000004, alt: 3919.3893990777433
+64 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+64 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+65 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 65
+65 - missile - INFO - Missile missile_1 is in powered flight.
+65 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1496053.0669866921)
+65 - missile - INFO - Missile missile_1 moved to lat: 13.64755202829681, lon: 144.80000000000004, alt: 3992.6600867547095
+65 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+65 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+66 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 66
+66 - missile - INFO - Missile missile_1 is in powered flight.
+66 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1496363.706986692)
+66 - missile - INFO - Missile missile_1 moved to lat: 13.65027979398896, lon: 144.80000000000004, alt: 4065.9900059672073
+66 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+66 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+67 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 67
+67 - missile - INFO - Missile missile_1 is in powered flight.
+67 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1496674.536986692)
+67 - missile - INFO - Missile missile_1 moved to lat: 13.65300916496009, lon: 144.80000000000004, alt: 4139.3791826358065
+67 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+67 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+68 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 68
+68 - missile - INFO - Missile missile_1 is in powered flight.
+68 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1496985.5569866921)
+68 - missile - INFO - Missile missile_1 moved to lat: 13.655740141084188, lon: 144.80000000000004, alt: 4212.827642695978
+68 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+68 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+69 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 69
+69 - missile - INFO - Missile missile_1 is in powered flight.
+69 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1497296.766986692)
+69 - missile - INFO - Missile missile_1 moved to lat: 13.658472722235128, lon: 144.80000000000004, alt: 4286.335412093438
+69 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+69 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+70 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 70
+70 - missile - INFO - Missile missile_1 is in powered flight.
+70 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1497608.166986692)
+70 - missile - INFO - Missile missile_1 moved to lat: 13.661206908286692, lon: 144.80000000000004, alt: 4359.90251679346
+70 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+70 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+71 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 71
+71 - missile - INFO - Missile missile_1 is in powered flight.
+71 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1497919.756986692)
+71 - missile - INFO - Missile missile_1 moved to lat: 13.663942699112543, lon: 144.80000000000004, alt: 4433.528982772492
+71 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+71 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+72 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 72
+72 - missile - INFO - Missile missile_1 is in powered flight.
+72 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1498231.536986692)
+72 - missile - INFO - Missile missile_1 moved to lat: 13.666680094586239, lon: 144.80000000000004, alt: 4507.214836021885
+72 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+72 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+73 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 73
+73 - missile - INFO - Missile missile_1 is in powered flight.
+73 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1498543.506986692)
+73 - missile - INFO - Missile missile_1 moved to lat: 13.669419094581237, lon: 144.80000000000004, alt: 4580.960102546029
+73 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+73 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+74 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 74
+74 - missile - INFO - Missile missile_1 is in powered flight.
+74 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1498855.666986692)
+74 - missile - INFO - Missile missile_1 moved to lat: 13.672159698970882, lon: 144.80000000000004, alt: 4654.764808367938
+74 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+74 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+75 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 75
+75 - missile - INFO - Missile missile_1 is in powered flight.
+75 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1499168.016986692)
+75 - missile - INFO - Missile missile_1 moved to lat: 13.674901907628417, lon: 144.80000000000004, alt: 4728.628979518078
+75 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+75 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+76 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 76
+76 - missile - INFO - Missile missile_1 is in powered flight.
+76 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1499480.5569866921)
+76 - missile - INFO - Missile missile_1 moved to lat: 13.677645720426973, lon: 144.80000000000004, alt: 4802.552642047405
+76 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+76 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+77 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 77
+77 - missile - INFO - Missile missile_1 is in powered flight.
+77 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1499793.286986692)
+77 - missile - INFO - Missile missile_1 moved to lat: 13.680391137239575, lon: 144.80000000000004, alt: 4876.53582201805
+77 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+77 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+78 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 78
+78 - missile - INFO - Missile missile_1 is in powered flight.
+78 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1500106.206986692)
+78 - missile - INFO - Missile missile_1 moved to lat: 13.683138157939142, lon: 144.80000000000004, alt: 4950.578545507044
+78 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+78 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+79 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 79
+79 - missile - INFO - Missile missile_1 is in powered flight.
+79 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1500419.3169866921)
+79 - missile - INFO - Missile missile_1 moved to lat: 13.685886782398489, lon: 144.80000000000004, alt: 5024.680838605389
+79 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+79 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+80 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 80
+80 - missile - INFO - Missile missile_1 is in powered flight.
+80 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1500732.6169866922)
+80 - missile - INFO - Missile missile_1 moved to lat: 13.68863701049032, lon: 144.80000000000004, alt: 5098.842727417126
+80 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+80 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+81 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 81
+81 - missile - INFO - Missile missile_1 is in powered flight.
+81 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1501046.1069866922)
+81 - missile - INFO - Missile missile_1 moved to lat: 13.691388842087228, lon: 144.80000000000004, alt: 5173.064238063991
+81 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+81 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+82 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 82
+82 - missile - INFO - Missile missile_1 is in powered flight.
+82 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1501359.786986692)
+82 - missile - INFO - Missile missile_1 moved to lat: 13.694142277061708, lon: 144.80000000000004, alt: 5247.345396677032
+82 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+82 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+83 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 83
+83 - missile - INFO - Missile missile_1 is in powered flight.
+83 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1501673.6569866922)
+83 - missile - INFO - Missile missile_1 moved to lat: 13.696897315286144, lon: 144.80000000000004, alt: 5321.68622940965
+83 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+83 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+84 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 84
+84 - missile - INFO - Missile missile_1 is in powered flight.
+84 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1501987.7169866923)
+84 - missile - INFO - Missile missile_1 moved to lat: 13.69965395663281, lon: 144.80000000000004, alt: 5396.086762418039
+84 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+84 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+85 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 85
+85 - missile - INFO - Missile missile_1 is in powered flight.
+85 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1502301.9669866923)
+85 - missile - INFO - Missile missile_1 moved to lat: 13.702412200973873, lon: 144.80000000000004, alt: 5470.54702188354
+85 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+85 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+86 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 86
+86 - missile - INFO - Missile missile_1 is in powered flight.
+86 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1502616.4069866922)
+86 - missile - INFO - Missile missile_1 moved to lat: 13.705172048181398, lon: 144.80000000000004, alt: 5545.067033994012
+86 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+86 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+87 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 87
+87 - missile - INFO - Missile missile_1 is in powered flight.
+87 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1502931.036986692)
+87 - missile - INFO - Missile missile_1 moved to lat: 13.707933498127332, lon: 144.80000000000004, alt: 5619.646824956872
+87 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+87 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+88 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 88
+88 - missile - INFO - Missile missile_1 is in powered flight.
+88 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1503245.8569866922)
+88 - missile - INFO - Missile missile_1 moved to lat: 13.710696550683531, lon: 144.80000000000004, alt: 5694.28642098885
+88 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+88 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+89 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 89
+89 - missile - INFO - Missile missile_1 is in powered flight.
+89 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1503560.8669866922)
+89 - missile - INFO - Missile missile_1 moved to lat: 13.713461205721726, lon: 144.80000000000004, alt: 5768.985848324373
+89 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+89 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+90 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 90
+90 - missile - INFO - Missile missile_1 is in powered flight.
+90 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1503876.0669866921)
+90 - missile - INFO - Missile missile_1 moved to lat: 13.716227463113553, lon: 144.80000000000004, alt: 5843.745133209974
+90 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+90 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+91 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 91
+91 - missile - INFO - Missile missile_1 is in powered flight.
+91 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1504191.456986692)
+91 - missile - INFO - Missile missile_1 moved to lat: 13.718995322730532, lon: 144.80000000000004, alt: 5918.56430191081
+91 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+91 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+92 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 92
+92 - missile - INFO - Missile missile_1 is in powered flight.
+92 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1504507.036986692)
+92 - missile - INFO - Missile missile_1 moved to lat: 13.72176478444408, lon: 144.80000000000004, alt: 5993.443380699493
+92 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+92 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+93 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 93
+93 - missile - INFO - Missile missile_1 is in powered flight.
+93 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1504822.8069866921)
+93 - missile - INFO - Missile missile_1 moved to lat: 13.724535848125505, lon: 144.80000000000004, alt: 6068.38239586819
+93 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+93 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+94 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 94
+94 - missile - INFO - Missile missile_1 is in powered flight.
+94 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1505138.766986692)
+94 - missile - INFO - Missile missile_1 moved to lat: 13.72730851364601, lon: 144.80000000000004, alt: 6143.381373720244
+94 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+94 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+95 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 95
+95 - missile - INFO - Missile missile_1 is in powered flight.
+95 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1505454.916986692)
+95 - missile - INFO - Missile missile_1 moved to lat: 13.730082780876684, lon: 144.80000000000004, alt: 6218.440340575762
+95 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+95 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+96 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 96
+96 - missile - INFO - Missile missile_1 is in powered flight.
+96 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1505771.256986692)
+96 - missile - INFO - Missile missile_1 moved to lat: 13.732858649688511, lon: 144.80000000000004, alt: 6293.55932276696
+96 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+96 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+97 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 97
+97 - missile - INFO - Missile missile_1 is in powered flight.
+97 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1506087.786986692)
+97 - missile - INFO - Missile missile_1 moved to lat: 13.735636119952373, lon: 144.80000000000004, alt: 6368.738346638158
+97 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+97 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+98 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 98
+98 - missile - INFO - Missile missile_1 is in powered flight.
+98 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1506404.506986692)
+98 - missile - INFO - Missile missile_1 moved to lat: 13.738415191539033, lon: 144.80000000000004, alt: 6443.977438555099
+98 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+98 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+99 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 99
+99 - missile - INFO - Missile missile_1 is in powered flight.
+99 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1506721.416986692)
+99 - missile - INFO - Missile missile_1 moved to lat: 13.741195864319154, lon: 144.80000000000004, alt: 6519.276624889113
+99 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+99 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+100 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 100
+100 - missile - INFO - Missile missile_1 is in powered flight.
+100 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1507038.516986692)
+100 - missile - INFO - Missile missile_1 moved to lat: 13.74397813816329, lon: 144.80000000000004, alt: 6594.63593203295
+100 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+100 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+101 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 101
+101 - missile - INFO - Missile missile_1 is in powered flight.
+101 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1507355.8069866921)
+101 - missile - INFO - Missile missile_1 moved to lat: 13.746762012941886, lon: 144.80000000000004, alt: 6670.055386389606
+101 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+101 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+102 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 102
+102 - missile - INFO - Missile missile_1 is in powered flight.
+102 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1507673.286986692)
+102 - missile - INFO - Missile missile_1 moved to lat: 13.749547488525275, lon: 144.80000000000004, alt: 6745.535014375113
+102 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+102 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+103 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 103
+103 - missile - INFO - Missile missile_1 is in powered flight.
+103 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1507990.956986692)
+103 - missile - INFO - Missile missile_1 moved to lat: 13.752334564783688, lon: 144.80000000000004, alt: 6821.074842423201
+103 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+103 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+104 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 104
+104 - missile - INFO - Missile missile_1 is in powered flight.
+104 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1508308.8169866921)
+104 - missile - INFO - Missile missile_1 moved to lat: 13.755123241587244, lon: 144.80000000000004, alt: 6896.6748969797045
+104 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+104 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+105 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 105
+105 - missile - INFO - Missile missile_1 is in powered flight.
+105 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1508626.8669866922)
+105 - missile - INFO - Missile missile_1 moved to lat: 13.757913518805955, lon: 144.80000000000004, alt: 6972.335204505362
+105 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+105 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+106 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 106
+106 - missile - INFO - Missile missile_1 is in powered flight.
+106 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1508945.1069866922)
+106 - missile - INFO - Missile missile_1 moved to lat: 13.760705396309726, lon: 144.80000000000004, alt: 7048.055791473016
+106 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+106 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+107 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 107
+107 - missile - INFO - Missile missile_1 is in powered flight.
+107 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1509263.536986692)
+107 - missile - INFO - Missile missile_1 moved to lat: 13.763498873968349, lon: 144.80000000000004, alt: 7123.836684374139
+107 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+107 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+108 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 108
+108 - missile - INFO - Missile missile_1 is in powered flight.
+108 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1509582.1569866922)
+108 - missile - INFO - Missile missile_1 moved to lat: 13.766293951651512, lon: 144.80000000000004, alt: 7199.677909709513
+108 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+108 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+109 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 109
+109 - missile - INFO - Missile missile_1 is in powered flight.
+109 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1509900.9669866923)
+109 - missile - INFO - Missile missile_1 moved to lat: 13.769090629228794, lon: 144.80000000000004, alt: 7275.579493996687
+109 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+109 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+110 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 110
+110 - missile - INFO - Missile missile_1 is in powered flight.
+110 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1510219.9669866923)
+110 - missile - INFO - Missile missile_1 moved to lat: 13.771888906569663, lon: 144.80000000000004, alt: 7351.541463767178
+110 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+110 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+111 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 111
+111 - missile - INFO - Missile missile_1 is in powered flight.
+111 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1510539.1569866922)
+111 - missile - INFO - Missile missile_1 moved to lat: 13.77468878354348, lon: 144.80000000000004, alt: 7427.563845565543
+111 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+111 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+112 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 112
+112 - missile - INFO - Missile missile_1 is in powered flight.
+112 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1510858.536986692)
+112 - missile - INFO - Missile missile_1 moved to lat: 13.777490260019498, lon: 144.80000000000004, alt: 7503.646665952168
+112 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+112 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+113 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 113
+113 - missile - INFO - Missile missile_1 is in powered flight.
+113 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1511178.1069866922)
+113 - missile - INFO - Missile missile_1 moved to lat: 13.780293335866862, lon: 144.80000000000004, alt: 7579.7899514995515
+113 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+113 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+114 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 114
+114 - missile - INFO - Missile missile_1 is in powered flight.
+114 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1511497.8669866922)
+114 - missile - INFO - Missile missile_1 moved to lat: 13.783098010954607, lon: 144.80000000000004, alt: 7655.99372879602
+114 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+114 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+115 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 115
+115 - missile - INFO - Missile missile_1 is in powered flight.
+115 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1511817.8169866921)
+115 - missile - INFO - Missile missile_1 moved to lat: 13.785904285151654, lon: 144.80000000000004, alt: 7732.258024442941
+115 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+115 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+116 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 116
+116 - missile - INFO - Missile missile_1 is in powered flight.
+116 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1512137.956986692)
+116 - missile - INFO - Missile missile_1 moved to lat: 13.788712158326826, lon: 144.80000000000004, alt: 7808.582865056582
+116 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+116 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+117 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 117
+117 - missile - INFO - Missile missile_1 is in powered flight.
+117 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1512458.286986692)
+117 - missile - INFO - Missile missile_1 moved to lat: 13.791521630348832, lon: 144.80000000000004, alt: 7884.96827726718
+117 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+117 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+118 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 118
+118 - missile - INFO - Missile missile_1 is in powered flight.
+118 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1512778.8069866921)
+118 - missile - INFO - Missile missile_1 moved to lat: 13.794332701086267, lon: 144.80000000000004, alt: 7961.414287718944
+118 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+118 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+119 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 119
+119 - missile - INFO - Missile missile_1 is in powered flight.
+119 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1513099.516986692)
+119 - missile - INFO - Missile missile_1 moved to lat: 13.797145370407627, lon: 144.80000000000004, alt: 8037.920923070051
+119 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+119 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+120 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 120
+120 - missile - INFO - Missile missile_1 is in powered flight.
+120 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1513420.416986692)
+120 - missile - INFO - Missile missile_1 moved to lat: 13.799959638181289, lon: 144.80000000000004, alt: 8114.4882099907845
+120 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+120 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+121 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 121
+121 - missile - INFO - Missile missile_1 is in powered flight.
+121 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1513741.506986692)
+121 - missile - INFO - Missile missile_1 moved to lat: 13.802775504275528, lon: 144.80000000000004, alt: 8191.116175170988
+121 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+121 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+122 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 122
+122 - missile - INFO - Missile missile_1 is in powered flight.
+122 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1514062.786986692)
+122 - missile - INFO - Missile missile_1 moved to lat: 13.805592968558509, lon: 144.80000000000004, alt: 8267.804845309816
+122 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+122 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+123 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 123
+123 - missile - INFO - Missile missile_1 is in powered flight.
+123 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1514384.256986692)
+123 - missile - INFO - Missile missile_1 moved to lat: 13.808412030898282, lon: 144.80000000000004, alt: 8344.554247122258
+123 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+123 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+124 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 124
+124 - missile - INFO - Missile missile_1 is in powered flight.
+124 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1514705.916986692)
+124 - missile - INFO - Missile missile_1 moved to lat: 13.811232691162795, lon: 144.80000000000004, alt: 8421.364407335408
+124 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+124 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+125 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 125
+125 - missile - INFO - Missile missile_1 is in powered flight.
+125 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1515027.766986692)
+125 - missile - INFO - Missile missile_1 moved to lat: 13.814054949219884, lon: 144.80000000000004, alt: 8498.235352694057
+125 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+125 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+126 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 126
+126 - missile - INFO - Missile missile_1 is in powered flight.
+126 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1515349.8069866921)
+126 - missile - INFO - Missile missile_1 moved to lat: 13.816878804937277, lon: 144.80000000000004, alt: 8575.167109955102
+126 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+126 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+127 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 127
+127 - missile - INFO - Missile missile_1 is in powered flight.
+127 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1515672.036986692)
+127 - missile - INFO - Missile missile_1 moved to lat: 13.819704258182588, lon: 144.80000000000004, alt: 8652.159705889411
+127 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+127 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+128 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 128
+128 - missile - INFO - Missile missile_1 is in powered flight.
+128 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1515994.456986692)
+128 - missile - INFO - Missile missile_1 moved to lat: 13.822531308823327, lon: 144.80000000000004, alt: 8729.21316728089
+128 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+128 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+129 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 129
+129 - missile - INFO - Missile missile_1 is in powered flight.
+129 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1516317.0669866921)
+129 - missile - INFO - Missile missile_1 moved to lat: 13.825359956726892, lon: 144.80000000000004, alt: 8806.32752093114
+129 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+129 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+130 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 130
+130 - missile - INFO - Missile missile_1 is in powered flight.
+130 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1516639.8669866922)
+130 - missile - INFO - Missile missile_1 moved to lat: 13.828190201760574, lon: 144.80000000000004, alt: 8883.502793651074
+130 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+130 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+131 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 131
+131 - missile - INFO - Missile missile_1 is in powered flight.
+131 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1516962.8569866922)
+131 - missile - INFO - Missile missile_1 moved to lat: 13.83102204379155, lon: 144.80000000000004, alt: 8960.739012270235
+131 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+131 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+132 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 132
+132 - missile - INFO - Missile missile_1 is in powered flight.
+132 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1517286.036986692)
+132 - missile - INFO - Missile missile_1 moved to lat: 13.83385548268689, lon: 144.80000000000004, alt: 9038.036203628406
+132 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+132 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+133 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 133
+133 - missile - INFO - Missile missile_1 is in powered flight.
+133 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1517609.4069866922)
+133 - missile - INFO - Missile missile_1 moved to lat: 13.836690518313556, lon: 144.80000000000004, alt: 9115.394394581206
+133 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+133 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+134 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 134
+134 - missile - INFO - Missile missile_1 is in powered flight.
+134 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1517932.9669866923)
+134 - missile - INFO - Missile missile_1 moved to lat: 13.839527150538398, lon: 144.80000000000004, alt: 9192.813611999154
+134 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+134 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+135 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 135
+135 - missile - INFO - Missile missile_1 is in powered flight.
+135 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1518256.7169866923)
+135 - missile - INFO - Missile missile_1 moved to lat: 13.842365379228154, lon: 144.80000000000004, alt: 9270.293882764876
+135 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+135 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+136 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 136
+136 - missile - INFO - Missile missile_1 is in powered flight.
+136 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1518580.6569866922)
+136 - missile - INFO - Missile missile_1 moved to lat: 13.84520520424946, lon: 144.80000000000004, alt: 9347.83523377683
+136 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+136 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+137 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 137
+137 - missile - INFO - Missile missile_1 is in powered flight.
+137 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1518904.786986692)
+137 - missile - INFO - Missile missile_1 moved to lat: 13.848046625468836, lon: 144.80000000000004, alt: 9425.437691946514
+137 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+137 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+138 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 138
+138 - missile - INFO - Missile missile_1 is in powered flight.
+138 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1519229.1069866922)
+138 - missile - INFO - Missile missile_1 moved to lat: 13.85088964275269, lon: 144.80000000000004, alt: 9503.101284199394
+138 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+138 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+139 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 139
+139 - missile - INFO - Missile missile_1 is in powered flight.
+139 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1519553.6169866922)
+139 - missile - INFO - Missile missile_1 moved to lat: 13.85373425596733, lon: 144.80000000000004, alt: 9580.82603747677
+139 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+139 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+140 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 140
+140 - missile - INFO - Missile missile_1 is in powered flight.
+140 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1519878.3169866921)
+140 - missile - INFO - Missile missile_1 moved to lat: 13.856580464978942, lon: 144.80000000000004, alt: 9658.611978730187
+140 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+140 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+141 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 141
+141 - missile - INFO - Missile missile_1 is in powered flight.
+141 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1520203.206986692)
+141 - missile - INFO - Missile missile_1 moved to lat: 13.85942826965361, lon: 144.80000000000004, alt: 9736.459134928882
+141 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+141 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+142 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 142
+142 - missile - INFO - Missile missile_1 is in powered flight.
+142 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1520528.286986692)
+142 - missile - INFO - Missile missile_1 moved to lat: 13.86227766985731, lon: 144.80000000000004, alt: 9814.367533056065
+142 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+142 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+143 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 143
+143 - missile - INFO - Missile missile_1 is in powered flight.
+143 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1520853.5569866921)
+143 - missile - INFO - Missile missile_1 moved to lat: 13.865128665455895, lon: 144.80000000000004, alt: 9892.337200104259
+143 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+143 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+144 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 144
+144 - missile - INFO - Missile missile_1 is in powered flight.
+144 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1521179.016986692)
+144 - missile - INFO - Missile missile_1 moved to lat: 13.86798125631512, lon: 144.80000000000004, alt: 9970.368163086474
+144 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+144 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+145 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 145
+145 - missile - INFO - Missile missile_1 is in powered flight.
+145 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1521504.666986692)
+145 - missile - INFO - Missile missile_1 moved to lat: 13.870835442300628, lon: 144.80000000000004, alt: 10048.460449025966
+145 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+145 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+146 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 146
+146 - missile - INFO - Missile missile_1 is in powered flight.
+146 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1521830.506986692)
+146 - missile - INFO - Missile missile_1 moved to lat: 13.873691223277948, lon: 144.80000000000004, alt: 10126.614084961824
+146 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+146 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+147 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 147
+147 - missile - INFO - Missile missile_1 is in powered flight.
+147 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1522156.536986692)
+147 - missile - INFO - Missile missile_1 moved to lat: 13.876548599112503, lon: 144.80000000000004, alt: 10204.829097944312
+147 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+147 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+148 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 148
+148 - missile - INFO - Missile missile_1 is in powered flight.
+148 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1522482.756986692)
+148 - missile - INFO - Missile missile_1 moved to lat: 13.8794075696696, lon: 144.80000000000004, alt: 10283.105515039526
+148 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+148 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+149 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 149
+149 - missile - INFO - Missile missile_1 is in powered flight.
+149 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1522809.166986692)
+149 - missile - INFO - Missile missile_1 moved to lat: 13.882268134814444, lon: 144.80000000000004, alt: 10361.443363328464
+149 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+149 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+150 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 150
+150 - missile - INFO - Missile missile_1 is in powered flight.
+150 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1523135.766986692)
+150 - missile - INFO - Missile missile_1 moved to lat: 13.88513029441212, lon: 144.80000000000004, alt: 10439.842669906095
+150 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+150 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+151 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 151
+151 - missile - INFO - Missile missile_1 is in powered flight.
+151 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1523462.5569866921)
+151 - missile - INFO - Missile missile_1 moved to lat: 13.887994048327608, lon: 144.80000000000004, alt: 10518.30346187856
+151 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+151 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+152 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 152
+152 - missile - INFO - Missile missile_1 is in powered flight.
+152 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1523789.536986692)
+152 - missile - INFO - Missile missile_1 moved to lat: 13.890859396425776, lon: 144.80000000000004, alt: 10596.825766370632
+152 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+152 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+153 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 153
+153 - missile - INFO - Missile missile_1 is in powered flight.
+153 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1524116.706986692)
+153 - missile - INFO - Missile missile_1 moved to lat: 13.893726338571385, lon: 144.80000000000004, alt: 10675.409610516392
+153 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+153 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+154 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 154
+154 - missile - INFO - Missile missile_1 is in powered flight.
+154 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1524444.0669866921)
+154 - missile - INFO - Missile missile_1 moved to lat: 13.896594874629082, lon: 144.80000000000004, alt: 10754.055021465756
+154 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+154 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+155 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 155
+155 - missile - INFO - Missile missile_1 is in powered flight.
+155 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1524771.6169866922)
+155 - missile - INFO - Missile missile_1 moved to lat: 13.8994650044634, lon: 144.80000000000004, alt: 10832.762026383542
+155 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+155 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+156 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 156
+156 - missile - INFO - Missile missile_1 is in powered flight.
+156 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1525099.3569866922)
+156 - missile - INFO - Missile missile_1 moved to lat: 13.902336727938769, lon: 144.80000000000004, alt: 10911.530652447604
+156 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+156 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+157 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 157
+157 - missile - INFO - Missile missile_1 is in powered flight.
+157 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1525427.286986692)
+157 - missile - INFO - Missile missile_1 moved to lat: 13.905210044919501, lon: 144.80000000000004, alt: 10990.360926850699
+157 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+157 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+158 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 158
+158 - missile - INFO - Missile missile_1 is in powered flight.
+158 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1525755.4069866922)
+158 - missile - INFO - Missile missile_1 moved to lat: 13.908084955269803, lon: 144.80000000000004, alt: 11069.252876797691
+158 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+158 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+159 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 159
+159 - missile - INFO - Missile missile_1 is in powered flight.
+159 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1526083.7169866923)
+159 - missile - INFO - Missile missile_1 moved to lat: 13.910961458853768, lon: 144.80000000000004, alt: 11148.206529510207
+159 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+159 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+160 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 160
+160 - missile - INFO - Missile missile_1 is in powered flight.
+160 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1526412.2169866923)
+160 - missile - INFO - Missile missile_1 moved to lat: 13.913839555535377, lon: 144.80000000000004, alt: 11227.221912221052
+160 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+160 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+161 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 161
+161 - missile - INFO - Missile missile_1 is in powered flight.
+161 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1526740.9069866922)
+161 - missile - INFO - Missile missile_1 moved to lat: 13.916719245178504, lon: 144.80000000000004, alt: 11306.299052179791
+161 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+161 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+162 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 162
+162 - missile - INFO - Missile missile_1 is in powered flight.
+162 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1527069.786986692)
+162 - missile - INFO - Missile missile_1 moved to lat: 13.919600527646907, lon: 144.80000000000004, alt: 11385.437976645306
+162 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+162 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+163 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 163
+163 - missile - INFO - Missile missile_1 is in powered flight.
+163 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1527398.8569866922)
+163 - missile - INFO - Missile missile_1 moved to lat: 13.922483402804241, lon: 144.80000000000004, alt: 11464.638712896965
+163 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+163 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+164 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 164
+164 - missile - INFO - Missile missile_1 is in powered flight.
+164 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1527728.1169866922)
+164 - missile - INFO - Missile missile_1 moved to lat: 13.92536787051404, lon: 144.80000000000004, alt: 11543.901288223453
+164 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+164 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+165 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 165
+165 - missile - INFO - Missile missile_1 is in powered flight.
+165 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1528057.5669866921)
+165 - missile - INFO - Missile missile_1 moved to lat: 13.928253930639732, lon: 144.80000000000004, alt: 11623.22572992742
+165 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+165 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+166 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 166
+166 - missile - INFO - Missile missile_1 is in powered flight.
+166 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1528387.206986692)
+166 - missile - INFO - Missile missile_1 moved to lat: 13.931141583044633, lon: 144.80000000000004, alt: 11702.612065327354
+166 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+166 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+167 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 167
+167 - missile - INFO - Missile missile_1 is in powered flight.
+167 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1528717.036986692)
+167 - missile - INFO - Missile missile_1 moved to lat: 13.934030827591954, lon: 144.80000000000004, alt: 11782.060321755707
+167 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+167 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+168 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 168
+168 - missile - INFO - Missile missile_1 is in powered flight.
+168 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1529047.0569866921)
+168 - missile - INFO - Missile missile_1 moved to lat: 13.93692166414478, lon: 144.80000000000004, alt: 11861.570526557043
+168 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+168 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+169 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 169
+169 - missile - INFO - Missile missile_1 is in powered flight.
+169 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1529377.266986692)
+169 - missile - INFO - Missile missile_1 moved to lat: 13.939814092566099, lon: 144.80000000000004, alt: 11941.142707093619
+169 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+169 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+170 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 170
+170 - missile - INFO - Missile missile_1 is in powered flight.
+170 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1529707.666986692)
+170 - missile - INFO - Missile missile_1 moved to lat: 13.94270811271878, lon: 144.80000000000004, alt: 12020.776890735142
+170 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+170 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+171 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 171
+171 - missile - INFO - Missile missile_1 is in powered flight.
+171 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1530038.256986692)
+171 - missile - INFO - Missile missile_1 moved to lat: 13.945603724465585, lon: 144.80000000000004, alt: 12100.47310487181
+171 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+171 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+172 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 172
+172 - missile - INFO - Missile missile_1 is in powered flight.
+172 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1530369.036986692)
+172 - missile - INFO - Missile missile_1 moved to lat: 13.948500927669159, lon: 144.80000000000004, alt: 12180.231376904063
+172 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+172 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+173 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 173
+173 - missile - INFO - Missile missile_1 is in powered flight.
+173 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1530700.006986692)
+173 - missile - INFO - Missile missile_1 moved to lat: 13.95139972219204, lon: 144.80000000000004, alt: 12260.051734248176
+173 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+173 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+174 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 174
+174 - missile - INFO - Missile missile_1 is in powered flight.
+174 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1531031.166986692)
+174 - missile - INFO - Missile missile_1 moved to lat: 13.954300107896653, lon: 144.80000000000004, alt: 12339.93420433253
+174 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+174 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+175 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 175
+175 - missile - INFO - Missile missile_1 is in powered flight.
+175 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1531362.516986692)
+175 - missile - INFO - Missile missile_1 moved to lat: 13.957202084645314, lon: 144.80000000000004, alt: 12419.878814599477
+175 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+175 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+176 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 176
+176 - missile - INFO - Missile missile_1 is in powered flight.
+176 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1531694.0569866921)
+176 - missile - INFO - Missile missile_1 moved to lat: 13.960105652300221, lon: 144.80000000000004, alt: 12499.885592509061
+176 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+176 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+177 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 177
+177 - missile - INFO - Missile missile_1 is in powered flight.
+177 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1532025.786986692)
+177 - missile - INFO - Missile missile_1 moved to lat: 13.963010810723468, lon: 144.80000000000004, alt: 12579.954565529712
+177 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+177 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+178 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 178
+178 - missile - INFO - Missile missile_1 is in powered flight.
+178 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1532357.706986692)
+178 - missile - INFO - Missile missile_1 moved to lat: 13.96591755977703, lon: 144.80000000000004, alt: 12660.085761147551
+178 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+178 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+179 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 179
+179 - missile - INFO - Missile missile_1 is in powered flight.
+179 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1532689.8169866921)
+179 - missile - INFO - Missile missile_1 moved to lat: 13.968825899322773, lon: 144.80000000000004, alt: 12740.27920686081
+179 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+179 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+180 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 180
+180 - missile - INFO - Missile missile_1 is in powered flight.
+180 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1533022.1169866922)
+180 - missile - INFO - Missile missile_1 moved to lat: 13.971735829222457, lon: 144.80000000000004, alt: 12820.534930183552
+180 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+180 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+181 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 181
+181 - missile - INFO - Missile missile_1 is in powered flight.
+181 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1533354.6069866922)
+181 - missile - INFO - Missile missile_1 moved to lat: 13.974647349337719, lon: 144.80000000000004, alt: 12900.852958640084
+181 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+181 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+182 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 182
+182 - missile - INFO - Missile missile_1 is in powered flight.
+182 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1533687.286986692)
+182 - missile - INFO - Missile missile_1 moved to lat: 13.977560459530093, lon: 144.80000000000004, alt: 12981.233319775201
+182 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+182 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+183 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 183
+183 - missile - INFO - Missile missile_1 is in powered flight.
+183 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1534020.1569866922)
+183 - missile - INFO - Missile missile_1 moved to lat: 13.980475159660998, lon: 144.80000000000004, alt: 13061.676041137427
+183 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+183 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+184 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 184
+184 - missile - INFO - Missile missile_1 is in powered flight.
+184 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1534353.2169866923)
+184 - missile - INFO - Missile missile_1 moved to lat: 13.983391449591739, lon: 144.80000000000004, alt: 13142.181150300428
+184 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+184 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+185 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 185
+185 - missile - INFO - Missile missile_1 is in powered flight.
+185 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1534686.4669866923)
+185 - missile - INFO - Missile missile_1 moved to lat: 13.986309329183513, lon: 144.80000000000004, alt: 13222.748674845323
+185 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+185 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+186 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 186
+186 - missile - INFO - Missile missile_1 is in powered flight.
+186 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1535019.9069866922)
+186 - missile - INFO - Missile missile_1 moved to lat: 13.9892287982974, lon: 144.80000000000004, alt: 13303.378642366268
+186 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+186 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+187 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 187
+187 - missile - INFO - Missile missile_1 is in powered flight.
+187 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1535353.536986692)
+187 - missile - INFO - Missile missile_1 moved to lat: 13.992149856794372, lon: 144.80000000000004, alt: 13384.071080473252
+187 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+187 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+188 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 188
+188 - missile - INFO - Missile missile_1 is in powered flight.
+188 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1535687.3569866922)
+188 - missile - INFO - Missile missile_1 moved to lat: 13.995072504535289, lon: 144.80000000000004, alt: 13464.826016792096
+188 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+188 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+189 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 189
+189 - missile - INFO - Missile missile_1 is in powered flight.
+189 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1536021.3669866922)
+189 - missile - INFO - Missile missile_1 moved to lat: 13.997996741380893, lon: 144.80000000000004, alt: 13545.64347896073
+189 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+189 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+190 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 190
+190 - missile - INFO - Missile missile_1 is in powered flight.
+190 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1536355.5669866921)
+190 - missile - INFO - Missile missile_1 moved to lat: 14.000922567191822, lon: 144.80000000000004, alt: 13626.52349462919
+190 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+190 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+191 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 191
+191 - missile - INFO - Missile missile_1 is in powered flight.
+191 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1536689.956986692)
+191 - missile - INFO - Missile missile_1 moved to lat: 14.00384998182859, lon: 144.80000000000004, alt: 13707.466091463342
+191 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+191 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+192 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 192
+192 - missile - INFO - Missile missile_1 is in powered flight.
+192 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1537024.536986692)
+192 - missile - INFO - Missile missile_1 moved to lat: 14.006778985151616, lon: 144.80000000000004, alt: 13788.471297143027
+192 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+192 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+193 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 193
+193 - missile - INFO - Missile missile_1 is in powered flight.
+193 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1537359.3069866921)
+193 - missile - INFO - Missile missile_1 moved to lat: 14.00970957702119, lon: 144.80000000000004, alt: 13869.539139362052
+193 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+193 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+194 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 194
+194 - missile - INFO - Missile missile_1 is in powered flight.
+194 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1537694.266986692)
+194 - missile - INFO - Missile missile_1 moved to lat: 14.012641757297496, lon: 144.80000000000004, alt: 13950.669645825401
+194 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+194 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+195 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 195
+195 - missile - INFO - Missile missile_1 is in powered flight.
+195 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1538029.416986692)
+195 - missile - INFO - Missile missile_1 moved to lat: 14.015575525840607, lon: 144.80000000000004, alt: 14031.862844257616
+195 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+195 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+196 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 196
+196 - missile - INFO - Missile missile_1 is in powered flight.
+196 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1538364.756986692)
+196 - missile - INFO - Missile missile_1 moved to lat: 14.018510882510482, lon: 144.80000000000004, alt: 14113.118762388825
+196 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+196 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+197 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 197
+197 - missile - INFO - Missile missile_1 is in powered flight.
+197 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1538700.286986692)
+197 - missile - INFO - Missile missile_1 moved to lat: 14.021447827166964, lon: 144.80000000000004, alt: 14194.437427971512
+197 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+197 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+198 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 198
+198 - missile - INFO - Missile missile_1 is in powered flight.
+198 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1539036.006986692)
+198 - missile - INFO - Missile missile_1 moved to lat: 14.024386359669789, lon: 144.80000000000004, alt: 14275.818868765607
+198 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+198 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+199 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 199
+199 - missile - INFO - Missile missile_1 is in powered flight.
+199 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1539371.916986692)
+199 - missile - INFO - Missile missile_1 moved to lat: 14.027326479878576, lon: 144.80000000000004, alt: 14357.26311254967
+199 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+199 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+200 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 200
+200 - missile - INFO - Missile missile_1 is in powered flight.
+200 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1539708.016986692)
+200 - missile - INFO - Missile missile_1 moved to lat: 14.030268187652835, lon: 144.80000000000004, alt: 14438.770187113434
+200 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+200 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+201 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 201
+201 - missile - INFO - Missile missile_1 is in powered flight.
+201 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1540044.3069866921)
+201 - missile - INFO - Missile missile_1 moved to lat: 14.033211482851959, lon: 144.80000000000004, alt: 14520.340120258741
+201 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+201 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+202 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 202
+202 - missile - INFO - Missile missile_1 is in powered flight.
+202 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1540380.786986692)
+202 - missile - INFO - Missile missile_1 moved to lat: 14.03615636533523, lon: 144.80000000000004, alt: 14601.972939806059
+202 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+202 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+203 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 203
+203 - missile - INFO - Missile missile_1 is in powered flight.
+203 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1540717.456986692)
+203 - missile - INFO - Missile missile_1 moved to lat: 14.039102834961817, lon: 144.80000000000004, alt: 14683.668673585169
+203 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+203 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+204 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 204
+204 - missile - INFO - Missile missile_1 is in powered flight.
+204 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1541054.3169866921)
+204 - missile - INFO - Missile missile_1 moved to lat: 14.042050891590778, lon: 144.80000000000004, alt: 14765.427349440753
+204 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+204 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+205 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 205
+205 - missile - INFO - Missile missile_1 is in powered flight.
+205 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1541391.3669866922)
+205 - missile - INFO - Missile missile_1 moved to lat: 14.045000535081053, lon: 144.80000000000004, alt: 14847.248995236121
+205 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+205 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+206 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 206
+206 - missile - INFO - Missile missile_1 is in powered flight.
+206 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1541728.6069866922)
+206 - missile - INFO - Missile missile_1 moved to lat: 14.047951765291476, lon: 144.80000000000004, alt: 14929.133638839237
+206 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+206 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+207 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 207
+207 - missile - INFO - Missile missile_1 is in powered flight.
+207 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1542066.036986692)
+207 - missile - INFO - Missile missile_1 moved to lat: 14.050904582080756, lon: 144.80000000000004, alt: 15011.08130814042
+207 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+207 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+208 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 208
+208 - missile - INFO - Missile missile_1 is in powered flight.
+208 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1542403.6569866922)
+208 - missile - INFO - Missile missile_1 moved to lat: 14.053858985307507, lon: 144.80000000000004, alt: 15093.092031040229
+208 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+208 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+209 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 209
+209 - missile - INFO - Missile missile_1 is in powered flight.
+209 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1542741.4669866923)
+209 - missile - INFO - Missile missile_1 moved to lat: 14.056814974830212, lon: 144.80000000000004, alt: 15175.165835451335
+209 - missile - INFO - Missile missile_1 orientation: pitch: 90, yaw: 0, roll: 0
+209 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+210 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 210
+210 - missile - INFO - Missile missile_1 is in powered flight.
+210 - missile - INFO - Missile missile_1 switching to glide mode.
+210 - missile - INFO - Missile missile_1 adjusted orientation for glide: pitch -45, yaw 267.920791995462
+210 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1543079.4669866923)
+210 - missile - INFO - Missile missile_1 moved to lat: 14.059772550507251, lon: 144.80000000000004, alt: 15257.30274930317
+210 - missile - INFO - Missile missile_1 orientation: pitch: -45, yaw: 267.920791995462, roll: 0
+210 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+211 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 211
+211 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1543417.4669866923)
+211 - missile - INFO - Missile missile_1 moved to lat: 14.062730049718835, lon: 144.80000000000004, alt: 15339.45661460422
+211 - missile - INFO - Missile missile_1 orientation: pitch: -45, yaw: 267.920791995462, roll: 0
+211 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+212 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 212
+212 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1543755.4669866923)
+212 - missile - INFO - Missile missile_1 moved to lat: 14.065687472452174, lon: 144.80000000000004, alt: 15421.627430708148
+212 - missile - INFO - Missile missile_1 orientation: pitch: -45, yaw: 267.920791995462, roll: 0
+212 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+213 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 213
+213 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1544093.4669866923)
+213 - missile - INFO - Missile missile_1 moved to lat: 14.068644818694471, lon: 144.80000000000004, alt: 15503.815196970478
+213 - missile - INFO - Missile missile_1 orientation: pitch: -45, yaw: 267.920791995462, roll: 0
+213 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+214 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 214
+214 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1544431.4669866923)
+214 - missile - INFO - Missile missile_1 moved to lat: 14.07160208843294, lon: 144.80000000000004, alt: 15586.019912744872
+214 - missile - INFO - Missile missile_1 orientation: pitch: -45, yaw: 267.920791995462, roll: 0
+214 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+215 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 215
+215 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1544769.4669866923)
+215 - missile - INFO - Missile missile_1 moved to lat: 14.074559281654794, lon: 144.80000000000004, alt: 15668.241577385925
+215 - missile - INFO - Missile missile_1 orientation: pitch: -45, yaw: 267.920791995462, roll: 0
+215 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+216 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 216
+216 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1545107.4669866923)
+216 - missile - INFO - Missile missile_1 moved to lat: 14.077516398347246, lon: 144.80000000000004, alt: 15750.480190247297
+216 - missile - INFO - Missile missile_1 orientation: pitch: -45, yaw: 267.920791995462, roll: 0
+216 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+217 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 217
+217 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1545445.4669866923)
+217 - missile - INFO - Missile missile_1 moved to lat: 14.080473438497515, lon: 144.80000000000004, alt: 15832.735750686377
+217 - missile - INFO - Missile missile_1 orientation: pitch: -45, yaw: 267.920791995462, roll: 0
+217 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+218 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 218
+218 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1545783.4669866923)
+218 - missile - INFO - Missile missile_1 moved to lat: 14.08343040209282, lon: 144.80000000000004, alt: 15915.008258053102
+218 - missile - INFO - Missile missile_1 orientation: pitch: -45, yaw: 267.920791995462, roll: 0
+218 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+219 - environment - INFO - Handling event: <events.MovementEvent object at 0x10587b110> at time 219
+219 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1546121.4669866923)
+219 - missile - INFO - Missile missile_1 moved to lat: 14.086387289120381, lon: 144.80000000000004, alt: 15997.297711702995
+219 - missile - INFO - Missile missile_1 orientation: pitch: -45, yaw: 267.920791995462, roll: 0
+219 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x1061bf500>
+220 - environment - INFO - Handling event: <events.MovementEvent object at 0x1061bf500> at time 220
+220 - missile - INFO - Missile missile_1 moved to ECEF (-5068822.35952855, 3575660.8392333994, 1546459.4669866923)
+220 - missile - INFO - Missile missile_1 moved to lat: 14.089344099567427, lon: 144.80000000000004, alt: 16079.604110990651
+220 - missile - INFO - Missile missile_1 orientation: pitch: -45, yaw: 267.920791995462, roll: 0
+220 - environment - INFO - Scheduled event: <events.MovementEvent object at 0x10587b110>
+220 - root - INFO - Simulation completed successfully.
