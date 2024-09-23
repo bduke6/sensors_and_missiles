@@ -72,13 +72,20 @@ def calculate_target_position(lat, lon, distance_km, bearing_degrees):
     lat = math.radians(lat)
     lon = math.radians(lon)
 
+    # New latitude
     target_lat = math.asin(math.sin(lat) * math.cos(distance_km / R) +
                            math.cos(lat) * math.sin(distance_km / R) * math.cos(bearing))
 
+    # New longitude
     target_lon = lon + math.atan2(math.sin(bearing) * math.sin(distance_km / R) * math.cos(lat),
                                   math.cos(distance_km / R) - math.sin(lat) * math.sin(target_lat))
 
-    return math.degrees(target_lat), math.degrees(target_lon)
+    target_lat = math.degrees(target_lat)
+    target_lon = (math.degrees(target_lon) + 540) % 360 - 180  # Normalize to -180...+180 degrees
+
+    return target_lat, target_lon
+
+
 
 # Example usage:
 launch_lat = 14.0

@@ -2,8 +2,8 @@
   "entities": {
     "ships": [
       {
-        "lat": 13.5,
-        "lon": 134.8,
+        "lat": 39.0,
+        "lon": 111.0,
         "alt": 0,
         "velocity": [0, 0, 0],
         "orientation": [1, 0, 0],
@@ -12,8 +12,8 @@
     ],
     "missiles": [
       {
-        "lat": 13.5,
-        "lon": 144.8,
+        "lat": 39.0,
+        "lon": 121.6,
         "alt": 50,
         "velocity": [0, 0, 0],
         "orientation": [90, 0, 0],
