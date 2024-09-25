@@ -1,25 +1,50 @@
 {
   "entities": {
-    "ships": [
-      {
-        "lat": 39.0,
-        "lon": 111.0,
-        "alt": 0,
-        "velocity": [0, 0, 0],
-        "orientation": [1, 0, 0],
-        "entity_id": "ship_1"
+    "plane_1": {
+      "lat": 10.0,
+      "lon": 110.0,
+      "alt": 5000,
+      "velocity": [250, 0, 0],
+      "orientation": [90, 0, 0],
+      "entity_id": "plane_1",
+      "render": {
+        "symbol": "\u2708",  
+        "color": "blue",
+        "description": "Recon Plane 1",
+        "size": 15,
+        "initial_render": true
       }
-    ],
-    "missiles": [
-      {
-        "lat": 39.0,
-        "lon": 121.6,
-        "alt": 50,
-        "velocity": [0, 0, 0],
-        "orientation": [90, 0, 0],
-        "entity_id": "missile_1",
-        "fuel": 2000
+    },
+    "missile_1": {
+      "lat": 15.5,
+      "lon": 121.2,
+      "alt": 100,
+      "velocity": [0, 0, 0],
+      "orientation": [90, 0, 0],
+      "entity_id": "missile_1",
+      "fuel": 2000,
+      "render": {
+        "symbol": "\u2663",  
+        "color": "red",
+        "description": "Missile 1",
+        "size": 20,
+        "initial_render": true
       }
-    ]
+    },
+    "ship_1": {
+      "lat": 15.3,
+      "lon": 122.3,
+      "alt": 0,
+      "velocity": [0, 0, 0],
+      "orientation": [0, 0, 0],
+      "entity_id": "ship_1",
+      "render": {
+        "symbol": "\u2693",  
+        "color": "green",
+        "description": "Ship 1",
+        "size": 20,
+        "initial_render": true
+      }
+    }
   }
 }

@@ -1,0 +1,14 @@
+map_config:
+  projection: 'merc'
+  llcrnrlat: 3
+  urcrnrlat: 25
+  llcrnrlon: 110
+  urcrnrlon: 130
+  resolution: 'l'
+  theater: 'South China Sea'
+
+simulation_settings:
+  step_interval: 1.0  # seconds per simulation step
+  total_time: 100  # total simulation time in seconds
+
+output_file: 'logs/simulation_output.csv'
