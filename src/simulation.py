@@ -19,23 +19,31 @@ def remove_old_logs(log_files):
                 print(f"Removed old log file: {log_file}")
         except OSError as e:
             print(f"Error removing {log_file}: {e}")
+            
 
 def setup_logging(config, env):
-    """Set up logging."""
     logging_config_path = config['environment']['logging_config']
     with open(logging_config_path, 'r') as f:
         logging_config = yaml.safe_load(f)
-    
-    # Collect all log file paths into a list and remove old logs
+
+    # Initialize logging
     log_files = [handler['filename'] for handler in logging_config.get('handlers', {}).values() if 'filename' in handler]
     remove_old_logs(log_files)
-    
-    # Apply the logging configuration
     logging.config.dictConfig(logging_config)
 
-    # Apply simulation time filter to all loggers' handlers
+    # Manually write the CSV header to map_data.csv
+    with open('logs/map_data.csv', 'w') as map_log_file:
+        map_log_file.write("sim_time,entity_id,lat,lon,heading\n")
+
+
+    # Simulation time filter to sync time with events
     simulation_time_filter = SimulationTimeFilter(env)
     for handler in logging.getLogger().handlers:
+        handler.addFilter(simulation_time_filter)
+
+    # Ensure the filter is added to map_logger as well
+    map_logger = logging.getLogger('map_logger')
+    for handler in map_logger.handlers:
         handler.addFilter(simulation_time_filter)
 
 def run_simulation(config_path):

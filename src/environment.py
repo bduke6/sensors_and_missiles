@@ -1,33 +1,40 @@
 import heapq
 import logging
-from simulation_event import SimulationEvent
-
-import heapq
-import logging
 
 class Environment:
     def __init__(self):
-        self.entities = []
-        self.event_queue = []
-        self.current_time = 0  # Initialize current_time to track the simulation's time
-        self.logger = logging.getLogger("environment")
-    
+        self.event_queue = []  # Event priority queue
+        self.current_time = 0  # Start time of the simulation
+        self.entities = []  # List to store entities in the environment
+
     def add_entity(self, entity):
+        """Add an entity to the environment."""
         self.entities.append(entity)
-        self.logger.info(f"Added entity: {entity.entity_id}")
+        logging.info(f"Entity {entity.entity_id} added to the environment.")
 
     def schedule_event(self, simulation_event):
-        """Schedule the event in the event queue based on time."""
-        heapq.heappush(self.event_queue, simulation_event)
-        self.logger.info(f"Scheduled event: {simulation_event} at time {simulation_event.time}")
-    
+        """Schedule an event in the environment."""
+        heapq.heappush(self.event_queue, (simulation_event.time, simulation_event))
+        logging.info(f"Event scheduled at time {simulation_event.time} for {simulation_event.entity.entity_id}")
+
     def process_events(self, max_time):
-        """Process events from the event queue."""
+        """Process all events until max_time is reached or no events are left."""
         while self.event_queue and self.current_time < max_time:
-            simulation_event = heapq.heappop(self.event_queue)
-            self.current_time = simulation_event.time  # Update current_time to the event's time
-            self.logger.info(f"Processing event for {simulation_event.entity.entity_id} at time {self.current_time}: {simulation_event}")
+            # Get the next event in the queue
+            event_time, simulation_event = heapq.heappop(self.event_queue)
+            self.current_time = event_time  # Move time forward to the event time
+
+            # Log event queue size
+            logging.info(f"Event queue size: {len(self.event_queue)}")
+
+            # Process the event by passing relevant data
             simulation_event.entity.process_event({
                 'type': simulation_event.event_type,
+                'time': simulation_event.time,
                 'params': simulation_event.params
             })
+
+            # Log processing of the event
+            logging.info(f"Processed event for {simulation_event.entity.entity_id} at time {self.current_time}")
+
+        logging.info(f"Event processing completed at time {self.current_time}")

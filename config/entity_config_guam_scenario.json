@@ -2,34 +2,48 @@
   "entities": [
     {
       "entity_id": "plane_1",
-      "lat": 34.0,
-      "lon": -118.0,
+      "lat": 10.0,
+      "lon": 110.0,
       "alt": 1000,
+      "render": {
+        "symbol": "✈️",  
+        "color": "blue",
+        "size": 12,
+        "initial_render": true
+      },
       "events": [
         {
-          "type": "move",
+          "type": "commo",  
           "start_time": 0,
           "params": {
-            "target_lat": 34.1,
-            "target_lon": -117.9,
-            "speed": 250
+            "message_type": "nav", 
+            "heading": 45.0,  
+            "speed": 250,
+            "altitude": 1000  
           }
         }
       ]
     },
     {
       "entity_id": "missile_1",
-      "lat": 35.0,
-      "lon": -119.0,
+      "lat": 15.3,
+      "lon": 120.9,
       "alt": 500,
+      "render": {
+        "symbol": "\u2663",
+        "color": "red",
+        "size": 10,
+        "initial_render": true
+      },
       "events": [
         {
-          "type": "move",
+          "type": "commo",  
           "start_time": 0,
           "params": {
-            "target_lat": 35.2,
-            "target_lon": -118.9,
-            "speed": 300
+            "message_type": "nav",  
+            "heading": 90.0,  
+            "speed": 300,
+            "altitude": 500  
           }
         }
       ]

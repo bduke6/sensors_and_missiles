@@ -3,16 +3,12 @@ disable_existing_loggers: False
 formatters:
   simple:
     format: "%(simulation_time)s - %(name)s - %(levelname)s - %(message)s"
-    defaults:
-      simulation_time: "Unknown"
   entity_formatter:
     format: "%(simulation_time)s - %(message)s"
-    defaults:
-      simulation_time: "Unknown"
   event_formatter:
-    format: "%(simulation_time)s - %(message)s"  # Custom format for events
-    defaults:
-      simulation_time: "Unknown"
+    format: "%(simulation_time)s - %(message)s"
+  simple_csv_formatter:
+    format: "%(message)s"  # Use the direct message format from the code
 
 handlers:
   console:
@@ -25,22 +21,25 @@ handlers:
     level: INFO
     formatter: simple
     filename: logs/simulation.log
-    mode: a  # Append mode
-    header: "=== Log Start ===\nTimestamp - Logger Name - Log Level - Message\n"
+    mode: a
   event_file:
     class: logging_config.FileHandlerWithHeader
     level: INFO
     formatter: event_formatter
-    filename: logs/event.log  # Separate log file for events
-    mode: a  # Append mode
-    header: "=== Log Start ===\nTimestamp - Logger Name - Log Level - Message\n"
+    filename: logs/event.log
+    mode: a
   entity_file:
     class: logging_config.FileHandlerWithHeader
     level: INFO
     formatter: entity_formatter
-    filename: logs/entity.log  # Separate log file for events
-    mode: a  # Append mode
-    header: "=== Log Start ===\nTimestamp - Logger Name - Log Level - Message\n"
+    filename: logs/entity.log
+    mode: a
+  file_map_log:
+    class: logging.FileHandler
+    filename: 'logs/map_data.csv'
+    formatter: simple_csv_formatter  # Use a custom formatter for CSV output
+    level: INFO
+
 loggers:
   environment:
     level: INFO
@@ -48,12 +47,16 @@ loggers:
     propagate: False  # Do not propagate events to root logger
   entity:
     level: INFO
-    handlers: [console, entity_file]
-    propagate: False  # Do not propagate entity logs to root logger
+    handlers: [console, entity_file]  # Now logs to both console and file
+    propagate: False  # Do not propagate to root logger
   event:
     level: INFO
     handlers: [event_file]  # Use separate file handler for events
     propagate: False  # Do not propagate entity logs to root logger
+  map_logger:
+    level: INFO
+    handlers: [file_map_log]
+    propagate: False  
   root:
     level: INFO
     handlers: [console, file]
