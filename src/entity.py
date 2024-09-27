@@ -45,39 +45,35 @@ class Entity:
             logging.info(f"Unknown message type for {self.entity_id}: {message_type}")
 
     def navigator(self, params):
-        """Navigator calculates and stores the ECEF velocity vector."""
+        """Navigator function to calculate and schedule movement."""
         heading = params['heading']
         speed = params['speed']
         altitude = params.get('altitude', self.alt)  # Default to current altitude if not specified
         dt = 1  # Time step
 
-        # Calculate ECEF velocity vector based on heading, speed, and time step
+        # Calculate new position based on heading, speed, and time step
         slant_range_per_sec = speed * dt
-        # Calculate azimuth and use aer2enu to get relative motion in East/North/Up
         new_e, new_n, new_u = pm.aer2enu(heading, 0, slant_range_per_sec)
-        
-        # Convert this ENU vector to an ECEF velocity vector (this will be used by the mover)
-        velocity_vector_ecef = pm.enu2ecef_vector(new_e, new_n, new_u, self.lat, self.lon, altitude)
-        
-        # Store the ECEF velocity vector in the entity
-        self.velocity_vector_ecef = velocity_vector_ecef
 
-        # Trigger the mover immediately to apply the velocity vector
-        move_event = {
+        # Now convert ENU to ECEF (Earth-Centered, Earth-Fixed)
+        x_ecef, y_ecef, z_ecef = pm.enu2ecef(new_e, new_n, new_u, self.lat, self.lon, altitude)
+
+        # Create the velocity vector in ECEF
+        velocity_vector_ecef = (x_ecef, y_ecef, z_ecef)
+
+        # Schedule the move event, passing the velocity vector
+        next_event = {
             'type': 'move',
-            'time': self.environment.current_time,  # Immediate
-            'entity': self
+            'time': self.environment.current_time + dt,
+            'entity': self,
+            'params': {
+                'velocity_vector': velocity_vector_ecef,
+                'altitude': altitude,
+            }
         }
-        self.schedule_event(move_event)
+        self.schedule_event(next_event)
+        logging.info(f"Navigator scheduled move event with velocity vector: {velocity_vector_ecef}")
 
-        # Schedule a navigator check event to ensure the entity stays on track
-        check_event = {
-            'type': 'navigator_check',
-            'time': self.environment.current_time + 5,  # Check in 5 seconds
-            'entity': self
-        }
-        self.schedule_event(check_event)
-        logging.info(f"Scheduled navigation check event at time {self.environment.current_time + 5} for entity {self.entity_id}")
 
     def move(self):
         """Apply the ECEF velocity vector to update the entity's position."""
