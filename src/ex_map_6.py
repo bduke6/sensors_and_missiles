@@ -28,7 +28,7 @@ simulation_data = np.genfromtxt(output_file, delimiter=',', dtype=None, encoding
 
 # Set up the figure and axis for dynamic resizing
 fig, ax = plt.subplots(figsize=(8, 8))
-plt.subplots_adjust(left=0.05, right=0.95, top=0.95, bottom=0.15)
+plt.subplots_adjust(left=0.05, right=0.95, top=0.95, bottom=0.2)  # Adjusted bottom to make space for controls
 
 # Set up Basemap
 m = Basemap(projection=map_config['projection'],
@@ -58,7 +58,7 @@ entity_ids = simulation_data['entity']  # Entities from the file
 # Initial plot for each entity based on entity configuration
 entity_plots = {}
 
-# Loop over the list of entities
+# Loop over the list of entities to render both plane and missile
 for entity in entity_config['entities']:
     entity_id = entity['entity_id']
     
@@ -76,7 +76,7 @@ for entity in entity_config['entities']:
                     f"Latitude [{map_config['llcrnrlat']}, {map_config['urcrnrlat']}], "
                     f"Longitude [{map_config['llcrnrlon']}, {map_config['urcrnrlon']}].")
         
-        # If the entity has an initial_render flag or simulation data, plot it
+        # Ensure missile_1 and plane_1 are both rendered if their render flag is true or they have simulation data
         if render_info.get('initial_render', False) or entity_id.encode() in entity_ids:
             x, y = m(lon, lat)
             symbol = render_info.get('symbol', '!')  # Default to '!' if no valid symbol is defined
@@ -91,25 +91,31 @@ for entity in entity_config['entities']:
                 entity_plots[entity_id] = plt.text(x, y, '!', fontsize=size, color=color, ha='center', va='center', visible=True)
 
 # Create the slider and button
-ax_slider = plt.axes([0.25, 0.03, 0.50, 0.02], facecolor='lightgoldenrodyellow')
-time_slider = Slider(ax_slider, 'Time', 0, len(times)-1, valinit=0, valfmt='%d')
+slider_min_time = int(np.min(times))
+slider_max_time = int(np.max(times))
+ax_slider = plt.axes([0.25, 0.08, 0.50, 0.03], facecolor='lightgoldenrodyellow')  # Adjusted for better positioning
+time_slider = Slider(ax_slider, 'Time', slider_min_time, slider_max_time, valinit=slider_min_time, valfmt='%d')
 
-ax_button_toggle = plt.axes([0.81, 0.025, 0.1, 0.04])
+ax_button_toggle = plt.axes([0.85, 0.02, 0.1, 0.04])  # Moved button to the right, further from the label
 button_toggle = Button(ax_button_toggle, 'Run')
+
+# Event bindings
+time_slider.on_changed(lambda val: update_plot(int(time_slider.val)))  # Cast slider value to int
+button_toggle.on_clicked(lambda event: toggle_simulation())  # Define the button before using it
 
 # State variable for controlling the simulation
 is_running = False
 
-def update_plot(val):
-    """Update the map position and airplane symbol based on slider value."""
-    t_index = int(time_slider.val)
+def update_plot(current_time):
+    """Update the map position and symbols based on slider value."""
+    # Update slider label to show time as "current_time/total_time"
+    total_time = slider_max_time
+    time_slider.valtext.set_text(f"{int(current_time)}/{int(total_time)}")
     
-    # Get current time
-    current_time = times[t_index]
-
     for entity_id, plot in entity_plots.items():
-        # Ensure entity_id in simulation_data is compared as a string
-        entity_mask = (simulation_data['entity'].astype(str) == entity_id) & (simulation_data['time'] == current_time)
+        # Use np.char.strip for string manipulation in numpy arrays
+        entity_mask = (np.char.strip(simulation_data['entity'].astype(str)) == entity_id) & (simulation_data['time'] == current_time)
+        
         if entity_mask.any():
             # Get current lat, lon, heading for the entity
             lat, lon = simulation_data['lat'][entity_mask][0], simulation_data['lon'][entity_mask][0]
@@ -135,7 +141,7 @@ def update_plot(val):
     plt.draw()
 
 
-def toggle_simulation(event):
+def toggle_simulation():
     """Toggle between running and stopping the simulation."""
     global is_running
     if is_running:
@@ -153,22 +159,34 @@ def toggle_simulation(event):
 def run_simulation():
     """Run the simulation."""
     global is_running
-    while is_running and time_slider.val < len(times)-1:
+    while is_running and time_slider.val < slider_max_time:
+        # Move to the next time index based on actual time values, not just record index
         time_slider.set_val(time_slider.val + 1)
-        update_plot(time_slider.val)
+        update_plot(int(time_slider.val))
         plt.pause(simulation_settings['step_interval'] / 10)  # Adjust for speed
 
 def on_resize(event):
     """Handle window resizing to adjust map display."""
-    fig.subplots_adjust(left=0.05, right=0.95, top=0.95, bottom=0.15)  # No need for tight_layout()
+    fig.subplots_adjust(left=0.05, right=0.95, top=0.95, bottom=0.2)  # No need for tight_layout()
     plt.draw()
+
+def on_key_press(event):
+    """Handle keyboard shortcuts for controlling the simulation."""
+    global is_running
+    if event.key == ' ':  # Space bar to toggle start/stop
+        toggle_simulation()
+    elif event.key == 'right':  # Right arrow key to move slider forward
+        time_slider.set_val(min(time_slider.val + 1, slider_max_time))
+        update_plot(int(time_slider.val))
+    elif event.key == 'left':  # Left arrow key to move slider backward
+        time_slider.set_val(max(time_slider.val - 1, slider_min_time))
+        update_plot(int(time_slider.val))
 
 # Bind resize event to dynamically adjust layout
 fig.canvas.mpl_connect('resize_event', on_resize)
 
-# Event bindings
-time_slider.on_changed(update_plot)
-button_toggle.on_clicked(toggle_simulation)
+# Bind key press events to control simulation with keyboard shortcuts
+fig.canvas.mpl_connect('key_press_event', on_key_press)
 
 # Display the map
 plt.show()
