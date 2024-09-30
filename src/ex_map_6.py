@@ -55,8 +55,6 @@ else:
 
 entity_ids = simulation_data['entity']  # Entities from the file
 
-
-
 # Initial plot for each entity based on entity configuration
 entity_plots = {}
 
