@@ -6,27 +6,75 @@
       "lon": 110.0,
       "alt": 1000,
       "render": {
-        "symbol": "✈️",  
+        "symbol": "✈️",
         "color": "blue",
         "size": 12,
         "initial_render": true
       },
       "events": [
         {
-          "type": "commo",  
+          "type": "commo",
           "start_time": 0,
           "params": {
-            "message_type": "nav", 
-            "heading": 45.0,  
+            "message_type": "nav",
+            "heading": 45.0,
             "speed": 250,
-            "altitude": 1000  
+            "altitude": 1000
           }
         }
       ]
     },
     {
       "entity_id": "missile_1",
-      "lat": 15.3,
+      "lat": 12.7,
+      "lon": 112.8,
+      "alt": 500,
+      "render": {
+        "symbol": "\u2663",
+        "color": "red",
+        "size": 10,
+        "initial_render": true
+      },
+      "events": [
+        {
+          "type": "commo",
+          "start_time": 0,
+          "params": {
+            "message_type": "nav",
+            "heading": 90.0,
+            "speed": 300,
+            "altitude": 500
+          }
+        }
+      ]
+    },
+    {
+      "entity_id": "missile_2",
+      "lat": 15.2,
+      "lon": 113.0,
+      "alt": 500,
+      "render": {
+        "symbol": "\u2663",
+        "color": "red",
+        "size": 10,
+        "initial_render": true
+      },
+      "events": [
+        {
+          "type": "commo",
+          "start_time": 0,
+          "params": {
+            "message_type": "nav",
+            "heading": 90.0,
+            "speed": 300,
+            "altitude": 500
+          }
+        }
+      ]
+    },
+    {
+      "entity_id": "missile_3",
+      "lat": 15.0,
       "lon": 120.9,
       "alt": 500,
       "render": {
@@ -37,13 +85,13 @@
       },
       "events": [
         {
-          "type": "commo",  
+          "type": "commo",
           "start_time": 0,
           "params": {
-            "message_type": "nav",  
-            "heading": 90.0,  
+            "message_type": "nav",
+            "heading": 90.0,
             "speed": 300,
-            "altitude": 500  
+            "altitude": 500
           }
         }
       ]
