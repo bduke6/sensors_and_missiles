@@ -27,11 +27,11 @@ class Environment:
             # Log event queue size
             logging.info(f"Event queue size: {len(self.event_queue)}")
 
-            # Process the event by passing relevant data
+            # Process the event by passing relevant data, ensure 'params' exists
             simulation_event.entity.process_event({
                 'type': simulation_event.event_type,
                 'time': simulation_event.time,
-                'params': simulation_event.params
+                'params': simulation_event.params or {}  # Default to empty dict if None
             })
 
             # Log processing of the event

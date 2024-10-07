@@ -18,7 +18,7 @@
           "params": {
             "message_type": "nav",
             "heading": 45.0,
-            "speed": 250,
+            "speed": 1000,
             "altitude": 1000
           }
         }

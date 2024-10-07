@@ -5,6 +5,22 @@ import yaml
 from matplotlib.widgets import Slider, Button
 import os
 import json
+import glob
+
+# Helper function to find the latest log file by base name
+def find_latest_log_file(base_filename, logs_dir='logs'):
+    """Find the latest log file with a given base filename in the logs directory."""
+    # Create a pattern to match files with the base filename and any timestamp
+    pattern = os.path.join(logs_dir, f"*_{base_filename}")
+    files = glob.glob(pattern)
+    
+    if not files:
+        raise FileNotFoundError(f"No log file found matching pattern {pattern}")
+
+    # Sort files by modification time in descending order and select the latest one
+    latest_file = max(files, key=os.path.getmtime)
+    print(f"Found latest file: {latest_file}")
+    return latest_file
 
 # Load YAML config file
 with open('config/map_config.yaml', 'r') as file:
@@ -13,15 +29,17 @@ with open('config/map_config.yaml', 'r') as file:
 # Extract the map and simulation settings
 map_config = config['map_config']
 simulation_settings = config['simulation_settings']
-output_file = config['output_file']
+
+# Locate the latest map data file with the base name "map_data.csv"
+try:
+    output_file = find_latest_log_file("map_data.csv")
+except FileNotFoundError as e:
+    print(e)
+    exit(1)
 
 # Load entity configuration file (for symbols, colors, etc.)
 with open('config/entity_config_guam_scenario.json', 'r') as f:
     entity_config = json.load(f)
-
-# Check if the simulation output file exists
-if not os.path.exists(output_file):
-    raise FileNotFoundError(f"Output file {output_file} not found.")
 
 # Read the simulation output file
 simulation_data = np.genfromtxt(output_file, delimiter=',', dtype=None, encoding='utf-8', names=True)
@@ -89,6 +107,8 @@ for entity in entity_config['entities']:
             except Exception as e:
                 print(f"Error with symbol {symbol} for entity {entity_id}: {e}")
                 entity_plots[entity_id] = plt.text(x, y, '!', fontsize=size, color=color, ha='center', va='center', visible=True)
+
+# ... (rest of the code remains unchanged) ...
 
 # Create the slider and button
 slider_min_time = int(np.min(times))
@@ -184,12 +204,17 @@ last_valid_state = {}
 def build_time_mapping():
     """Build a mapping from each time index to the closest simulation time index."""
     time_map = {}
+    unique_times = np.unique(times)  # Only unique simulation times
     sim_index = 0
-    for i, slider_time in enumerate(np.arange(times.min(), times.max() + 1)):
-        while sim_index < len(times) and times[sim_index] <= slider_time:
+
+    for slider_time in range(int(times.min()), int(times.max()) + 1):
+        # Move to the closest available time index in the simulation data
+        while sim_index < len(unique_times) - 1 and unique_times[sim_index] < slider_time:
             sim_index += 1
-        time_map[i] = sim_index - 1  # Map to the last valid sim time
+        time_map[slider_time] = sim_index
+
     return time_map
+
 
 def on_hover(event):
     """Handle hover event to show tooltip with entity details."""

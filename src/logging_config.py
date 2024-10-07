@@ -52,3 +52,5 @@ def setup_logging(env):
     file_handler_with_header = FileHandlerWithHeader('logs/simulation.log', mode='w', header=header)
     logging.getLogger().addHandler(file_handler_with_header)
 
+
+

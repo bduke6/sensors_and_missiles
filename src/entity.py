@@ -11,8 +11,12 @@ class Entity:
         self.environment = environment
         self.events = config.get('events', [])
         self.map_logger = logging.getLogger('map_logger')
-        self.velocity_vector_ecef = None  # ECEF velocity vector managed by navigator
+        self.velocity_vector_ecef = None  # ECEF velocity vector set by navigator
         logging.info(f"Entity created: {self.entity_id}")
+
+        # Initialize ECEF position based on the initial geodetic coordinates
+        self.ecef_x, self.ecef_y, self.ecef_z = pm.geodetic2ecef(self.lat, self.lon, self.alt)
+        logging.info(f"{self.entity_id} initial ECEF Position: x={self.ecef_x}, y={self.ecef_y}, z={self.ecef_z}")
 
         # Schedule the first communication event from the config
         if self.events:
@@ -34,10 +38,9 @@ class Entity:
             self.navigator_check()
 
     def commo(self, params):
-        """Process communication events."""
+        """Process communication events to handle navigation messages."""
         message_type = params.get('message_type', None)
         
-        # Handle navigation message
         if message_type == 'nav':
             logging.info(f"Received navigation message for {self.entity_id}")
             self.navigator(params)
@@ -45,75 +48,95 @@ class Entity:
             logging.info(f"Unknown message type for {self.entity_id}: {message_type}")
 
     def navigator(self, params):
-        """Navigator function to calculate and schedule movement."""
-        heading = params['heading']
-        speed = params['speed']
-        altitude = params.get('altitude', self.alt)  # Default to current altitude if not specified
-        dt = 1  # Time step
+        """Navigator function to calculate and set the initial ECEF velocity vector."""
+        self.heading = params['heading']
+        self.speed = params['speed']
+        self.alt = params.get('altitude', self.alt)  # Default to current altitude if not specified
+        dt = 1  # Time step in seconds
 
-        # Calculate new position based on heading, speed, and time step
-        slant_range_per_sec = speed * dt
-        new_e, new_n, new_u = pm.aer2enu(heading, 0, slant_range_per_sec)
+        # Calculate ENU velocity components from heading and speed for flat trajectory
+        slant_range_per_sec = self.speed * dt
+        east, north, up = pm.aer2enu(self.heading, 0, slant_range_per_sec, deg=True)
 
-        # Now convert ENU to ECEF (Earth-Centered, Earth-Fixed)
-        x_ecef, y_ecef, z_ecef = pm.enu2ecef(new_e, new_n, new_u, self.lat, self.lon, altitude)
+        # Convert ENU velocity to ECEF velocity based on current position
+        x_ecef_vel, y_ecef_vel, z_ecef_vel = pm.enu2ecef(east, north, up, self.lat, self.lon, self.alt, deg=True)
 
-        # Create the velocity vector in ECEF
-        velocity_vector_ecef = (x_ecef, y_ecef, z_ecef)
-
-        # Schedule the move event, passing the velocity vector
+        # Store the ECEF velocity vector
+        self.velocity_vector_ecef = (x_ecef_vel - self.ecef_x, y_ecef_vel - self.ecef_y, z_ecef_vel - self.ecef_z)
+        
+        # Schedule the initial move event
         next_event = {
             'type': 'move',
             'time': self.environment.current_time + dt,
             'entity': self,
             'params': {
-                'velocity_vector': velocity_vector_ecef,
-                'altitude': altitude,
+                'velocity_vector': self.velocity_vector_ecef,
+                'altitude': self.alt,
             }
         }
         self.schedule_event(next_event)
-        logging.info(f"Navigator scheduled move event with velocity vector: {velocity_vector_ecef}")
-
+        logging.info(f"Navigator set initial velocity vector: {self.velocity_vector_ecef}")
 
     def move(self):
-        """Apply the ECEF velocity vector to update the entity's position."""
+        """Apply the ECEF velocity vector to update the entity's position while maintaining altitude."""
         if not self.velocity_vector_ecef:
             logging.warning(f"No velocity vector available for {self.entity_id}, skipping move.")
             return
 
-        velocity_ecef_x, velocity_ecef_y, velocity_ecef_z = self.velocity_vector_ecef
-        dt = 1  # Time step
+        dt = 1  # Time step in seconds
 
-        # Update position in ECEF coordinates by applying the velocity vector
+        # Current ECEF position
         x_ecef, y_ecef, z_ecef = pm.geodetic2ecef(self.lat, self.lon, self.alt)
-        new_x_ecef = x_ecef + velocity_ecef_x * dt
-        new_y_ecef = y_ecef + velocity_ecef_y * dt
-        new_z_ecef = z_ecef + velocity_ecef_z * dt
+        logging.debug(f"{self.entity_id} ECEF Position before move: x={x_ecef}, y={y_ecef}, z={z_ecef}")
 
-        # Convert back to lat/lon/alt
+        # Apply ECEF velocity vector to update position
+        new_x_ecef = x_ecef + self.velocity_vector_ecef[0] * dt
+        new_y_ecef = y_ecef + self.velocity_vector_ecef[1] * dt
+        new_z_ecef = z_ecef + self.velocity_vector_ecef[2] * dt
+        logging.debug(f"{self.entity_id} ECEF Position after move: x={new_x_ecef}, y={new_y_ecef}, z={new_z_ecef}")
+        
+
+        # Convert updated ECEF coordinates back to geodetic (lat, lon)
         new_lat, new_lon, new_alt = pm.ecef2geodetic(new_x_ecef, new_y_ecef, new_z_ecef)
+        logging.debug(f"{self.entity_id} Geodetic Position after move: lat={new_lat}, lon={new_lon}, alt={new_alt}")
 
-        # Update the entity's lat, lon, and altitude
+        # Maintain altitude by enforcing the specified altitude
         self.lat, self.lon, self.alt = new_lat, new_lon, new_alt
-        logging.info(f"{self.entity_id} moved to {self.lat}, {self.lon} at altitude {self.alt}.")
+        logging.info(f"{self.entity_id} moved to {self.lat}, {self.lon} at altitude {self.alt}")
 
-        # Log the current state to the map data log
+        # Log current state to map data log
         current_time = self.environment.current_time
-        self.map_logger.info(f"{current_time},{self.entity_id},{self.lat:.6f},{self.lon:.6f},{self.alt:.6f}")
+        self.map_logger.info(f"{current_time},{self.entity_id},{self.lat:.6f},{self.lon:.6f},{self.heading:.6f},{self.alt:.6f}")
 
-        # Schedule the next move event (continue applying the velocity vector)
+        # Schedule the next move event to maintain movement
         next_move_event = {
             'type': 'move',
-            'time': current_time + dt,  # Continue moving in the next time step
-            'entity': self
+            'time': current_time + dt,
+            'entity': self,
+            'params': {'velocity_vector': self.velocity_vector_ecef, 'altitude': self.alt}
         }
         self.schedule_event(next_move_event)
         logging.info(f"Scheduled next move event at time {current_time + dt} for entity {self.entity_id}")
 
     def navigator_check(self):
-        """Check if the entity is still on track or needs adjustments."""
+        """Check if the entity's heading and altitude deviate from the target values."""
         logging.info(f"Navigator checking course for {self.entity_id}.")
-        # Later, this function could check for course corrections or stop commands.
+        
+        # Get the current heading and altitude based on the navigator's instruments
+        current_lat, current_lon, current_alt = self.lat, self.lon, self.alt
+        # Calculate current bearing (heading) based on previous position (stored ECEF)
+        x_ecef, y_ecef, z_ecef = pm.geodetic2ecef(current_lat, current_lon, current_alt)
+        current_heading = self.heading  # or calculated from past data if using a simulated compass
+
+        # Check for deviation in heading and altitude
+        heading_deviation = abs(current_heading - self.heading) / self.heading * 100
+        altitude_deviation = abs(current_alt - self.alt) / self.alt * 100
+
+        if heading_deviation > 10 or altitude_deviation > 10:
+            logging.info(f"{self.entity_id} off course: heading deviation = {heading_deviation:.2f}%, altitude deviation = {altitude_deviation:.2f}%")
+            
+            # Adjust velocity vector to correct course and altitude
+            self.navigator({'heading': self.heading, 'speed': self.speed, 'altitude': self.alt})
         
         # Schedule the next navigator check
         next_check_event = {
@@ -123,6 +146,7 @@ class Entity:
         }
         self.schedule_event(next_check_event)
         logging.info(f"Scheduled next navigator check at time {self.environment.current_time + 5} for entity {self.entity_id}")
+
 
     def schedule_event(self, event):
         """Schedule an event in the environment."""
