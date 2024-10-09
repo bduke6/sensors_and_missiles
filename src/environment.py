@@ -17,6 +17,23 @@ class Environment:
         heapq.heappush(self.event_queue, (simulation_event.time, simulation_event))
         logging.info(f"Event scheduled at time {simulation_event.time} for {simulation_event.entity.entity_id}")
 
+    def is_event_scheduled(self, event_type, entity_id, time):
+        """Check if an event of a specific type is scheduled for an entity at a given time."""
+        for event_time, event in self.event_queue:
+            if event_time == time and event.entity.entity_id == entity_id and event.event_type == event_type:
+                return True
+        return False
+
+    def clear_events(self, entity_id, event_type):
+        """Remove all events of a specific type for a given entity from the event queue."""
+        # Filter events that don't match the criteria
+        self.event_queue = [(time, event) for time, event in self.event_queue 
+                            if not (event.entity.entity_id == entity_id and event.event_type == event_type)]
+        
+        # Re-heapify the event queue to maintain heap properties
+        heapq.heapify(self.event_queue)
+        logging.info(f"Cleared all '{event_type}' events for entity {entity_id}.")
+
     def process_events(self, max_time):
         """Process all events until max_time is reached or no events are left."""
         while self.event_queue and self.current_time < max_time:
@@ -27,7 +44,7 @@ class Environment:
             # Log event queue size
             logging.info(f"Event queue size: {len(self.event_queue)}")
 
-            # Process the event by passing relevant data, ensure 'params' exists
+            # Process the event by passing relevant data
             simulation_event.entity.process_event({
                 'type': simulation_event.event_type,
                 'time': simulation_event.time,

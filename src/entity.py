@@ -17,8 +17,8 @@ class Entity:
         self.mark_time = 0
         self.target_heading = None
         self.target_speed = None
-        self.target_altitude = None 
-        self.speed = 0  
+        self.target_altitude = None
+        self.speed = 0
         logging.info(f"Entity created: {self.entity_id}")
 
         # Initialize ECEF position
@@ -53,9 +53,9 @@ class Entity:
         self.target_heading = params['heading']
         self.target_speed = params['speed']
         self.target_altitude = params.get('altitude', self.alt)
-        self.speed = self.target_speed  
+        self.speed = self.target_speed
         self.heading = self.target_heading
-        dt = 1  
+        dt = 1
 
         # Calculate ECEF velocity vector based on target heading and speed
         x_ecef_vel, y_ecef_vel, z_ecef_vel = pm.aer2ecef(
@@ -70,9 +70,12 @@ class Entity:
 
         self.velocity_vector_ecef = (x_ecef_vel - self.ecef_x, y_ecef_vel - self.ecef_y, z_ecef_vel - self.ecef_z)
         self.is_underway = True
-        self.underway_time = 1  
+        self.underway_time = 1
 
-        # Schedule initial move event
+        # Clear any existing move events before scheduling
+        self.clear_scheduled_events(event_type='move')
+
+        # Schedule initial move event with the updated velocity vector
         self.schedule_event({
             'type': 'move',
             'time': self.environment.current_time + dt,
@@ -84,7 +87,7 @@ class Entity:
         })
         logging.info(f"Navigator set initial velocity vector: {self.velocity_vector_ecef}")
 
-        # Schedule first navigator check
+        # Schedule first navigator check after a short delay to allow for adjustments
         self.schedule_event({
             'type': 'navigator_check',
             'time': self.environment.current_time + dt + 5,
@@ -93,6 +96,7 @@ class Entity:
         })
 
     def move(self):
+        """Move function only applies the velocity vector without adjusting altitude."""
         if not self.velocity_vector_ecef:
             logging.warning(f"No velocity vector available for {self.entity_id}, skipping move.")
             return
@@ -101,7 +105,7 @@ class Entity:
         self.underway_time += dt
         self.mark_time += dt
 
-        # Update position
+        # Apply velocity vector to position
         self.ecef_x += self.velocity_vector_ecef[0] * dt
         self.ecef_y += self.velocity_vector_ecef[1] * dt
         self.ecef_z += self.velocity_vector_ecef[2] * dt
@@ -112,24 +116,31 @@ class Entity:
         # Log current state for visualization
         self.map_logger.info(f"{self.environment.current_time},{self.entity_id},{self.lat:.6f},{self.lon:.6f},{self.heading:.6f},{self.alt:.6f}")
 
-        # Schedule next move event
-        self.schedule_event({
-            'type': 'move',
-            'time': self.environment.current_time + dt,
-            'entity': self,
-            'params': {'velocity_vector': self.velocity_vector_ecef, 'altitude': self.alt}
-        })
+        # Schedule next move event if not already scheduled
+        if not self.environment.is_event_scheduled('move', self.entity_id, self.environment.current_time + dt):
+            self.schedule_event({
+                'type': 'move',
+                'time': self.environment.current_time + dt,
+                'entity': self,
+                'params': {'velocity_vector': self.velocity_vector_ecef, 'altitude': self.alt}
+            })
 
     def navigator_check(self):
         logging.info(f"Navigator checking course for {self.entity_id}.")
+
         target_altitude = self.target_altitude
         altitude_deviation = self.alt - target_altitude
 
-        if abs(altitude_deviation) > 0.1 * target_altitude:
+        # Adaptive rescheduling based on deviation
+        correction_delay = 10 if abs(altitude_deviation) < 10 else 3
+
+        # If altitude deviation exceeds threshold, adjust and override the move event
+        if abs(altitude_deviation) > 5:
             logging.info(f"{self.entity_id} altitude deviation = {altitude_deviation:.2f}. Adjusting altitude.")
+
             correction_elevation = -0.1 * altitude_deviation / target_altitude
 
-            # Calculate ECEF correction for altitude deviation
+            # Recalculate velocity vector to include altitude correction
             x_ecef_corr, y_ecef_corr, z_ecef_corr = pm.aer2ecef(
                 az=self.heading,
                 el=correction_elevation,
@@ -146,25 +157,27 @@ class Entity:
                 z_ecef_corr - self.ecef_z
             )
 
-            # Schedule corrective move event
+            # Clear previous move events and schedule the updated move event
+            self.clear_scheduled_events(event_type='move')
             self.schedule_event({
                 'type': 'move',
                 'time': self.environment.current_time + 1,
                 'entity': self,
-                'params': {
-                    'velocity_vector': self.velocity_vector_ecef,
-                    'altitude': target_altitude
-                }
+                'params': {'velocity_vector': self.velocity_vector_ecef, 'altitude': target_altitude}
             })
 
-        # Schedule next navigator check
+        # Schedule the next navigator check with adaptive delay
         if self.is_underway:
             self.schedule_event({
                 'type': 'navigator_check',
-                'time': self.environment.current_time + 5,
+                'time': self.environment.current_time + correction_delay,
                 'entity': self,
                 'params': {}
             })
+
+    def clear_scheduled_events(self, event_type):
+        """Removes all scheduled events of a specific type for this entity."""
+        self.environment.clear_events(self.entity_id, event_type)
 
     def schedule_event(self, event):
         simulation_event = SimulationEvent(
