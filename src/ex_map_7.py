@@ -217,7 +217,7 @@ def build_time_mapping():
 
 
 def on_hover(event):
-    """Handle hover event to show tooltip with entity details."""
+    """Handle hover event to show tooltip with entity details from map_data.csv."""
     global hover_annotation
 
     if event.xdata is None or event.ydata is None:
@@ -227,51 +227,48 @@ def on_hover(event):
             plt.draw()
         return
 
-    t_index = int(time_slider.val)
-    mapped_sim_index = time_mapping[t_index]
-    current_time = times[mapped_sim_index]
+    current_time = int(time_slider.val)
 
-    for entity in entity_config['entities']:
-        entity_id = entity['entity_id']
-        plot = entity_plots.get(entity_id, None)
-        if not plot:
-            continue
+    # Loop through each entity in the simulation data for the current time
+    for entity_id in np.unique(simulation_data['entity']):
+        entity_mask = (simulation_data['entity'] == entity_id) & (simulation_data['time'] == current_time)
 
-        x_entity, y_entity = plot.get_position()
-        proximity_threshold_x = (m.urcrnrx - m.llcrnrx) * 0.01
-        proximity_threshold_y = (m.urcrnry - m.llcrnry) * 0.01
+        if entity_mask.any():
+            # Retrieve data for this entity at the current time
+            lat, lon = simulation_data['lat'][entity_mask][0], simulation_data['lon'][entity_mask][0]
+            heading = simulation_data['heading'][entity_mask][0] if 'heading' in simulation_data.dtype.names else None
+            altitude = simulation_data['alt'][entity_mask][0] if 'alt' in simulation_data.dtype.names else None
 
-        if abs(event.xdata - x_entity) < proximity_threshold_x and abs(event.ydata - y_entity) < proximity_threshold_y:
-            lat = entity.get('lat', None)
-            lon = entity.get('lon', None)
-            heading = None
+            # Get x and y coordinates for the map
+            x, y = m(lon, lat)
+            proximity_threshold_x = (m.urcrnrx - m.llcrnrx) * 0.01
+            proximity_threshold_y = (m.urcrnry - m.llcrnry) * 0.01
 
-            entity_mask = (np.char.strip(simulation_data['entity'].astype(str)) == entity_id) & (simulation_data['time'] == current_time)
+            # Check if hover is close enough to the entity's position
+            if abs(event.xdata - x) < proximity_threshold_x and abs(event.ydata - y) < proximity_threshold_y:
+                # Format information for display
+                lat_formatted = f"{lat:.2f}" if lat is not None else "N/A"
+                lon_formatted = f"{lon:.2f}" if lon is not None else "N/A"
+                heading_formatted = f"{heading:.0f}" if heading is not None else "N/A"
+                alt_formatted = f"{altitude:.0f}" if altitude is not None else "N/A"
 
-            if entity_mask.any():
-                last_valid_index = np.where(entity_mask)[0][0]
-                lat = simulation_data['lat'][last_valid_index]
-                lon = simulation_data['lon'][last_valid_index]
-                heading = simulation_data['heading'][last_valid_index] if 'heading' in simulation_data.dtype.names else None
+                # Remove previous annotation
+                if hover_annotation:
+                    hover_annotation.remove()
 
-            lat_formatted = f"{lat:.2f}" if lat is not None else "N/A"
-            lon_formatted = f"{lon:.2f}" if lon is not None else "N/A"
-            heading_formatted = f"{heading:.0f}" if heading is not None else "N/A"
-
-            if hover_annotation:
-                hover_annotation.remove()
-
-            hover_annotation = ax.annotate(
-                f"ID: {entity_id}\nLat: {lat_formatted}\nLon: {lon_formatted}\nHeading: {heading_formatted}",
-                xy=(event.xdata, event.ydata),
-                xytext=(event.xdata + 50000, event.ydata + 50000),
-                textcoords='data',
-                bbox=dict(boxstyle="round,pad=0.3", edgecolor="black", facecolor="white"),
-                arrowprops=dict(arrowstyle="->")
-            )
-            plt.draw()
-            break
+                # Display new hover annotation with data from map_data.csv
+                hover_annotation = ax.annotate(
+                    f"ID: {entity_id}\nLat: {lat_formatted}\nLon: {lon_formatted}\nHeading: {heading_formatted}\nAlt: {alt_formatted}",
+                    xy=(event.xdata, event.ydata),
+                    xytext=(event.xdata + 50000, event.ydata + 50000),
+                    textcoords='data',
+                    bbox=dict(boxstyle="round,pad=0.3", edgecolor="black", facecolor="white"),
+                    arrowprops=dict(arrowstyle="->")
+                )
+                plt.draw()
+                break
     else:
+        # Clear the hover annotation if no entity is close enough
         if hover_annotation:
             hover_annotation.remove()
             hover_annotation = None

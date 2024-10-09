@@ -131,16 +131,18 @@ class Entity:
         target_altitude = self.target_altitude
         altitude_deviation = self.alt - target_altitude
 
-        # Adaptive rescheduling based on deviation
+        # Define a tolerance range for altitude adjustments
+        tolerance_range = 2  # Smaller tolerance range to avoid oscillations
         correction_delay = 10 if abs(altitude_deviation) < 10 else 3
 
-        # If altitude deviation exceeds threshold, adjust and override the move event
-        if abs(altitude_deviation) > 5:
+        # Check if altitude deviation exceeds tolerance
+        if abs(altitude_deviation) > tolerance_range:
             logging.info(f"{self.entity_id} altitude deviation = {altitude_deviation:.2f}. Adjusting altitude.")
 
-            correction_elevation = -0.1 * altitude_deviation / target_altitude
+            # Calculate a more direct correction to bring altitude to target
+            correction_elevation = -0.1 * (altitude_deviation / abs(altitude_deviation))  # Apply fixed rate toward target
 
-            # Recalculate velocity vector to include altitude correction
+            # Recalculate ECEF coordinates based on this correction
             x_ecef_corr, y_ecef_corr, z_ecef_corr = pm.aer2ecef(
                 az=self.heading,
                 el=correction_elevation,
@@ -151,10 +153,11 @@ class Entity:
                 deg=True
             )
 
+            # Apply correction vector directly
             self.velocity_vector_ecef = (
-                x_ecef_corr - self.ecef_x, 
-                y_ecef_corr - self.ecef_y, 
-                z_ecef_corr - self.ecef_z
+                (x_ecef_corr - self.ecef_x) * 0.5,  # Scale corrections to avoid overshooting
+                (y_ecef_corr - self.ecef_y) * 0.5,
+                (z_ecef_corr - self.ecef_z) * 0.5
             )
 
             # Clear previous move events and schedule the updated move event
@@ -174,6 +177,8 @@ class Entity:
                 'entity': self,
                 'params': {}
             })
+
+
 
     def clear_scheduled_events(self, event_type):
         """Removes all scheduled events of a specific type for this entity."""
