@@ -1,6 +1,7 @@
 environment:
   entities_file: "config/entity_config_guam_scenario.json"
   scenario_file: "config/scenarios/scenario_guam_1000km_west.yaml"
+  c2_file: "config/c2_events.csv"  # New entry for commo events file
   logging_config: "config/logging.yaml"
   map_tool_file: "logs/map_tool_output.csv"
   max_time: 3000

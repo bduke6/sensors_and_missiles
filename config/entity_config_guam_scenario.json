@@ -10,19 +10,7 @@
         "color": "blue",
         "size": 12,
         "initial_render": true
-      },
-      "events": [
-        {
-          "type": "commo",
-          "start_time": 0,
-          "params": {
-            "message_type": "nav",
-            "heading": 45.0,
-            "speed": 1000,
-            "altitude": 1000
-          }
-        }
-      ]
+      }
     },
     {
       "entity_id": "missile_1",
@@ -30,23 +18,11 @@
       "lon": 112.8,
       "alt": 500,
       "render": {
-        "symbol": "\u2663",
+        "symbol": "♣",
         "color": "red",
         "size": 10,
         "initial_render": true
-      },
-      "events": [
-        {
-          "type": "commo",
-          "start_time": 0,
-          "params": {
-            "message_type": "nav",
-            "heading": 90.0,
-            "speed": 300,
-            "altitude": 500
-          }
-        }
-      ]
+      }
     },
     {
       "entity_id": "missile_2",
@@ -54,23 +30,11 @@
       "lon": 113.0,
       "alt": 500,
       "render": {
-        "symbol": "\u2663",
+        "symbol": "♣",
         "color": "red",
         "size": 10,
         "initial_render": true
-      },
-      "events": [
-        {
-          "type": "commo",
-          "start_time": 0,
-          "params": {
-            "message_type": "nav",
-            "heading": 90.0,
-            "speed": 300,
-            "altitude": 500
-          }
-        }
-      ]
+      }
     },
     {
       "entity_id": "missile_3",
@@ -78,23 +42,11 @@
       "lon": 120.9,
       "alt": 500,
       "render": {
-        "symbol": "\u2663",
+        "symbol": "♣",
         "color": "red",
         "size": 10,
         "initial_render": true
-      },
-      "events": [
-        {
-          "type": "commo",
-          "start_time": 0,
-          "params": {
-            "message_type": "nav",
-            "heading": 90.0,
-            "speed": 300,
-            "altitude": 500
-          }
-        }
-      ]
+      }
     }
   ]
 }

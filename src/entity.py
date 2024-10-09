@@ -1,6 +1,5 @@
 import pymap3d as pm
 import logging
-from simulation_event import SimulationEvent  
 
 class Entity:
     def __init__(self, config, environment):
@@ -9,7 +8,6 @@ class Entity:
         self.lon = config['lon']
         self.alt = config['alt']
         self.environment = environment
-        self.events = config.get('events', [])
         self.map_logger = logging.getLogger('map_logger')
         self.velocity_vector_ecef = None
         self.is_underway = False
@@ -24,15 +22,6 @@ class Entity:
         # Initialize ECEF position
         self.ecef_x, self.ecef_y, self.ecef_z = pm.geodetic2ecef(self.lat, self.lon, self.alt)
         logging.info(f"{self.entity_id} initial ECEF Position: x={self.ecef_x}, y={self.ecef_y}, z={self.ecef_z}")
-
-        # Schedule first event
-        if self.events:
-            self.schedule_event({
-                'type': self.events[0]['type'],
-                'time': self.events[0]['start_time'],
-                'entity': self,
-                'params': self.events[0]['params']
-            })
 
     def process_event(self, event):
         logging.info(f"Processing event for {self.entity_id}: {event}")
@@ -79,7 +68,7 @@ class Entity:
         self.schedule_event({
             'type': 'move',
             'time': self.environment.current_time + dt,
-            'entity': self,
+            'receiver': self.entity_id,
             'params': {
                 'velocity_vector': self.velocity_vector_ecef,
                 'altitude': self.target_altitude
@@ -91,12 +80,12 @@ class Entity:
         self.schedule_event({
             'type': 'navigator_check',
             'time': self.environment.current_time + dt + 5,
-            'entity': self,
+            'receiver': self.entity_id,
             'params': {}
         })
 
     def move(self):
-        """Move function only applies the velocity vector without adjusting altitude."""
+        """Move function applies the velocity vector without adjusting altitude."""
         if not self.velocity_vector_ecef:
             logging.warning(f"No velocity vector available for {self.entity_id}, skipping move.")
             return
@@ -117,13 +106,12 @@ class Entity:
         self.map_logger.info(f"{self.environment.current_time},{self.entity_id},{self.lat:.6f},{self.lon:.6f},{self.heading:.6f},{self.alt:.6f}")
 
         # Schedule next move event if not already scheduled
-        if not self.environment.is_event_scheduled('move', self.entity_id, self.environment.current_time + dt):
-            self.schedule_event({
-                'type': 'move',
-                'time': self.environment.current_time + dt,
-                'entity': self,
-                'params': {'velocity_vector': self.velocity_vector_ecef, 'altitude': self.alt}
-            })
+        self.schedule_event({
+            'type': 'move',
+            'time': self.environment.current_time + dt,
+            'receiver': self.entity_id,
+            'params': {'velocity_vector': self.velocity_vector_ecef, 'altitude': self.alt}
+        })
 
     def navigator_check(self):
         logging.info(f"Navigator checking course for {self.entity_id}.")
@@ -132,17 +120,13 @@ class Entity:
         altitude_deviation = self.alt - target_altitude
 
         # Define a tolerance range for altitude adjustments
-        tolerance_range = 2  # Smaller tolerance range to avoid oscillations
+        tolerance_range = 2
         correction_delay = 10 if abs(altitude_deviation) < 10 else 3
 
-        # Check if altitude deviation exceeds tolerance
         if abs(altitude_deviation) > tolerance_range:
             logging.info(f"{self.entity_id} altitude deviation = {altitude_deviation:.2f}. Adjusting altitude.")
+            correction_elevation = -0.1 * (altitude_deviation / abs(altitude_deviation))
 
-            # Calculate a more direct correction to bring altitude to target
-            correction_elevation = -0.1 * (altitude_deviation / abs(altitude_deviation))  # Apply fixed rate toward target
-
-            # Recalculate ECEF coordinates based on this correction
             x_ecef_corr, y_ecef_corr, z_ecef_corr = pm.aer2ecef(
                 az=self.heading,
                 el=correction_elevation,
@@ -153,43 +137,31 @@ class Entity:
                 deg=True
             )
 
-            # Apply correction vector directly
             self.velocity_vector_ecef = (
-                (x_ecef_corr - self.ecef_x) * 0.5,  # Scale corrections to avoid overshooting
+                (x_ecef_corr - self.ecef_x) * 0.5,
                 (y_ecef_corr - self.ecef_y) * 0.5,
                 (z_ecef_corr - self.ecef_z) * 0.5
             )
 
-            # Clear previous move events and schedule the updated move event
             self.clear_scheduled_events(event_type='move')
             self.schedule_event({
                 'type': 'move',
                 'time': self.environment.current_time + 1,
-                'entity': self,
+                'receiver': self.entity_id,
                 'params': {'velocity_vector': self.velocity_vector_ecef, 'altitude': target_altitude}
             })
 
-        # Schedule the next navigator check with adaptive delay
-        if self.is_underway:
-            self.schedule_event({
-                'type': 'navigator_check',
-                'time': self.environment.current_time + correction_delay,
-                'entity': self,
-                'params': {}
-            })
-
-
+        # Reschedule navigator check
+        self.schedule_event({
+            'type': 'navigator_check',
+            'time': self.environment.current_time + correction_delay,
+            'receiver': self.entity_id,
+            'params': {}
+        })
 
     def clear_scheduled_events(self, event_type):
-        """Removes all scheduled events of a specific type for this entity."""
         self.environment.clear_events(self.entity_id, event_type)
 
     def schedule_event(self, event):
-        simulation_event = SimulationEvent(
-            time=event['time'],
-            entity=self,
-            event_type=event['type'],
-            params=event['params']
-        )
-        self.environment.schedule_event(simulation_event)
+        self.environment.schedule_event(event)
         logging.info(f"Scheduled event at time {event['time']} for entity {self.entity_id}")
