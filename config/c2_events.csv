@@ -1,5 +1,6 @@
-Time,Sender,Receiver,Message Type,Parameters
-00:00:00,C2,plane_1,nav,"heading: 45.0, speed: 1000, altitude: 1000"
-00:00:00,C2,missile_1,nav,"heading: 90.0, speed: 300, altitude: 500"
-00:00:00,C2,missile_2,nav,"heading: 90.0, speed: 300, altitude: 500"
-00:00:00,C2,missile_3,nav,"heading: 90.0, speed: 300, altitude: 500"
+time,sender,receiver,message_type,parameters
+00:00:00,C2,plane_1,nav,"heading: 100.0, speed: 1000, altitude: 1000"
+00:02:00,C2,plane_2,nav,"heading: 200.0, speed: 1000, altitude: 1000"
+00:00:00,C2,missile_1,nav,"heading: 20.0, speed: 300, altitude: 500"
+00:00:00,C2,missile_2,nav,"heading: 355.0, speed: 300, altitude: 500"
+00:00:00,C2,missile_3,nav,"heading: 220.0, speed: 300, altitude: 500"

@@ -13,6 +13,18 @@
       }
     },
     {
+      "entity_id": "plane_2",
+      "lat": 20.0,
+      "lon": 120.0,
+      "alt": 1000,
+      "render": {
+        "symbol": "✈️",
+        "color": "blue",
+        "size": 12,
+        "initial_render": true
+      }
+    },
+    {
       "entity_id": "missile_1",
       "lat": 12.7,
       "lon": 112.8,

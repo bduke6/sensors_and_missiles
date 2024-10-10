@@ -50,20 +50,32 @@ def setup_logging(config, env):
 
     print(f"Logging initialized. Log files created with timestamp {timestamp}")
 
+import csv
+
 def load_c2_events(c2_file):
     """Load C2 events from a CSV file."""
     events = []
     with open(c2_file, 'r') as file:
         reader = csv.DictReader(file)
         for row in reader:
+            # Parse parameters into a dictionary
+            params = {}
+            if row['parameters']:
+                for item in row['parameters'].split(','):
+                    key, value = item.split(':')
+                    params[key.strip()] = value.strip()
+                    
             events.append({
-                "time": row["Time"],
-                "sender": row["Sender"],
-                "receiver": row["Receiver"],
-                "message_type": row["Message Type"],
-                "parameters": row["Parameters"]
+                "time": row["time"],
+                "receiver": row["receiver"],
+                "type": row["message_type"],  # Set the event type
+                "params": params  # Set the event parameters
             })
     return events
+
+
+
+
 
 def run_simulation(config_path):
     """Run the simulation."""
