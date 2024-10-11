@@ -94,6 +94,7 @@ class Entity:
         self.clear_scheduled_events(event_type='move')
 
         # Schedule initial move event with the updated velocity vector
+        # Example in navigator() function:
         self.schedule_event({
             'type': 'move',
             'time': self.environment.current_time + dt,
@@ -103,6 +104,7 @@ class Entity:
                 'altitude': self.target_altitude
             }
         })
+
         logging.info(f"Scheduled move event for {self.entity_id} at time {self.environment.current_time + dt}")
 
         # Schedule first navigator check after a short delay to allow for adjustments
