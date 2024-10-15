@@ -1,5 +1,6 @@
 import pymap3d as pm
 import logging
+from ballistic_navigator import BallisticNavigator  # Import the ballistic navigator class
 
 class Entity:
     def __init__(self, config, environment):
@@ -19,6 +20,10 @@ class Entity:
         self.target_altitude = None
         self.speed = 0
         self.heading = 0  # Initialize heading to 0 or any default value
+
+        # New attribute to determine if this is a ballistic entity
+        self.is_ballistic = config.get('is_ballistic', False)  # Default to False if not specified
+
         logging.info(f"Entity created: {self.entity_id}")
 
         # Initialize ECEF position
@@ -34,48 +39,48 @@ class Entity:
                 'params': self.events[0]['params']
             })
 
+
     def process_event(self, event):
         logging.info(f"Processing event for {self.entity_id}: {event}")
-
-        # Extract the message type and parameters
         message_type = event['type']
         params = event['params']
 
-        # Handle internal events
         if message_type == 'move':
             self.move()
         elif message_type == 'navigator_check':
             self.navigator_check()
         else:
-            # Handle all other events as external communication
-            print(f"From process events function msg type: {message_type}")
             self.commo(message_type, params)
 
     def commo(self, message_type, params):
-        print(f"From commo function msg type: {message_type}")
         if message_type == 'nav':
             logging.info(f"Received navigation message for {self.entity_id}")
             self.navigator(params)
+        elif message_type == 'bal_nav':  # Handle ballistic navigation
+            logging.info(f"Received ballistic navigation message for {self.entity_id}")
+            target_lat = float(params.get('tgt_lat'))
+            target_lon = float(params.get('tgt_lon'))
+            ballistic_navigator = BallisticNavigator(self, target_lat, target_lon)
+            print(f"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5tgt_lat: {target_lat} tgt_lon: {target_lon}")
+            ballistic_navigator.calculate_ballistic_trajectory()
         else:
             logging.warning(f"Unknown message type '{message_type}' for {self.entity_id}")
 
-
     def navigator(self, params):
+
         try:
-            # Extracting parameters from commo event
             self.target_heading = float(params['heading'])
             self.target_speed = float(params['speed'])
             self.target_altitude = float(params.get('altitude', self.alt))
-            self.speed = self.target_speed  # Update current speed
-            self.heading = self.target_heading  # Update current heading
+            self.speed = self.target_speed
+            self.heading = self.target_heading
             logging.info(f"Navigator set target heading: {self.target_heading}, speed: {self.target_speed}, altitude: {self.target_altitude} for entity {self.entity_id}")
+            logging.info(f"NAVIGATOR received heading: {self.target_heading}, speed: {self.target_speed}, altitude: {self.target_altitude} for entity {self.entity_id}")
         except KeyError as e:
             logging.error(f"Missing parameter in nav command for {self.entity_id}: {e}")
             return
 
         dt = 1
-
-        # Calculate ECEF velocity vector based on target heading and speed
         x_ecef_vel, y_ecef_vel, z_ecef_vel = pm.aer2ecef(
             az=self.target_heading,
             el=0,
@@ -89,37 +94,30 @@ class Entity:
         self.velocity_vector_ecef = (x_ecef_vel - self.ecef_x, y_ecef_vel - self.ecef_y, z_ecef_vel - self.ecef_z)
         self.is_underway = True
         self.underway_time = 1
-
-        # Clear any existing move events before scheduling
         self.clear_scheduled_events(event_type='move')
 
-        # Schedule initial move event with the updated velocity vector
-        # Example in navigator() function:
         self.schedule_event({
             'type': 'move',
             'time': self.environment.current_time + dt,
-            'entity': self,  # Use 'entity' instead of 'receiver'
+            'entity': self,
             'params': {
                 'velocity_vector': self.velocity_vector_ecef,
                 'altitude': self.target_altitude
             }
         })
-
         logging.info(f"Scheduled move event for {self.entity_id} at time {self.environment.current_time + dt}")
 
-        # Schedule first navigator check after a short delay to allow for adjustments
         self.schedule_event({
             'type': 'navigator_check',
             'time': self.environment.current_time + dt + 5,
-            'entity': self,  # Use 'entity' instead of 'receiver'
+            'entity': self,
             'params': {}
         })
         logging.info(f"Scheduled navigator check for {self.entity_id} at time {self.environment.current_time + dt + 5}")
 
-
-
     def move(self):
-        """Move function only applies the velocity vector without adjusting altitude."""
+        logging.info(f"MOVE function for {self.entity_id} with velocity vector: {self.velocity_vector_ecef} and altitude: {self.alt}")
+
         if not self.velocity_vector_ecef:
             logging.warning(f"No velocity vector available for {self.entity_id}, skipping move.")
             return
@@ -127,25 +125,20 @@ class Entity:
         dt = 1
         self.underway_time += dt
         self.mark_time += dt
-
-        # Apply velocity vector to position
         self.ecef_x += self.velocity_vector_ecef[0] * dt
         self.ecef_y += self.velocity_vector_ecef[1] * dt
         self.ecef_z += self.velocity_vector_ecef[2] * dt
-
-        # Convert ECEF coordinates to geodetic
         self.lat, self.lon, self.alt = pm.ecef2geodetic(self.ecef_x, self.ecef_y, self.ecef_z)
-
-        # Log current state for visualization
         heading_str = f"{self.heading:.6f}" if self.heading is not None else "N/A"
         self.map_logger.info(f"{self.environment.current_time},{self.entity_id},{self.lat:.6f},{self.lon:.6f},{heading_str},{self.alt:.6f}")
+        logging.debug(f"Altitude after move calculation: {self.alt}")
 
-        # Schedule next move event if not already scheduled
+
         if not self.environment.is_event_scheduled('move', self.entity_id, self.environment.current_time + dt):
             self.schedule_event({
                 'type': 'move',
                 'time': self.environment.current_time + dt,
-                'receiver': self.entity_id,  # Set the receiver explicitly
+                'receiver': self.entity_id,
                 'params': {
                     'velocity_vector': self.velocity_vector_ecef,
                     'altitude': self.alt
@@ -153,22 +146,24 @@ class Entity:
             })
             logging.info(f"Scheduled move event for {self.entity_id} at time {self.environment.current_time + dt}")
 
-
-
     def navigator_check(self):
-        logging.info(f"Navigator checking course for {self.entity_id}.")
+        logging.info(f"NAVIGATOR CHECK course for {self.entity_id}.")
+        
+        # Only adjust altitude if the entity is ballistic
+        if not self.is_ballistic:
+            logging.info(f"{self.entity_id} is not ballistic; skipping altitude adjustment.")
+            return
+
+        logging.info(f"Navigator check for {self.entity_id}: Current altitude {self.alt}, Target altitude {self.target_altitude}, Velocity vector: {self.velocity_vector_ecef}")
 
         target_altitude = self.target_altitude
         altitude_deviation = self.alt - target_altitude
-
-        # Define a tolerance range for altitude adjustments
         tolerance_range = 2
         correction_delay = 10 if abs(altitude_deviation) < 10 else 3
 
         if abs(altitude_deviation) > tolerance_range:
             logging.info(f"{self.entity_id} altitude deviation = {altitude_deviation:.2f}. Adjusting altitude.")
             correction_elevation = -0.1 * (altitude_deviation / abs(altitude_deviation))
-
             x_ecef_corr, y_ecef_corr, z_ecef_corr = pm.aer2ecef(
                 az=self.heading,
                 el=correction_elevation,
@@ -184,7 +179,6 @@ class Entity:
                 (y_ecef_corr - self.ecef_y) * 0.5,
                 (z_ecef_corr - self.ecef_z) * 0.5
             )
-
             self.clear_scheduled_events(event_type='move')
             self.schedule_event({
                 'type': 'move',
@@ -194,7 +188,6 @@ class Entity:
             })
             logging.info(f"Scheduled adjusted move event for {self.entity_id} at time {self.environment.current_time + 1}")
 
-        # Reschedule navigator check
         self.schedule_event({
             'type': 'navigator_check',
             'time': self.environment.current_time + correction_delay,
@@ -202,8 +195,6 @@ class Entity:
             'params': {}
         })
         logging.info(f"Scheduled next navigator check for {self.entity_id} at time {self.environment.current_time + correction_delay}")
-
-
 
     def clear_scheduled_events(self, event_type):
         self.environment.clear_events(self.entity_id, event_type)

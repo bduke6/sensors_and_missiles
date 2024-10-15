@@ -26,9 +26,10 @@
     },
     {
       "entity_id": "missile_1",
-      "lat": 12.7,
-      "lon": 112.8,
-      "alt": 500,
+      "lat": 5.0,
+      "lon": 110.0,
+      "alt": 0,
+      "is_ballistic": true,
       "render": {
         "symbol": "♣",
         "color": "red",
@@ -40,7 +41,7 @@
       "entity_id": "missile_2",
       "lat": 15.2,
       "lon": 113.0,
-      "alt": 500,
+      "alt": 50,
       "render": {
         "symbol": "♣",
         "color": "red",
