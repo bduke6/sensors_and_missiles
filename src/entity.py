@@ -20,10 +20,6 @@ class Entity:
         self.target_altitude = None
         self.speed = 0
         self.heading = 0  # Initialize heading to 0 or any default value
-
-        # New attribute to determine if this is a ballistic entity
-        self.is_ballistic = config.get('is_ballistic', False)  # Default to False if not specified
-
         logging.info(f"Entity created: {self.entity_id}")
 
         # Initialize ECEF position
@@ -38,7 +34,6 @@ class Entity:
                 'entity': self,
                 'params': self.events[0]['params']
             })
-
 
     def process_event(self, event):
         logging.info(f"Processing event for {self.entity_id}: {event}")
@@ -60,11 +55,13 @@ class Entity:
             logging.info(f"Received ballistic navigation message for {self.entity_id}")
             target_lat = float(params.get('tgt_lat'))
             target_lon = float(params.get('tgt_lon'))
-            ballistic_navigator = BallisticNavigator(self, target_lat, target_lon)
-            print(f"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5tgt_lat: {target_lat} tgt_lon: {target_lon}")
-            ballistic_navigator.calculate_ballistic_trajectory()
+            # Initialize the BallisticNavigator and start the ballistic flight sequence
+            self.ballistic_navigator = BallisticNavigator(self, target_lat, target_lon)
+            logging.debug(f"Target coordinates for ballistic navigation: lat={target_lat}, lon={target_lon}")
+            self.ballistic_navigator.initiate_ballistic_flight()
         else:
             logging.warning(f"Unknown message type '{message_type}' for {self.entity_id}")
+
 
     def navigator(self, params):
 
@@ -131,8 +128,6 @@ class Entity:
         self.lat, self.lon, self.alt = pm.ecef2geodetic(self.ecef_x, self.ecef_y, self.ecef_z)
         heading_str = f"{self.heading:.6f}" if self.heading is not None else "N/A"
         self.map_logger.info(f"{self.environment.current_time},{self.entity_id},{self.lat:.6f},{self.lon:.6f},{heading_str},{self.alt:.6f}")
-        logging.debug(f"Altitude after move calculation: {self.alt}")
-
 
         if not self.environment.is_event_scheduled('move', self.entity_id, self.environment.current_time + dt):
             self.schedule_event({
@@ -149,11 +144,6 @@ class Entity:
     def navigator_check(self):
         logging.info(f"NAVIGATOR CHECK course for {self.entity_id}.")
         
-        # Only adjust altitude if the entity is ballistic
-        if not self.is_ballistic:
-            logging.info(f"{self.entity_id} is not ballistic; skipping altitude adjustment.")
-            return
-
         logging.info(f"Navigator check for {self.entity_id}: Current altitude {self.alt}, Target altitude {self.target_altitude}, Velocity vector: {self.velocity_vector_ecef}")
 
         target_altitude = self.target_altitude

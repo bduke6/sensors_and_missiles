@@ -4,4 +4,4 @@ environment:
   c2_file: "config/c2_events.csv" # New entry for commo events file
   logging_config: "config/logging.yaml"
   map_tool_file: "logs/map_tool_output.csv"
-  max_time: 2000
+  max_time: 3000
