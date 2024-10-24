@@ -15,10 +15,17 @@ time_step = 1  # Time step in seconds
 max_steps = 5500  # Maximum number of simulation steps
 initial_velocity = 7500  # Standard initial missile velocity in m/s
 
-# Function to calculate great-circle distance and initial bearing
-def calculate_great_circle_path(lat1, lon1, lat2, lon2):
-    azimuth, _, distance = pm.geodetic2aer(lat2, lon2, 0, lat1, lon1, 0, deg=True)
-    return azimuth, distance
+# Convert launch and target coordinates to ECEF
+start_ecef = pm.geodetic2ecef(start_lat, start_lon, start_alt)
+target_1_ecef = pm.geodetic2ecef(target_1_lat, target_1_lon, target_1_alt)
+target_2_ecef = pm.geodetic2ecef(target_2_lat, target_2_lon, target_2_alt)
+
+# Function to calculate great-circle distance using ECEF
+def calculate_great_circle_path_ecef(start_ecef, target_ecef):
+    distance = math.sqrt((target_ecef[0] - start_ecef[0])**2 + 
+                         (target_ecef[1] - start_ecef[1])**2 + 
+                         (target_ecef[2] - start_ecef[2])**2)
+    return distance
 
 # Function to calculate launch angle
 def calculate_launch_angle(vertical_velocity, horizontal_velocity):
@@ -28,123 +35,114 @@ def calculate_launch_angle(vertical_velocity, horizontal_velocity):
 def calculate_strike_angle(vertical_velocity, horizontal_velocity):
     return math.degrees(math.atan(abs(vertical_velocity) / horizontal_velocity))
 
-# Function to calculate initial velocities for flight
+# Function to calculate initial velocities based on the launch angle
 def calculate_initial_velocities(initial_velocity, launch_angle_deg):
     launch_angle_rad = math.radians(launch_angle_deg)
     vertical_velocity = initial_velocity * math.sin(launch_angle_rad)
     horizontal_velocity = initial_velocity * math.cos(launch_angle_rad)
     return vertical_velocity, horizontal_velocity
 
-def calculate_ballistic_parameters(target_distance, initial_velocity):
-    g = 9.81  # m/s^2
+# Function to predict apogee and impact using ECEF
+def predict_apogee_impact_ecef(target_distance, initial_velocity):
+    g = 9.81
     sin2theta = (target_distance * g) / (initial_velocity ** 2)
+    
     if sin2theta > 1:
         raise ValueError("Target is beyond maximum range")
     
     theta = math.asin(sin2theta) / 2
-    launch_angle = math.degrees(theta)
     initial_vertical_velocity = initial_velocity * math.sin(theta)
-    time_of_flight = (2 * initial_vertical_velocity) / g
     apogee = (initial_vertical_velocity ** 2) / (2 * g)
-    
-    return launch_angle, time_of_flight, apogee
+    return apogee, target_distance
 
-def simulate_missile_flight(target_lat, target_lon, target_distance, initial_azimuth):
-    try:
-        launch_angle, time_of_flight, expected_apogee = calculate_ballistic_parameters(target_distance, initial_velocity)
-    except ValueError:
-        print(f"Target distance {target_distance/1000:.2f}km exceeds maximum range")
-        return None
-    
-    launch_angle_rad = math.radians(launch_angle)
-    v0x = initial_velocity * math.cos(launch_angle_rad)
-    v0y = initial_velocity * math.sin(launch_angle_rad)
-    
-    dt = 1.0  # 1 second time step
+# Function to simulate missile flight using ECEF coordinates
+def simulate_missile_flight_ecef(target_ecef, initial_velocity):
     ascent_points = {'ground_distances': [], 'altitudes': [], 'latitudes': [], 'longitudes': []}
     midcourse_points = {'ground_distances': [], 'altitudes': [], 'latitudes': [], 'longitudes': []}
     terminal_points = {'ground_distances': [], 'altitudes': [], 'latitudes': [], 'longitudes': []}
-    
+
     max_altitude = 0
-    t = 0
-    x = 0  # Ground distance
-    y = 0  # Altitude
+    start_ecef = pm.geodetic2ecef(start_lat, start_lon, start_alt)
+    current_ecef = list(start_ecef)
     
-    while y >= 0 and x <= target_distance:
-        vx = v0x
-        vy = v0y - g * t
-        x = v0x * t
-        y = v0y * t - 0.5 * g * t * t
+    # Calculate initial launch parameters
+    target_distance = calculate_great_circle_path_ecef(start_ecef, target_ecef)
+    apogee, _ = predict_apogee_impact_ecef(target_distance, initial_velocity)
+    
+    # Simulate the missile flight in time steps
+    for step in range(max_steps):
+        horizontal_velocity = initial_velocity  # Horizontal velocity is assumed constant
+        vertical_velocity = initial_velocity - (g * step * time_step)
+        altitude = (initial_velocity * step * time_step) - (0.5 * g * (step * time_step) ** 2)
         
-        if y > max_altitude:
-            max_altitude = y
+        # Calculate position in ECEF based on the missile's velocity
+        x = current_ecef[0] + horizontal_velocity * time_step
+        y = current_ecef[1] + vertical_velocity * time_step
+        z = altitude
         
-        slant_range = math.sqrt(x**2 + y**2)
-        lat, lon, _ = pm.aer2geodetic(initial_azimuth, 0, slant_range, start_lat, start_lon, start_alt, deg=True)
+        current_ecef = [x, y, z]
+        lat, lon, _ = pm.ecef2geodetic(*current_ecef)
         
-        if vy >= 0:
-            ascent_points['ground_distances'].append(x / 1000)
-            ascent_points['altitudes'].append(y)
+        # Store ascent, midcourse, and terminal phase data
+        if vertical_velocity > 0:
+            ascent_points['ground_distances'].append(step * time_step)
+            ascent_points['altitudes'].append(altitude)
             ascent_points['latitudes'].append(lat)
             ascent_points['longitudes'].append(lon)
-        elif y >= max_altitude * 0.25:
-            midcourse_points['ground_distances'].append(x / 1000)
-            midcourse_points['altitudes'].append(y)
+        elif vertical_velocity <= 0 and altitude > 0:
+            midcourse_points['ground_distances'].append(step * time_step)
+            midcourse_points['altitudes'].append(altitude)
             midcourse_points['latitudes'].append(lat)
             midcourse_points['longitudes'].append(lon)
         else:
-            terminal_points['ground_distances'].append(x / 1000)
-            terminal_points['altitudes'].append(y)
+            terminal_points['ground_distances'].append(step * time_step)
+            terminal_points['altitudes'].append(altitude)
             terminal_points['latitudes'].append(lat)
             terminal_points['longitudes'].append(lon)
-            
-        t += dt
+        
+        if altitude <= 0:
+            break
+        
+        # Track the maximum altitude
+        if altitude > max_altitude:
+            max_altitude = altitude
     
-    impact_distance = x / 1000
-    strike_angle = math.degrees(math.atan2(-vy, vx))
-    
-    return (ascent_points, midcourse_points, terminal_points, max_altitude,
-            launch_angle, strike_angle, initial_velocity, t, impact_distance, lat, lon)
+    impact_distance = step * time_step
+    return ascent_points, midcourse_points, terminal_points, max_altitude, impact_distance, lat, lon
 
-def predict_apogee_impact(target_distance, initial_velocity):
-    launch_angle, time_of_flight, apogee = calculate_ballistic_parameters(target_distance, initial_velocity)
-    return apogee, target_distance
-
-# Calculate the distances to the two targets
-azimuth_1, target_distance_1 = calculate_great_circle_path(start_lat, start_lon, target_1_lat, target_1_lon)
-azimuth_2, target_distance_2 = calculate_great_circle_path(start_lat, start_lon, target_2_lat, target_2_lon)
+# Calculate the distances to the two targets using ECEF
+target_distance_1 = calculate_great_circle_path_ecef(start_ecef, target_1_ecef)
+target_distance_2 = calculate_great_circle_path_ecef(start_ecef, target_2_ecef)
 
 # Predict apogee and impact before the simulation
-predicted_apogee_1, predicted_impact_1 = predict_apogee_impact(target_distance_1, initial_velocity)
-predicted_apogee_2, predicted_impact_2 = predict_apogee_impact(target_distance_2, initial_velocity)
+predicted_apogee_1, predicted_impact_1 = predict_apogee_impact_ecef(target_distance_1, initial_velocity)
+predicted_apogee_2, predicted_impact_2 = predict_apogee_impact_ecef(target_distance_2, initial_velocity)
 
 print(f"Predicted Missile 1 - Apogee Altitude: {predicted_apogee_1:.2f} m")
 print(f"Predicted Missile 2 - Apogee Altitude: {predicted_apogee_2:.2f} m")
 
-# Simulate both missiles
-ascent_1, midcourse_1, terminal_1, max_altitude_1, launch_angle_1, strike_angle_1, max_speed_1, impact_time_1, impact_distance_1, impact_lat_1, impact_lon_1 = simulate_missile_flight(target_1_lat, target_1_lon, target_distance_1, azimuth_1)
-ascent_2, midcourse_2, terminal_2, max_altitude_2, launch_angle_2, strike_angle_2, max_speed_2, impact_time_2, impact_distance_2, impact_lat_2, impact_lon_2 = simulate_missile_flight(target_2_lat, target_2_lon, target_distance_2, azimuth_2)
+# Simulate both missiles using ECEF coordinates
+ascent_1, midcourse_1, terminal_1, max_altitude_1, impact_distance_1, impact_lat_1, impact_lon_1 = simulate_missile_flight_ecef(target_1_ecef, initial_velocity)
+ascent_2, midcourse_2, terminal_2, max_altitude_2, impact_distance_2, impact_lat_2, impact_lon_2 = simulate_missile_flight_ecef(target_2_ecef, initial_velocity)
 
-# Print post-simulation comparison with prediction
+# Print post-simulation results
 print(f"Missile 1 - Max Altitude: {max_altitude_1:.2f} m, Impact Distance: {impact_distance_1:.2f} km")
-print(f"Missile 1 - Prediction Difference - Apogee Altitude: {abs(predicted_apogee_1 - max_altitude_1):.2f} m, Impact Distance: {abs(predicted_impact_1 / 1000 - impact_distance_1):.2f} km")
+print(f"Missile 1 - Impact at Lat={impact_lat_1:.5f}, Lon={impact_lon_1:.5f}")
 
 print(f"Missile 2 - Max Altitude: {max_altitude_2:.2f} m, Impact Distance: {impact_distance_2:.2f} km")
-# Correct the format specifier
-print(f"Missile 2 - Prediction Difference - Apogee Altitude: {abs(predicted_apogee_2 - max_altitude_2):.2f} m, Impact Distance: {abs(predicted_impact_2 / 1000 - impact_distance_2):.2f} km")
-# Plotting the ballistic trajectories with different line styles
+print(f"Missile 2 - Impact at Lat={impact_lat_2:.5f}, Lon={impact_lon_2:.5f}")
+
+# Plot the results
 plt.figure()
-# Missile 1
-plt.plot(ascent_1['ground_distances'], ascent_1['altitudes'], color="blue", linestyle='-', label="Missile 1 Ascent")
+plt.plot(ascent_1['ground_distances'], ascent_1['altitudes'], color="blue", label="Missile 1 Ascent")
 plt.plot(midcourse_1['ground_distances'], midcourse_1['altitudes'], color="blue", linestyle='--', label="Missile 1 Midcourse")
 plt.plot(terminal_1['ground_distances'], terminal_1['altitudes'], color="blue", linestyle=':', label="Missile 1 Terminal")
 
-plt.axvline(x=impact_distance_1, color="red", linestyle="--", label="Missile 1 Impact")
-
-# Missile 2
-plt.plot(ascent_2['ground_distances'], ascent_2['altitudes'], color="green", linestyle='-', label="Missile 2 Ascent")
+plt.plot(ascent_2['ground_distances'], ascent_2['altitudes'], color="green", label="Missile 2 Ascent")
 plt.plot(midcourse_2['ground_distances'], midcourse_2['altitudes'], color="green", linestyle='--', label="Missile 2 Midcourse")
 plt.plot(terminal_2['ground_distances'], terminal_2['altitudes'], color="green", linestyle=':', label="Missile 2 Terminal")
+
+plt.axvline(x=impact_distance_1, color="red", linestyle="--", label="Missile 1 Impact")
 plt.axvline(x=impact_distance_2, color="orange", linestyle="--", label="Missile 2 Impact")
 
 plt.xlabel("Ground Distance (km)")
