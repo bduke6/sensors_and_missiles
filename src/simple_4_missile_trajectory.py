@@ -1,183 +1,144 @@
-import pymap3d as pm
+import numpy as np
+import pymap3d.vincenty as vincenty
 import matplotlib.pyplot as plt
-import math
 
-# Launch parameters
-start_lat, start_lon, start_alt = 5.0, 110.0, 0  # Launch point (ground level)
+# Constants
+g = 9.81  # Gravity (m/s^2)
+time_step = 1.0  # Time step in seconds
 
-# Target locations for two missiles
-target_1_lat, target_1_lon, target_1_alt = 25.0, 120.5, 0  # Target 1 (ground level)
-target_2_lat, target_2_lon, target_2_alt = 30.0, 130.0, 0  # Target 2 (ground level)
-
-# Missile parameters
-g = 9.81  # Gravity in m/s^2
-time_step = 1  # Time step in seconds
-max_steps = 5500  # Maximum number of simulation steps
-initial_velocity = 7500  # Standard initial missile velocity in m/s
-
-# Convert launch and target coordinates to ECEF
-start_ecef = pm.geodetic2ecef(start_lat, start_lon, start_alt)
-target_1_ecef = pm.geodetic2ecef(target_1_lat, target_1_lon, target_1_alt)
-target_2_ecef = pm.geodetic2ecef(target_2_lat, target_2_lon, target_2_alt)
-
-# Function to calculate great-circle distance using ECEF
-def calculate_great_circle_path_ecef(start_ecef, target_ecef):
-    distance = math.sqrt((target_ecef[0] - start_ecef[0])**2 + 
-                         (target_ecef[1] - start_ecef[1])**2 + 
-                         (target_ecef[2] - start_ecef[2])**2)
-    return distance
-
-# Function to calculate launch angle
-def calculate_launch_angle(vertical_velocity, horizontal_velocity):
-    return math.degrees(math.atan(vertical_velocity / horizontal_velocity))
-
-# Function to calculate strike angle
-def calculate_strike_angle(vertical_velocity, horizontal_velocity):
-    return math.degrees(math.atan(abs(vertical_velocity) / horizontal_velocity))
-
-# Function to calculate initial velocities based on the launch angle
-def calculate_initial_velocities(initial_velocity, launch_angle_deg):
-    launch_angle_rad = math.radians(launch_angle_deg)
-    vertical_velocity = initial_velocity * math.sin(launch_angle_rad)
-    horizontal_velocity = initial_velocity * math.cos(launch_angle_rad)
-    return vertical_velocity, horizontal_velocity
-
-# Function to predict apogee and impact using ECEF
-def predict_apogee_impact_ecef(target_distance, initial_velocity):
-    g = 9.81
-    sin2theta = (target_distance * g) / (initial_velocity ** 2)
+# Function to calculate the apogee and engine cutoff time
+def calculate_apogee_and_cutoff(initial_velocity, launch_angle_deg):
+    launch_angle_rad = np.radians(launch_angle_deg)
     
-    if sin2theta > 1:
-        raise ValueError("Target is beyond maximum range")
+    # Time to reach apogee
+    t_apogee = (initial_velocity * np.sin(launch_angle_rad)) / g
     
-    theta = math.asin(sin2theta) / 2
-    initial_vertical_velocity = initial_velocity * math.sin(theta)
-    apogee = (initial_vertical_velocity ** 2) / (2 * g)
-    return apogee, target_distance
+    # Apogee (highest altitude)
+    apogee = (initial_velocity**2 * np.sin(launch_angle_rad)**2) / (2 * g)
+    
+    # Engine cutoff should happen before reaching apogee
+    engine_cutoff_time = t_apogee * 0.9  # Set 90% of the time to apogee
+    
+    return apogee, engine_cutoff_time, t_apogee
 
-# Function to simulate missile flight using ECEF coordinates
-def simulate_missile_flight_ecef(target_ecef, initial_velocity):
-    ascent_points = {'ground_distances': [], 'altitudes': [], 'latitudes': [], 'longitudes': []}
-    midcourse_points = {'ground_distances': [], 'altitudes': [], 'latitudes': [], 'longitudes': []}
-    terminal_points = {'ground_distances': [], 'altitudes': [], 'latitudes': [], 'longitudes': []}
+# Function to calculate waypoints using vincenty.track2
+def calculate_waypoints(lat1, lon1, lat2, lon2, npts=100):
+    lats, lons = vincenty.track2(lat1, lon1, lat2, lon2, npts=npts)
+    return lats, lons
 
-    max_altitude = 0
-    start_ecef = pm.geodetic2ecef(start_lat, start_lon, start_alt)
-    current_ecef = list(start_ecef)
+# Simulating missile flight using waypoints and velocity vectors
+def simulate_missile_flight(latitudes, longitudes, initial_velocity, engine_cutoff_time, flight_duration):
+    t = 0.0
+    powered_flight = True
+    positions = []
+    altitudes = []
+    ground_distances = []
+    engine_cutoff = False
+
+    # Initial horizontal and vertical components of velocity (with thrust)
+    launch_angle_rad = np.radians(45)
+    v_horizontal = initial_velocity * np.cos(launch_angle_rad)
+    v_vertical = initial_velocity * np.sin(launch_angle_rad)
     
-    # Calculate initial launch parameters
-    target_distance = calculate_great_circle_path_ecef(start_ecef, target_ecef)
-    apogee, _ = predict_apogee_impact_ecef(target_distance, initial_velocity)
-    
-    # Simulate the missile flight in time steps
-    for step in range(max_steps):
-        horizontal_velocity = initial_velocity  # Horizontal velocity is assumed constant
-        vertical_velocity = initial_velocity - (g * step * time_step)
-        altitude = (initial_velocity * step * time_step) - (0.5 * g * (step * time_step) ** 2)
-        
-        # Calculate position in ECEF based on the missile's velocity
-        x = current_ecef[0] + horizontal_velocity * time_step
-        y = current_ecef[1] + vertical_velocity * time_step
-        z = altitude
-        
-        current_ecef = [x, y, z]
-        lat, lon, _ = pm.ecef2geodetic(*current_ecef)
-        
-        # Store ascent, midcourse, and terminal phase data
-        if vertical_velocity > 0:
-            ascent_points['ground_distances'].append(step * time_step)
-            ascent_points['altitudes'].append(altitude)
-            ascent_points['latitudes'].append(lat)
-            ascent_points['longitudes'].append(lon)
-        elif vertical_velocity <= 0 and altitude > 0:
-            midcourse_points['ground_distances'].append(step * time_step)
-            midcourse_points['altitudes'].append(altitude)
-            midcourse_points['latitudes'].append(lat)
-            midcourse_points['longitudes'].append(lon)
-        else:
-            terminal_points['ground_distances'].append(step * time_step)
-            terminal_points['altitudes'].append(altitude)
-            terminal_points['latitudes'].append(lat)
-            terminal_points['longitudes'].append(lon)
-        
-        if altitude <= 0:
+    for i in range(len(latitudes)):
+        if t >= flight_duration:
             break
+
+        if t >= engine_cutoff_time:
+            powered_flight = False
         
-        # Track the maximum altitude
-        if altitude > max_altitude:
-            max_altitude = altitude
-    
-    impact_distance = step * time_step
-    return ascent_points, midcourse_points, terminal_points, max_altitude, impact_distance, lat, lon
+        # Calculate new position and velocity based on whether flight is powered
+        if powered_flight:
+            # Powered flight (with thrust)
+            v_vertical -= g * time_step
+        else:
+            # Unpowered flight (ballistic trajectory)
+            v_vertical -= g * time_step
 
-# Calculate the distances to the two targets using ECEF
-target_distance_1 = calculate_great_circle_path_ecef(start_ecef, target_1_ecef)
-target_distance_2 = calculate_great_circle_path_ecef(start_ecef, target_2_ecef)
+        # Append the current lat, lon, and altitude
+        positions.append((latitudes[i], longitudes[i]))
+        
+        # Simulate ballistic altitude profile
+        altitude = (v_vertical * t) - (0.5 * g * t**2)
+        altitudes.append(max(altitude, 0))  # Ensure altitude doesn't go negative
 
-# Predict apogee and impact before the simulation
-predicted_apogee_1, predicted_impact_1 = predict_apogee_impact_ecef(target_distance_1, initial_velocity)
-predicted_apogee_2, predicted_impact_2 = predict_apogee_impact_ecef(target_distance_2, initial_velocity)
+        # Calculate ground distance covered
+        if i > 0:
+            distance = vincenty.geodetic2aer(latitudes[i], longitudes[i], 0, latitudes[i-1], longitudes[i-1], 0)[2]
+            ground_distances.append(ground_distances[-1] + distance if ground_distances else distance)
 
-print(f"Predicted Missile 1 - Apogee Altitude: {predicted_apogee_1:.2f} m")
-print(f"Predicted Missile 2 - Apogee Altitude: {predicted_apogee_2:.2f} m")
+        t += time_step
 
-# Simulate both missiles using ECEF coordinates
-ascent_1, midcourse_1, terminal_1, max_altitude_1, impact_distance_1, impact_lat_1, impact_lon_1 = simulate_missile_flight_ecef(target_1_ecef, initial_velocity)
-ascent_2, midcourse_2, terminal_2, max_altitude_2, impact_distance_2, impact_lat_2, impact_lon_2 = simulate_missile_flight_ecef(target_2_ecef, initial_velocity)
+        # Stop if the missile hits the ground (altitude < 0)
+        if altitude <= 0:
+            print("Missile hit the ground!")
+            break
 
-# Print post-simulation results
-print(f"Missile 1 - Max Altitude: {max_altitude_1:.2f} m, Impact Distance: {impact_distance_1:.2f} km")
-print(f"Missile 1 - Impact at Lat={impact_lat_1:.5f}, Lon={impact_lon_1:.5f}")
+    return positions, altitudes, ground_distances
 
-print(f"Missile 2 - Max Altitude: {max_altitude_2:.2f} m, Impact Distance: {impact_distance_2:.2f} km")
-print(f"Missile 2 - Impact at Lat={impact_lat_2:.5f}, Lon={impact_lon_2:.5f}")
+# Main function to run the simulation and plot results
+def main():
+    # Set initial velocity and launch angle
+    initial_velocity = 7500  # Initial velocity in m/s
+    launch_angle_deg = 45  # Launch angle in degrees
+    flight_duration = 2000  # Extend flight duration to allow full descent
 
-# Plot the results
-plt.figure()
-plt.plot(ascent_1['ground_distances'], ascent_1['altitudes'], color="blue", label="Missile 1 Ascent")
-plt.plot(midcourse_1['ground_distances'], midcourse_1['altitudes'], color="blue", linestyle='--', label="Missile 1 Midcourse")
-plt.plot(terminal_1['ground_distances'], terminal_1['altitudes'], color="blue", linestyle=':', label="Missile 1 Terminal")
+    # Calculate apogee and engine cutoff time
+    apogee, engine_cutoff_time, t_apogee = calculate_apogee_and_cutoff(initial_velocity, launch_angle_deg)
+    print(f"Apogee: {apogee:.2f} meters, Time to Apogee: {t_apogee:.2f} seconds, Engine Cutoff Time: {engine_cutoff_time:.2f} seconds")
 
-plt.plot(ascent_2['ground_distances'], ascent_2['altitudes'], color="green", label="Missile 2 Ascent")
-plt.plot(midcourse_2['ground_distances'], midcourse_2['altitudes'], color="green", linestyle='--', label="Missile 2 Midcourse")
-plt.plot(terminal_2['ground_distances'], terminal_2['altitudes'], color="green", linestyle=':', label="Missile 2 Terminal")
+    # Launch parameters (lat/lon for missile and target)
+    start_lat, start_lon, start_alt = 5.0, 110.0, 0  # Launch point
+    target_lat, target_lon, target_alt = 25.0, 120.5, 0  # Target point
 
-plt.axvline(x=impact_distance_1, color="red", linestyle="--", label="Missile 1 Impact")
-plt.axvline(x=impact_distance_2, color="orange", linestyle="--", label="Missile 2 Impact")
+    # Calculate waypoints using track2 function from pymap3d.vincenty
+    latitudes, longitudes = calculate_waypoints(start_lat, start_lon, target_lat, target_lon, npts=100)
 
-plt.xlabel("Ground Distance (km)")
-plt.ylabel("Altitude (m)")
-plt.title("Missile Altitude over Distance for Two Targets")
-plt.legend()
-plt.grid()
-plt.xlim(0, max(impact_distance_1, impact_distance_2))
-plt.show()
+    # Simulate the missile's flight using waypoints
+    positions, altitudes, ground_distances = simulate_missile_flight(
+        latitudes, longitudes, initial_velocity, engine_cutoff_time, flight_duration)
 
-# Simple map to show the flight tracks
-plt.figure()
-# Missile 1
-plt.plot(ascent_1['longitudes'], ascent_1['latitudes'], color="blue", linestyle='-', label="Missile 1 Ascent")
-plt.plot(midcourse_1['longitudes'], midcourse_1['latitudes'], color="blue", linestyle='--', label="Missile 1 Midcourse")
-plt.plot(terminal_1['longitudes'], terminal_1['latitudes'], color="blue", linestyle=':', label="Missile 1 Terminal")
+    # Ensure there's data after the engine cutoff
+    if len(ground_distances) > engine_cutoff_time:
+        engine_cutoff_index = min(len(ground_distances) - 1, int(engine_cutoff_time // time_step))
 
-# Missile 2
-plt.plot(ascent_2['longitudes'], ascent_2['latitudes'], color="green", linestyle='-', label="Missile 2 Ascent")
-plt.plot(midcourse_2['longitudes'], midcourse_2['latitudes'], color="green", linestyle='--', label="Missile 2 Midcourse")
-plt.plot(terminal_2['longitudes'], terminal_2['latitudes'], color="green", linestyle=':', label="Missile 2 Terminal")
+        # Plot altitude profile with engine cutoff and unpowered flight marked
+        plt.figure()
+        
+        # Plotting altitude over distance
+        plt.plot(np.cumsum(ground_distances[:engine_cutoff_index]), altitudes[:engine_cutoff_index], color="blue", label="Missile Altitude Profile (Powered Flight)")
+        plt.plot(np.cumsum(ground_distances[engine_cutoff_index:]), altitudes[engine_cutoff_index:], color="blue", linestyle="--", label="Missile Altitude Profile (Unpowered Flight)")
+        
+        plt.axvline(x=np.cumsum(ground_distances)[engine_cutoff_index], color="red", linestyle="--", label="Engine Cutoff")
+        
+        plt.xlabel("Ground Distance (meters)")
+        plt.ylabel("Altitude (meters)")
+        plt.title("Missile Altitude Profile Over Distance")
+        plt.legend()
+        plt.grid(True)
+        plt.show()
 
-plt.scatter([start_lon], [start_lat], color="black", label="Launch Point", zorder=5)
-plt.scatter([target_1_lon, target_2_lon], [target_1_lat, target_2_lat], color="red", label="Target Points", zorder=5)
-plt.xlabel("Longitude")
-plt.ylabel("Latitude")
-plt.title("Missile Flight Tracks on the Map")
-plt.legend()
-plt.grid()
-plt.show()
+        # Plot missile trajectory in lat/lon space
+        lat_vals = [pos[0] for pos in positions]
+        lon_vals = [pos[1] for pos in positions]
 
-# Print the flight characteristics
-print(f"Missile 1 - Impact at Lat={impact_lat_1:.5f}, Lon={impact_lon_1:.5f}")
-print(f"Missile 2 - Impact at Lat={impact_lat_2:.5f}, Lon={impact_lon_2:.5f}")
+        plt.figure()
+        plt.plot(lon_vals[:engine_cutoff_index], lat_vals[:engine_cutoff_index], color="green", label="Missile Trajectory (Powered Flight)")
+        plt.plot(lon_vals[engine_cutoff_index:], lat_vals[engine_cutoff_index:], color="green", linestyle="--", label="Missile Trajectory (Unpowered Flight)")
+        
+        plt.scatter([start_lon], [start_lat], color="black", label="Launch Point", zorder=5)
+        plt.scatter([target_lon], [target_lat], color="red", label="Target Point", zorder=5)
+        plt.scatter([lon_vals[-1]], [lat_vals[-1]], color="blue", label="Impact Point", zorder=5)
+        
+        plt.axvline(x=lon_vals[engine_cutoff_index], color="red", linestyle="--", label="Engine Cutoff")
+        plt.xlabel("Longitude")
+        plt.ylabel("Latitude")
+        plt.title("Missile Flight Path in Lat/Lon")
+        plt.legend()
+        plt.grid(True)
+        plt.show()
+    else:
+        print("Not enough data after engine cutoff.")
 
-# Show prediction comparison for impact distance
-print(f"Missile 1 - Distance from target: {target_distance_1 / 1000 - impact_distance_1:.2f} km")
-print(f"Missile 2 - Distance from target: {target_distance_2 / 1000 - impact_distance_2:.2f} km")
+if __name__ == "__main__":
+    main()
